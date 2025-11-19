@@ -10,7 +10,7 @@ Collection of Python scripts used for data analysis, plotting, and statistical e
 ## dataset/
 Contains the dataset(s) used in the project. Typically includes CSV files for demonstrations and exercises.
 
-## dispense/ *(Italian lecture notes and teaching materials)*
+## dispense/ *(Italian lecture notes)*
 Folder containing LaTeX source files for the course handouts and chapters.  
 Includes two important subdirectories:
 
@@ -19,6 +19,3 @@ All images (PNG, JPEG) used inside the LaTeX documents.
 
 ### dispense/out/
 Automatically generated LaTeX build artifacts (e.g., log, aux, PDF outputs).
-
-## \_\_pycache\_\_/
-Directory created automatically by Python to store bytecode-compiled files.
