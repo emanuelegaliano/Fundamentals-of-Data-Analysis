@@ -1,0 +1,243 @@
+\chapter{Visualizzazione e descrizione dei dati}
+
+Il problema principale dei grandi dataset di dati è che spesso sono difficili da interpretare direttamente. Per questo motivo, è necessario andare più a fondo per scoprire le strutture e i pattern che sono nascosti e non visibili semplicemente da una rapida stampa dei dati grezzi. La \textbf{statistica} aiuta in questo, in quanto fornisce uno strumento per riassumere e descrivere i dati in modo significativo.
+
+\section{Frequenze assolute}
+Un primo modo di descrivere i dati è quello di calcolare le \textbf{frequenze assolute}. 
+\begin{nicequote}
+    Siano $a_1, ..., a_n$ i valori distinti di una variabile che stiamo considerando. La frequenza assoluta $n_i$ allora si piuò definire come il numero di volte che il valore $a_i$ appare nel dataset.
+\end{nicequote}
+
+Si noti che la somma delle frequenze assolute è uguale al numero $N$ totale di osservazioni nel dataset:
+\[
+\sum_{i} n_i = N
+\]
+
+Nel nostro esempio del negozio, se consideriamo la variabile \texttt{Gender}, possiamo calcolare le frequenze assolute dei valori distinti:
+\begin{itemize}
+    \item Maschio: 40
+    \item Femmina: 60
+\end{itemize}
+
+Per rappresentare le frequenze assolute, possiamo utilizzare un \textbf{grafico a barre}. Un grafico a barre mostra le categorie della variabile sull'asse delle ascisse e le frequenze assolute sull'asse delle ordinate. Ogni barra rappresenta una categoria distinta, e l'altezza della barra corrisponde alla frequenza assoluta di quella categoria. 
+
+\section{Frequenze relative}
+Il problema delle frequenze assolute è che non tengono conto della dimensione totale del dataset. Per questo motivo, spesso è più utile calcolare le \textbf{frequenze relative}.
+\begin{nicequote}
+    La frequenza relativa $f_i$ di un valore $a_j$ si definisce come il rapporto tra la frequenza assoluta $n_i$ e il numero totale di osservazioni $N$:
+    \[f_i = \frac{n_i}{N}, \qquad \forall j \in {1, ..., n}\]
+\end{nicequote}
+
+Ovviamente, da questo seguono due cose:
+\begin{enumerate}
+    \item Se \(n_j \le n \Rightarrow f_j \le 1 \forall j\)
+    \item La somma delle frequenze relative è uguale a 1:
+    \[\sum_{j} f_j = \sum_{j} \frac{n_j}{N} = \frac{1}{N} \sum_{j} n_j = \frac{N}{N} = 1\]
+\end{enumerate}
+
+Anche qui è molto utile confrontare tutti gli elementi con un grafico a barre, l'unica cosa che cambia è che le frequenze hanno una scala diversa.
+
+\subsection{Grafici a barre}
+Un altro modo per contare il numero di elementi di una determinata classe è utilizzare un \textbf{grafico a barre}. In questo tipo di grafico, ogni barra rappresenta una categoria distinta della variabile e l'altezza della barra rappresenta la frequenza assoluta o relativa di quella categoria. I grafici a barre sono particolarmente utili per confrontare le frequenze tra diverse categorie.
+
+Esiste una variante, il \textbf{grafico a barre impilato} in cui le barre sono suddivise in segmenti che rappresentano sottocategorie. Questo tipo di grafico è utile per visualizzare la composizione delle categorie principali.
+
+\subsection{Grafici a torta}
+Un altro tipo di visualizzazione molto comune per le frequenze relative è il \textbf{grafico a torta} (o \textit{pie chart}). In questo tipo di grafico, un cerchio è suddiviso in spicchi, ciascuno dei quali rappresenta una categoria distinta della variabile. L'area di ogni spicchio è proporzionale alla frequenza relativa della categoria corrispondente. I grafici a torta sono utili per mostrare la proporzione delle categorie rispetto al totale.
+
+Questi grafici funzionano bene quando ci sono poche classi, ma molto male negli altri casi. Non sono infatti adatti a mostrare differenze tra categorie simili.
+
+\section{ECDF - Empirical Cumulative Distribution Function}
+Un altro modo per visualizzare la distribuzione di una variabile è utilizzare la \textbf{funzione di distribuzione cumulativa empirica} (ECDF).
+\begin{nicequote}
+    La ECDF di una variabile $X$ è una funzione che, per ogni valore $x$, restituisce la proporzione di osservazioni nel dataset che sono minori o uguali a $x$.
+\end{nicequote}
+
+Matematicamente, la ECDF si può definire come:
+\[F(x) = \frac{1}{N} \sum_{i=1}^{N} I(X_i \leq x)\]
+dove \(I\) è la funzione indicatrice che vale 1 se la condizione è vera e 0 altrimenti.
+
+La ECDF è utile perché fornisce una rappresentazione completa della distribuzione dei dati e consente di confrontare facilmente diverse distribuzioni.
+
+\section{Istogrammi}
+Un altro strumento utile per la visualizzazione dei dati continui è l'\textbf{istogramma}. Un istogramma è un grafico che rappresenta la distribuzione di una variabile continua suddividendo l'intervallo dei valori in \textbf{classi} (o \textbf{bin}) e contando il numero di osservazioni che cadono in ciascuna classe.
+
+Per ogni istogramma però, si deve scegliere il numero di classi e la loro ampiezza. Questo numero può essere ottenuto in modo arbitrario, oppure utilizzando delle euristiche come la \textbf{regola di Sturges}:
+\[
+k = \lceil \log_2(N) + 1 \rceil
+\]
+dove \(k\) è il numero di classi e \(N\) è il numero totale di osservazioni nel dataset.
+
+\section{Stima di densità}
+Un problema degli istogrammi è che la loro forma dipende fortemente dalla scelta del numero di classi e dalla loro ampiezza. Si può utilizzare la \textbf{stima di densità} per ottenere una rappresentazione più fluida della distribuzione dei dati continui. 
+
+La stima di densità è una tecnica che cerca di risolvere questo problema ottenendo un'approssimazione continua della distribuzione dei dati.
+
+\section{Statistiche di sommario}
+Per descrivere i dati in modo più sintetico, si possono calcolare alcune \textbf{statistiche di sommario} che riassumono le caratteristiche principali della distribuzione dei dati.
+
+\subsection{Dimensione}
+\begin{nicequote}
+    La dimensione di un campione univariato \(\{x_i\}^D_i\) è il numero di valori che contiene:
+    \[| \{x_i\}^D_i | = D\]
+\end{nicequote}
+
+Le varie dimensioni possono variare, in quanto ogni colonna può contenere valori nulli.
+
+\subsection{Misure di tendenza centrale}
+Le misure di tendenza centrale sono statistiche che descrivono il centro della distribuzione dei dati.
+
+\subsubsection*{Media}
+\begin{nicequote}
+    La media di un campione univariato \(\{x_i\}^D_i\) è definita come:
+    \[\bar{x} = \frac{1}{D} \sum_{i=1}^{D} x_i\]
+\end{nicequote}
+
+Da notare che la media è un valore facile da interpretare, ma non sempre affidabile in quanto è molto sensibile ai valori anomali (outlier).
+
+\subsubsection*{Quantili}
+Per definire la mediana, è necessario prima definire altri valori statistici chiamati \textbf{quantili}.
+\begin{nicequote}
+    Un quantile di ordine $\alpha$ di un campione univariato \(\{x_i\}^D_i\) è il valore $q_\alpha$ tale che una frazione $\alpha$ delle osservazioni è minore o uguale a $q_\alpha$:
+    \[q_\alpha = \inf \{x | F(x) \geq \alpha \}\]
+    dove $F(x)$ è la funzione di distribuzione cumulativa empirica (ECDF) del campione.
+\end{nicequote}
+
+\paragraph{Percentili.}
+Dalla misura dei quantili, possiamo derivare i \textbf{percentili}, che sono quantili di ordine $\alpha$ espressi come percentuali. Ad esempio, il 25° percentile (o primo quartile) è il valore sotto il quale si trova il 25\% delle osservazioni.
+
+\paragraph{Quartili.}
+I \textbf{quartili} sono quantili che dividono il dataset in quattro parti uguali. Il primo quartile (Q1) è il 25° percentile, il secondo quartile (Q2) è la mediana (50° percentile), e il terzo quartile (Q3) è il 75° percentile.
+
+\subsubsection*{Mediana}
+Una volta definiti i quantili, è facile definire la mediana.
+\begin{nicequote}
+    La mediana di un campione univariato \( \{x_i\}^D_i \) è il quantile di ordine 0.5:
+    \[mediana = q_{0.5}\]
+\end{nicequote}
+
+Un'altro modo di definire la mediana, non utilizzando i quantili, per un certo campione ordinato \(x_1 \leq x_2 \leq ... \leq x_n\) è:
+\[
+\hat{x}_{0.5} = 
+\begin{cases}
+    x_{n+1}/2 & \text{se } n \text{ è dispari.} \\  
+    \frac{x_{n/2} + x_{n/2 + 1}}{2} & \text{se } n \text{ è pari.} \\
+\end{cases}
+\]
+
+Si nota che la mediana è meno sensibile ai valori anomali rispetto alla media, rendendola una misura più robusta della tendenza centrale in presenza di outlier.
+
+\subsubsection*{Moda}
+\begin{nicequote}
+    La moda $\overline{x}_M$ di un campione univariato \(\{x_i\}^D_i\) è il valore che appare con la massima frequenza nel campione.
+\end{nicequote}
+
+Formalizzando la definizione, si può scrivere che:
+\[
+\overline{x}_M = a_j \Leftrightarrow n_j = \max \{n_1, ..., n_k\}
+\]
+dove \(a_j\) sono i valori distinti della variabile e \(n_j\) le loro frequenze assolute.
+
+\section{Misure di dispersione}
+Per misure di dispersione si intendono delle statistiche che descrivono quanto i dati sono sparsi o concentrati attorno a una misura di tendenza centrale.
+
+\subsection{Minimo, Massimo}
+\begin{nicequote}
+    Il minimo $x_{min}$ e il massimo $x_{max}$ di un campione univariato \(\{x_i\}^D_i\) sono definiti come:
+    \[x_{min} = \min \{x_i | i = 1, ..., D\}\]
+    \[x_{max} = \max \{x_i | i = 1, ..., D\}\]
+\end{nicequote} 
+
+\subsection{Intervallo}
+Dalla definizione di minimo e massimo, si può definire una misura di dispersione chiamata \textbf{intervallo}.
+
+\begin{nicequote}
+    L'intervallo $R$ di un campione univariato \(\{x_i\}^D_i\) è definito come la differenza tra il massimo e il minimo:
+    \[R = x_{max} - x_{min}\]
+\end{nicequote}
+
+L'intervallo ha un problema, non è una misura molto robusta di dispersione in quanto dipende solo dai valori estremi del dataset, che possono essere influenzati da outlier.
+
+\subsection{Intervallo interquantile (IQR)}
+\begin{nicequote}
+    L'intervallo interquantile $IQR$ di un campione univariato \(\{x_i\}^D_i\) è definito come la differenza tra il terzo quartile $Q3$ e il primo quartile $Q1$:
+    \[IQR = Q3 - Q1\]
+\end{nicequote}
+
+Quindi, possiamo dedurre che la mediana si trova al centro dell'IQR. L'IQR è una misura più robusta di dispersione rispetto all'intervallo, in quanto non è influenzata dai valori estremi del dataset.
+
+\subsection{Varianza}
+\begin{nicequote}
+    La varianza di un campione univariato \( \{x_i\}^D_i \) è definita come:
+    \[s^2 = \frac{1}{D-1} \sum_{i=1}^{D} (x_i - \bar{x})^2\]
+    dove \( \bar{x} \) è la media del campione.
+\end{nicequote}
+
+La varianza misura la dispersione dei dati attorno alla media. Un valore di varianza più alto indica che i dati sono più sparsi, mentre un valore più basso indica che i dati sono più concentrati attorno alla media.
+
+Il problema di questa misura di dispersione, è che è espressa nelle unità al quadrato della variabile originale, rendendo difficile l'interpretazione diretta. Inoltre è molto sensibile agli outlier.
+
+\subsection{Deviazione standard}
+\begin{nicequote}
+    La deviazione standard di un campione univariato \( \{x_i\}^D_i \) è definita come la radice quadrata della varianza:
+    \[s = \sqrt{s^2} = \sqrt{\frac{1}{D-1} \sum_{i=1}^{D} (x_i - \bar{x})^2}\]
+\end{nicequote}
+
+Si preferisce alla varianza, la deviazione standard perché risolve il problema delle unità al quadrato, essendo espressa nelle stesse unità della variabile originale. Tuttavia, rimane sensibile agli outlier.
+
+\section{Normalizzazione}
+Il problema di utilizzare queste statistiche di sommario è che non sono comparabili tra variabili con scale diverse. Per risolvere questo problema, si può utilizzare la \textbf{normalizzazione} dei dati. Questo problema si risolve con la normalizzazione e ne esistono diverse tipologie.
+
+\subsection{Min-Max Scaling}
+\begin{nicequote}
+    La normalizzazione Min-Max di un campione univariato \( \{x_i\}^D_i \) è definita come:
+    \[x_{\text{norm}} = \frac{x_i - x_{min}}{x_{max} - x_{min}}\]
+    dove \(x_{min}\) e \(x_{max}\) sono il minimo e il massimo del campione.
+\end{nicequote}
+
+Questa tecnica trasforma i dati in un intervallo compreso tra 0 e 1, risolvendo il problema della scala dei dati. Tuttavia è sempre sensibile agli outliers.
+
+\subsection{Normalizzazione tra -1 e 1}
+\begin{nicequote}
+    La normalizzazione tra -1 e 1 di un campione univariato \( \{x_i\}^D_i \) è definita come:
+    \[x_{\text{norm}} = \frac{x_{\max} + x_{\min}}{2} + \frac{x_i - \frac{x_{\max} + x_{\min}}{2}}{\frac{x_{\max} - x_{\min}}{2}}\]
+\end{nicequote}
+
+Questa tecnica trasforma i dati in un intervallo compreso tra -1 e 1, risolvendo il problema della scala dei dati. Tuttavia, anche questa tecnica è sensibile agli outliers.
+
+\subsection{Standardizzazione (Z-score)}
+Molto spesso è utile normalizzare i dati in modo che abbiano media 0 e deviazione standard 1. Questo processo è chiamato \textbf{standardizzazione} o \textbf{Z-score normalization}.
+
+\begin{nicequote}
+    La standardizzazione (Z-score) di un campione univariato \( \{x_i\}^D_i \) è definita come:
+    \[z_i = \frac{x_i - \bar{x}}{s}\]
+    dove \( \bar{x} \) è la media del campione e \( s \) è la deviazione standard del campione.
+\end{nicequote}
+
+Questa tecnica trasforma i dati in modo che abbiano media 0 e deviazione standard 1, rendendo le variabili comparabili tra loro. Inoltre, la standardizzazione è meno sensibile agli outliers rispetto alle altre tecniche di normalizzazione.
+
+\section{Indicatori di forma}
+Oltre alle misure di tendenza centrale e di dispersione, esistono anche degli indicatori di forma che descrivono la forma della distribuzione dei dati.
+
+\subsection{Asimmetria}
+\begin{nicequote}
+    L'asimmetria (skewness) di un campione univariato \( \{x_i\}^D_i \) è definita come:
+    \[ \frac{1}{D} \sum_{i=1}^{D} \left( \frac{x_i - \bar{x}}{s} \right)^3 \]
+    dove \( \bar{x} \) è la media del campione e \( s \) è la deviazione standard del campione.
+\end{nicequote}
+
+L'asimmetria misura la simmetria della distribuzione dei dati attorno alla media. Un valore di asimmetria positivo indica una distribuzione asimmetrica a destra, mentre un valore negativo indica una distribuzione asimmetrica a sinistra. Quanto un valore è più vicino allo zero, tanto più la distribuzione è simmetrica.
+
+\subsection{Curtosi}
+\begin{nicequote}
+    La curtosi (kurtosis) di un campione univariato \( \{x_i\}^D_i \) è definita come:
+    \[ \frac{1}{D} \sum_{i=1}^{D} \left( \frac{x_i - \bar{x}}{s} \right)^4 - 3 \]
+    dove \( \bar{x} \) è la media del campione e \( s \) è la deviazione standard del campione.
+\end{nicequote}
+
+La curtosi misura la "punta" della distribuzione dei dati. Un valore di curtosi positivo indica una distribuzione "leptocurtica" (più appuntita), mentre un valore negativo indica una distribuzione "platicurtica" (più piatta). Quanto il valore è più vicino allo zero, tanto più la distribuzione è simile a una distribuzione normale.
+
+\section{Statistiche descrittive}
+Tutte queste misure di tendenza centrale, dispersione e forma possono essere riassunte in una tabella chiamata \textbf{statistica descrittiva}. Questa tabella fornisce una panoramica completa delle caratteristiche principali della distribuzione dei dati e consente di confrontare facilmente diverse variabili.
+
+Un grafico molto utile per rappresentare la statistica descrittiva è il \textbf{box plot} (o \textit{diagramma a scatola}). In questo tipo di grafico, una scatola rappresenta l'intervallo interquantile (IQR) della variabile, con una linea all'interno della scatola che rappresenta la mediana. Le "whiskers" (linee esterne) si estendono fino ai valori minimo e massimo, escludendo gli outlier che sono rappresentati come punti separati. Il box plot è utile per visualizzare la distribuzione dei dati, identificare outlier e confrontare diverse variabili in modo rapido ed efficace.
