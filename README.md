@@ -16,6 +16,3 @@ Includes two important subdirectories:
 
 ### dispense/images/
 All images (PNG, JPEG) used inside the LaTeX documents.
-
-### dispense/out/
-Automatically generated LaTeX build artifacts (e.g., log, aux, PDF outputs).
