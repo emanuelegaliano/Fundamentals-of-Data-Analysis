@@ -5,10 +5,6 @@ Un altro approccio, più flessibile, è quello basato sulla stima della densità
 
 \section{Densità di probabilità}
 La densità di probabilità (PDF, Probability Density Function) è una \textbf{funzione continua} che descrive la probabilità relativa di una variabile casuale continua di assumere un certo valore. Per stimarla esistono due metodi principali: Metodi non parametrici e Metodi parametrici.
-\begin{description}
-    \item[Metodi non parametrici.] - 
-    \item[Metodi parametrici.] - Questi metodi provano a stimare i parametri della \textbf{distribuzione di partenza} che si assume abbia generato i dati. Un vantaggio di questi metodi è che, una volta stimati i parametri, abbiamo una forma chiusa della funzione di densità. Uno svantaggio è che spesso richiedono molti iperparametri da regolare e che le assunzioni fatte sulla distribuzione di partenza potrebbero non essere corrette.
-\end{description}
 
 \section{Metodi non parametrici}
 Questi metodi cercano di stimarla direttamente \textbf{dai dati}, senza forti assunzioni o la distribuzione di partenza. Il più grande vantaggio di questi metodi è che hanno pochi iperparametri da regolare, uno svantaggio è che, anche se possiamo computare numericamente $f(x)$, non abbiamo una forma chiusa della funzione.
@@ -163,4 +159,141 @@ La scelta del kernel non è l'unico aspetto importante nella KDE, l'unico iperpa
     fondendo strutture distinte e perdendo dettagli locali.
     La scelta del bandwidth governa quindi l’equilibrio tra fedeltà ai dati e regolarità della stima.}
     \label{fig:kde_bandwidth_comparison}
+\end{figure}
+
+\section{Metodi parametrici}
+Questi metodi provano a stimare i parametri della \textbf{distribuzione di partenza} che si assume abbia generato i dati. Un vantaggio di questi metodi è che, una vxolta stimati i parametri, abbiamo una forma chiusa della funzione di densità. Uno svantaggio è che spesso richiedono molti iperparametri da regolare e che le assunzioni fatte sulla distribuzione di partenza potrebbero non essere corrette. Ci sono diversi vantaggi per fare questo tipo di stima rispetto a quella non parametrica:
+\begin{itemize}
+    \item \textbf{Forma analitica}: Una volta stimati i parametri, abbiamo una forma chiusa della funzione di densità, che può essere utile per ulteriori analisi.
+    \item \textbf{Modelli compatti}: I modelli parametrici spesso richiedono meno memoria per memorizzare i parametri rispetto a memorizzare tutti i dati.
+    \item \textbf{Modelli interpretabili}: I parametri stimati possono avere un significato interpretabile, che può essere utile per comprendere la struttura dei dati.
+    \item \textbf{Limiti di dati}: I modelli parametrici possono essere più robusti quando si dispone di pochi dati, poiché fanno assunzioni sulla distribuzione di partenza.
+\end{itemize}
+
+\noindent
+Esistono, tuttavia, anche degli svantaggi:
+\begin{itemize}
+    \item \textbf{Processo di ottimizzazione}: La stima dei parametri spesso richiede l'ottimizzazione di una funzione obiettivo, che può essere computazionalmente costosa e sensibile ai valori iniziali.
+    \item \textbf{Assunzioni sulla distribuzione}: I modelli parametrici fanno assunzioni sulla distribuzione di partenza, che potrebbero non essere corrette per i dati reali.
+    \item \textbf{Iperparametri}: I modelli parametrici spesso richiedono la scelta di diversi iperparametri, che possono influenzare significativamente la stima della densità.
+\end{itemize}
+
+\subsection{Distribuzione Gaussiana Multivariata}
+Un metodo parametrico molto comune è assumere che i dati seguano una \textbf{doistribuzione guassiana multivariata}. Ricordando che la PDF per una guassiana multivariata a $d$ dimensioni è:
+\[
+N\left( \mathbf{x;\mu,}\mathbf{\Sigma} \right) = \frac{1}{\sqrt{(2\pi)^{d}\det(\Sigma)}} e^{ - \frac{1}{2}\left( \mathbf{x} - \mathbf{\mu} \right)^{T}\Sigma^{- 1}\left( \mathbf{x} - \mathbf{\mu} \right)}
+\]
+quindi questa distribuzione è definita unicamente da due valori: la media $\mu$ e la matrice di covarianza $\Sigma$, i valori da trovare.
+
+\paragraph{MLE: Maximum Likelihood Estimation.}
+Per stimare i parametri della distribuzione, possiamo usare il metodo della \textbf{massima verosimiglianza} (MLE, Maximum Likelihood Estimation). L'idea è di trovare i parametri che massimizzano la probabilità di osservare i dati dati i parametri stessi. Sia $\mathbf{X = \{x_1, x_2, \ldots, x_N\}}$ il nostro insieme di dati, la funzione di verosimiglianza è definita come:
+\[
+P(\mathbf{X} | \mu, \Sigma) = \prod_{i=1}^{N} N\left( \mathbf{x_i;\mu,}\mathbf{\Sigma} \right)
+\]
+Per semplificare i calcoli, spesso lavoriamo con il logaritmo della funzione di verosimiglianza, chiamato \textbf{log-likelihood} (log-verosimiglianza):
+\[
+\log P(\mathbf{X} | \mu, \Sigma) = \sum_{i=1}^{N} \log N\left( \mathbf{x_i;\mu,}\mathbf{\Sigma} \right)
+\]
+
+Per quanto questa soluzione sembri computazionalmente costosa, per una distribuzione gaussiana esistono delle forme chiuse. Si prende la derivata della log-verosimiglianza rispetto a $\mu$ e $\Sigma$, la si pone uguale a 0 e si risolve per i parametri. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/mle_gaussian.png}
+    \caption{Esempio di stima parametrica tramite \textbf{Maximum Likelihood Estimation} per una distribuzione gaussiana unidimensionale. 
+    In ciascun pannello è mostrata una distribuzione normale $N(\mu,\sigma^2)$ con diversi valori di media $\mu$ e deviazione standard $\sigma$. 
+    I punti blu sull’asse orizzontale rappresentano i dati osservati, mentre le linee verticali tratteggiate indicano il contributo di ciascun campione alla log-verosimiglianza. 
+    La curva arancione è la densità di probabilità associata ai parametri considerati e il valore della log-verosimiglianza totale $\log P(\mathbf{X} \mid \mu, \sigma)$ è riportato in legenda. 
+    Il confronto tra i diversi pannelli evidenzia come la log-verosimiglianza vari al cambiare dei parametri e come essa venga massimizzata quando la distribuzione stimata è coerente con i dati osservati.}
+    \label{fig:mle-gaussian}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/mle_gaussian_2d.png}
+    Confronto della funzione di verosimiglianza per una distribuzione gaussiana unidimensionale in funzione dei parametri. A sinistra è mostrata la log-verosimiglianza $\log P(\mathbf{X}\mid \mu,\sigma=1)$ al variare della media $\mu$, che evidenzia un massimo in corrispondenza della media campionaria. Al centro è riportata la log-verosimiglianza $\log P(\mathbf{X}\mid \mu=0,\sigma)$ in funzione della deviazione standard $\sigma$, che mostra un massimo per un valore ottimale di dispersione dei dati. A destra è visualizzata la superficie di verosimiglianza $P(\mathbf{X}\mid \mu,\sigma)$ nel piano $(\mu,\sigma)$, che presenta un unico massimo globale corrispondente alla stima di massima verosimiglianza dei parametri.
+    \label{fig:mle-gaussian-2d}
+\end{figure}
+
+\paragraph{Media e covarianza campionaria.}
+Un modo per risolvere il problema di stima dei parametri è massimizzare direttamente la log-likelihood rispetto a $\mu$ e $\Sigma$. 
+In generale, questo comporta la risoluzione di un problema di ottimizzazione potenzialmente complesso; tuttavia, nel caso della distribuzione gaussiana, la particolare forma analitica della log-likelihood rende il problema trattabile in forma chiusa.
+
+Sviluppando la log-likelihood della gaussiana multivariata e derivandola rispetto ai parametri, si ottiene che il massimo è raggiunto quando la media della distribuzione coincide con la media empirica dei dati e la covarianza coincide con la covarianza campionaria. In particolare:
+\[
+\hat{\mu} = \frac{1}{N} \sum_{i=1}^{N} x_i
+\]
+\[
+\hat{\Sigma} = \frac{1}{N} \sum_{i=1}^{N} (x_i - \hat{\mu})(x_i - \hat{\mu})^T
+\]
+
+\noindent
+Questi stimatori sono noti come \textbf{stimatori di massima verosimiglianza} per la media e la covarianza di una distribuzione gaussiana.
+
+Dal punto di vista intuitivo, la MLE sceglie i parametri che rendono i dati osservati il più probabili possibile sotto il modello assunto. 
+Nel caso gaussiano, massimizzare la verosimiglianza equivale a:
+\begin{itemize}
+    \item centrare la distribuzione nel punto che minimizza la distanza quadratica media dai dati (la media campionaria);
+    \item scegliere una dispersione che rifletta esattamente la variabilità osservata nei dati (la covarianza campionaria).
+\end{itemize}
+
+Questo risultato evidenzia un aspetto chiave dei metodi parametrici: una volta fissata la forma della distribuzione, la stima dei parametri diventa un problema ben definito e, per alcuni modelli come la gaussiana, ammette soluzioni analitiche semplici e interpretabili.
+
+\paragraph{Limiti dell’approccio MLE.}
+È importante sottolineare che questi risultati valgono \emph{solo} sotto l’assunzione che i dati siano effettivamente generati da una distribuzione gaussiana. 
+Se tale ipotesi è violata, la MLE restituisce comunque una media e una covarianza, ma la densità stimata può rappresentare male la struttura reale dei dati, specialmente in presenza di multimodalità, outlier o distribuzioni fortemente asimmetriche.
+
+\subsection{Gaussian Mixture Model}
+La distribuzone gaussiana ma fa un'assunzione forte: tutti i dati derivano da \textbf{un'unico} cluster (è unimodale). Questa assunzione fallisce per molti dataset reali. Una soluzione potrebbe essere utilizzare una \textbf{GMM: Guassian Mixture Model}: invece di utilizzare una gaussiana, modelliamo i dati come una combinazione di $K$ gaussiane, ognuna con la propria media e covarianza. La PDF di un GMM è data da:
+\[
+P(x) = \sum_{k=1}^{K} \pi_k N(x; \mu_k, \Sigma_k)
+\]
+dove $\pi_k$ sono i pesi delle singole gaussiane (che sommano a 1), e $N(x; \mu_k, \Sigma_k)$ è la PDF della gaussiana con media $\mu_k$ e covarianza $\Sigma_k$.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{images/gmm_example.png}
+    \caption{Esempio di Gaussian Mixture Model (GMM) unidimensionale con 3 componenti gaussiane. 
+    I punti blu sull'asse orizzontale rappresentano i dati osservati. Le curve colorate (blu, arancione e verde) 
+    indicano le tre distribuzioni gaussiane componenti con i rispettivi pesi $\pi_k$. 
+    La curva tratteggiata rossa mostra la densità complessiva risultante dalla somma ponderata delle singole gaussiane. 
+    Questo esempio illustra come un GMM possa modellare efficacemente dati multimodali, catturando strutture 
+    complesse che una singola gaussiana non potrebbe rappresentare.}
+    \label{fig:gmm_example}
+\end{figure}
+
+\paragraph{Soft clustering con GMM.}
+Un vantaggio importante dei GMM è che permettono un \textbf{soft clustering}: ogni punto dati ha una probabilità di appartenere a ciascuna delle $K$ componenti gaussiane, invece di essere assegnato rigidamente a un singolo cluster. Per fare questo, introduce una \textbf{variabile latente} $Z$: una variabile latente è una variabile che non è osservata direttamente nei dati, ma che influenza il processo di generazione dei dati. In questo caso, $Z$ indica quale componente gaussiana ha generato ciascun punto dati.
+
+In GMM, per ogni variabile $x_i$ esiste una variabile latente $z_i$ che indica quale delle $K$ componenti gaussiane ha generato quel punto. Si può utilizzare la probabilità a posteriori, con il teorema di Bayes, per calcolare la probabilità che un punto $x_i$ appartenga alla componente $k$:
+\[
+P(Z = k | x) = \frac{P(x | Z = k) P(Z = k)}{P(x)}
+\]
+dove $P(x | Z = k)$ è la PDF della componente gaussiana $k$, $P(Z = k) = \pi_k$ è il peso della componente, e $P(x)$ è la PDF complessiva del GMM. Da questo ricaviamo la \textbf{responsabilità} $\gamma_k$ che un punto $x_i$ appartiene alla componente $k$:
+\[
+\gamma_k = P(Z=k|\mathbf{x}) = \frac{\pi_k \mathcal{N}(\mathbf{x}|\mathbf{\mu}_k, \mathbf{\Sigma}_k)}{\sum_{j=1}^K \pi_j \mathcal{N}(\mathbf{x}|\mathbf{\mu}_j, \mathbf{\Sigma}_j)}
+\]
+
+\paragraph{Stima dei parametri con MLE.}
+Per ottimizzare i parametri del GMM ($\pi_k$, $\mu_k$, $\Sigma_k$), possiamo usare ancora una volta la MLE. Tuttavia, a causa della presenza delle variabili latenti, la log-likelihood diventa più complessa:
+\[
+\log P(\mathbf{X} | \{\pi_k, \mu_k, \Sigma_k\}_{k=1}^K) = \sum_{i=1}^{N} \log \left( \sum_{k=1}^{K} \pi_k N(x_i; \mu_k, \Sigma_k) \right)
+\]
+Per massimizzare questa funzione, si usa spesso l'algoritmo di \textbf{Expectation-Maximization} (EM).
+
+\paragraph{GMM vs K-means.}
+Un confronto interessante è tra GMM e K-means. Entrambi gli algoritmi cercano di raggruppare i dati in $K$ cluster, ma lo fanno in modi diversi:
+\begin{itemize}
+    \item K-means assegna ogni punto dati al cluster più vicino, basandosi sulla distanza euclidea, producendo un \textbf{hard clustering}.
+    \item GMM assegna a ogni punto dati una probabilità di appartenenza a ciascun cluster, basandosi sulla stima della densità, producendo un \textbf{soft clustering}.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/gmm_vs_kmeans.png}
+    \caption{Confronto tra clustering con \textbf{K-means} e \textbf{Modello a miscela di gaussiane (GMM)} su dati bidimensionali. 
+    Confronto tra clustering con \textbf{K-means} e \textbf{Modello a miscela di gaussiane (GMM)} su dati bidimensionali. 
+    A sinistra, K-means assegna i punti ai cluster in base alla distanza euclidea dai centroidi, producendo regioni di decisione sferiche e di uguale dimensione (cerchi tratteggiati). 
+    A destra, il GMM modella ciascun cluster come una distribuzione gaussiana con media e covarianza proprie, permettendo regioni ellittiche orientate (contorni rossi) e una rappresentazione più flessibile della struttura dei dati.}
+    \label{fig:gmm_vs_kmeans}
 \end{figure}
