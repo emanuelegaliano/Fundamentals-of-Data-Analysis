@@ -171,3 +171,21 @@ Riprendendo l'esempio della matrice di scatter plot nella sotto-sezione \ref{sub
 \end{figure}
 
 Dalla figura si può osservare facilmente la forza e la direzione delle correlazioni tra le variabili. Ad esempio, si nota una forte correlazione positiva tra il numero di ore di studio settimanali e i punteggi ottenuti negli esami, come già discusso in precedenza. Inoltre, si può osservare una correlazione negativa tra il numero di assenze e i punteggi degli esami. La heatmap consente di identificare rapidamente queste relazioni e di individuare eventuali pattern o tendenze nei dati, facilitando l'analisi multivariata.
+
+\section{Load plots}\label{sec:loadplots}
+Un load plot è un tipo di grafico utilizzato per visualizzare i carichi (loadings) delle variabili originali su componenti principali o fattori in un'analisi di componenti principali (PCA) o in un'analisi fattoriale. I loadings rappresentano l'importanza relativa di ciascuna variabile nella formazione delle componenti principali o dei fattori. Un load plot mostra questi carichi in modo visivo, permettendo di identificare quali variabili contribuiscono maggiormente a ciascuna componente o fattore.
+
+\noindent
+In un loadplot:
+\begin{itemize}
+    \item Le variabili che si "raggruppano" insieme in una direzione simile indicano una forte correlazione tra di esse.
+    \item Le variabili che si trovano lontano dall'origine del grafico hanno un maggiore contributo alla componente principale o al fattore rappresentato.
+    \item Le variabili che si trovano in direzioni opposte indicano una correlazione negativa tra di esse.
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=1\textwidth]{images/load_plot_example.png}
+    \caption{Load plot della PCA per il dataset Iris. Le frecce rappresentano i loadings delle feature originali sulle prime due componenti principali, indicando il contributo e l’orientamento di ciascuna variabile rispetto a PC1 e PC2.}
+    \label{fig:load_plot_example}
+\end{figure}
