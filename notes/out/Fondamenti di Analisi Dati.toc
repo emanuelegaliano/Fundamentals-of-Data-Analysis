@@ -1,0 +1,399 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{Licenza}{v}{chapter*.2}%
+\contentsline {section}{Diritti concessi}{v}{section*.3}%
+\contentsline {section}{Condizioni}{v}{section*.4}%
+\contentsline {section}{Assenza di garanzia}{vi}{section*.5}%
+\contentsline {section}{Testo completo della licenza}{vi}{section*.6}%
+\contentsline {chapter}{\numberline {1}Concetti chiave dell'analisi dei dati}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Concetti fondamentali}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Data}{1}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Popolazione}{1}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Osservazioni}{1}{subsection.1.1.3}%
+\contentsline {subsection}{\numberline {1.1.4}Campione}{2}{subsection.1.1.4}%
+\contentsline {subsection}{\numberline {1.1.5}Variabile}{2}{subsection.1.1.5}%
+\contentsline {subsection}{\numberline {1.1.6}Scale di misurazione}{2}{subsection.1.1.6}%
+\contentsline {section}{\numberline {1.2}Organizzazione dei dati}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Datasets}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Design matrix}{3}{subsection.1.2.2}%
+\contentsline {paragraph}{Valori nulli.}{3}{section*.8}%
+\contentsline {paragraph}{Outlier.}{3}{section*.9}%
+\contentsline {section}{\numberline {1.3}Collezione dei dati}{3}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Surveys}{4}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Esperimenti}{4}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Dati osservabili}{4}{subsection.1.3.3}%
+\contentsline {section}{\numberline {1.4}Data Wrangling}{5}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Gestire i valori nulli o mancanti}{5}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Conversione dei dati}{5}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}Rinominazione e riformattazione dei dati}{5}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}Creazione di nuove feature}{5}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}Filtraggio e selezione dei dati}{5}{subsection.1.4.5}%
+\contentsline {section}{\numberline {1.5}Formato dei dati}{5}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Formato largo}{5}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Formato lungo}{6}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Altre tecniche di Wrangling}{6}{subsection.1.5.3}%
+\contentsline {section}{\numberline {1.6}Il flusso di lavoro dell'Analisi dei dati}{6}{section.1.6}%
+\contentsline {subsection}{\numberline {1.6.1}Passaggi fondamentali}{6}{subsection.1.6.1}%
+\contentsline {chapter}{\numberline {2}Visualizzazione e descrizione dei dati}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Frequenze assolute}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Frequenze relative}{9}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Grafici a barre}{10}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Grafici a torta}{10}{subsection.2.2.2}%
+\contentsline {section}{\numberline {2.3}ECDF - Empirical Cumulative Distribution Function}{10}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Istogrammi}{11}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Stima di densità}{11}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Statistiche di sommario}{11}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Dimensione}{11}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Misure di tendenza centrale}{12}{subsection.2.6.2}%
+\contentsline {paragraph}{Percentili.}{12}{section*.14}%
+\contentsline {paragraph}{Quartili.}{12}{section*.15}%
+\contentsline {section}{\numberline {2.7}Misure di dispersione}{13}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Minimo, Massimo}{13}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Intervallo}{13}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}Intervallo interquantile (IQR)}{14}{subsection.2.7.3}%
+\contentsline {subsection}{\numberline {2.7.4}Varianza}{14}{subsection.2.7.4}%
+\contentsline {subsection}{\numberline {2.7.5}Deviazione standard}{14}{subsection.2.7.5}%
+\contentsline {section}{\numberline {2.8}Normalizzazione}{14}{section.2.8}%
+\contentsline {subsection}{\numberline {2.8.1}Min-Max Scaling}{15}{subsection.2.8.1}%
+\contentsline {subsection}{\numberline {2.8.2}Normalizzazione tra -1 e 1}{15}{subsection.2.8.2}%
+\contentsline {subsection}{\numberline {2.8.3}Standardizzazione (Z-score)}{15}{subsection.2.8.3}%
+\contentsline {section}{\numberline {2.9}Indicatori di forma}{15}{section.2.9}%
+\contentsline {subsection}{\numberline {2.9.1}Asimmetria}{16}{subsection.2.9.1}%
+\contentsline {subsection}{\numberline {2.9.2}Curtosi}{16}{subsection.2.9.2}%
+\contentsline {section}{\numberline {2.10}Statistiche descrittive}{16}{section.2.10}%
+\contentsline {chapter}{\numberline {3}Probabilità nell'analisi dei dati}{17}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Esperimenti casuali}{17}{section.3.1}%
+\contentsline {subsection}{\numberline {3.1.1}Spazio degli eventi}{17}{subsection.3.1.1}%
+\contentsline {section}{\numberline {3.2}Variabili Aleatorie}{18}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Definizione dei dati}{18}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Probabilità}{18}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Assiomi}{18}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Proprietà}{18}{subsection.3.4.2}%
+\contentsline {subsection}{\numberline {3.4.3}Probabilità di Laplace}{19}{subsection.3.4.3}%
+\contentsline {section}{\numberline {3.5}Stima di probabilità dalle osservazioni}{19}{section.3.5}%
+\contentsline {subsection}{\numberline {3.5.1}Approccio frequentista}{19}{subsection.3.5.1}%
+\contentsline {subsection}{\numberline {3.5.2}Approccio bayesiano}{19}{subsection.3.5.2}%
+\contentsline {paragraph}{Teorema di Bayes.}{19}{section*.18}%
+\contentsline {section}{\numberline {3.6}Probabilità congiunta}{20}{section.3.6}%
+\contentsline {subsection}{\numberline {3.6.1}Regola della somma}{20}{subsection.3.6.1}%
+\contentsline {section}{\numberline {3.7}Probabilità condizionata}{21}{section.3.7}%
+\contentsline {subsection}{\numberline {3.7.1}Regola del prodotto}{21}{subsection.3.7.1}%
+\contentsline {section}{\numberline {3.8}Regola della catena per le probabilità condizionate}{22}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Indipendenza}{22}{section.3.9}%
+\contentsline {subsection}{\numberline {3.9.1}Indipendenza condizionata}{23}{subsection.3.9.1}%
+\contentsline {chapter}{\numberline {4}Associazioni di variabili}{25}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Misure di associazioni tra variabili discrete}{25}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Indipendenza}{25}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Statistica di Pearson}{26}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Statistica di Cramér}{26}{subsection.4.1.3}%
+\contentsline {subsection}{\numberline {4.1.4}Rischio relativo}{27}{subsection.4.1.4}%
+\contentsline {subsection}{\numberline {4.1.5}Odds Ratio}{27}{subsection.4.1.5}%
+\contentsline {section}{\numberline {4.2}Misure di associazioni tra variabili continue}{28}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Visualizzazione grafica dell'associazione}{28}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Covarianza}{29}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Coefficiente di correlazione di Pearson}{30}{subsection.4.2.3}%
+\contentsline {paragraph}{Coefficiente di correlazione di Pearson per variabili discrete.}{30}{section*.21}%
+\contentsline {subsection}{\numberline {4.2.4}Coefficiente di correlazione di Spearman}{30}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Coefficiente di correlazione di Kendall}{31}{subsection.4.2.5}%
+\contentsline {paragraph}{Matrice di correlazione.}{31}{section*.22}%
+\contentsline {section}{\numberline {4.3}Consigli utili su come scegliere la misura di associazione}{32}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Distribuzione dei dati}{33}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Distribuzione di probabilità}{33}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Distribuzioni discrete}{33}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Funzione di massa di probabilità (PMF)}{33}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Funzione di distribuzione cumulativa (CDF)}{34}{subsection.5.2.2}%
+\contentsline {section}{\numberline {5.3}Distribuzioni continue}{34}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Funzione di densità di probabilità (PDF)}{34}{subsection.5.3.1}%
+\contentsline {paragraph}{PDF uniforme.}{35}{section*.23}%
+\contentsline {paragraph}{Approssimare la PDF con istogrammi.}{35}{section*.25}%
+\contentsline {subsection}{\numberline {5.3.2}Funzione di distribuzione cumulativa (CDF)}{36}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Distribuzioni di probabilità comuni}{37}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Distribuzione uniforme discreta}{37}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Distribuzione di Bernoulli}{37}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}Distribuzione binomiale}{38}{subsection.5.4.3}%
+\contentsline {paragraph}{Lancio di una moneta.}{39}{section*.29}%
+\contentsline {subsection}{\numberline {5.4.4}Distribuzione categorica}{39}{subsection.5.4.4}%
+\contentsline {paragraph}{Esempio: lancio di un dado truccato.}{40}{section*.30}%
+\contentsline {subsection}{\numberline {5.4.5}Distribuzione multinomiale}{40}{subsection.5.4.5}%
+\contentsline {paragraph}{Lancio di un dado più volte.}{41}{section*.32}%
+\contentsline {subsection}{\numberline {5.4.6}Distribuzione Gaussiana (Normale)}{42}{subsection.5.4.6}%
+\contentsline {subsection}{\numberline {5.4.7}Teorema del limite centrale}{43}{subsection.5.4.7}%
+\contentsline {paragraph}{Esempio.}{43}{section*.35}%
+\contentsline {subsection}{\numberline {5.4.8}Distribuzione Gaussiana Multivariata}{44}{subsection.5.4.8}%
+\contentsline {paragraph}{Effetti di $\Sigma $.}{45}{section*.38}%
+\contentsline {paragraph}{Stime dei parametri nella distribuzione Gaussiana multivariata.}{46}{section*.40}%
+\contentsline {section}{\numberline {5.5}Descrivere una distribuzione di probabilità}{47}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Aspettativa (media)}{47}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Varianza e deviazione standard}{47}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Covarianza}{48}{subsection.5.5.3}%
+\contentsline {subsection}{\numberline {5.5.4}Entropia}{48}{subsection.5.5.4}%
+\contentsline {paragraph}{Self-information.}{48}{section*.41}%
+\contentsline {paragraph}{Entropia di una distribuzione.}{49}{section*.43}%
+\contentsline {paragraph}{Entropia di una variabile di Bernoulli}{49}{section*.44}%
+\contentsline {subsection}{\numberline {5.5.5}Standardizzazione}{50}{subsection.5.5.5}%
+\contentsline {chapter}{\numberline {6}Inferenza Statistica}{53}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Campionamento}{53}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}Campionamento casuale semplice}{53}{subsection.6.1.1}%
+\contentsline {subsection}{\numberline {6.1.2}Campionamento stratificato}{55}{subsection.6.1.2}%
+\contentsline {section}{\numberline {6.2}Campionare la distribuzione della media}{56}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Errore standard}{57}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Distribuzione t-Student}{57}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Intervallo di confidenza}{58}{subsection.6.2.3}%
+\contentsline {paragraph}{Generalizzazione per altri livelli di confidenza.}{59}{section*.52}%
+\contentsline {paragraph}{Livello di significatività.}{60}{section*.53}%
+\contentsline {section}{\numberline {6.3}Bootstrapping}{60}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Stimatori}{61}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Stimatore del bias}{61}{subsection.6.4.1}%
+\contentsline {subsection}{\numberline {6.4.2}Stimatore della varianza}{61}{subsection.6.4.2}%
+\contentsline {paragraph}{Varianza distorta.}{61}{section*.55}%
+\contentsline {subsection}{\numberline {6.4.3}Varianza di uno stimatore}{62}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Bias-Varianza Tradeoff}{62}{subsection.6.4.4}%
+\contentsline {section}{\numberline {6.5}Test statistici}{62}{section.6.5}%
+\contentsline {subsection}{\numberline {6.5.1}Test di ipotesi}{62}{subsection.6.5.1}%
+\contentsline {paragraph}{Esempio: una moneta è truccata?}{63}{section*.57}%
+\contentsline {paragraph}{Tipi di errori nei test statistici.}{64}{section*.59}%
+\contentsline {subsection}{\numberline {6.5.2}T-test a un campione}{66}{subsection.6.5.2}%
+\contentsline {subsection}{\numberline {6.5.3}T-test a due campioni}{66}{subsection.6.5.3}%
+\contentsline {subsection}{\numberline {6.5.4}Test $\chi ^2$ per indipendenza}{66}{subsection.6.5.4}%
+\contentsline {subsection}{\numberline {6.5.5}Test $\chi ^2$ di bontà di adattamento}{66}{subsection.6.5.5}%
+\contentsline {subsection}{\numberline {6.5.6}Test di correlazione di Pearson}{66}{subsection.6.5.6}%
+\contentsline {subsection}{\numberline {6.5.7}Test di correlazione di Spearman}{66}{subsection.6.5.7}%
+\contentsline {section}{\numberline {6.6}Valutare quando un campione è distribuito normalmente}{67}{section.6.6}%
+\contentsline {subsection}{\numberline {6.6.1}Grafici Q-Q}{67}{subsection.6.6.1}%
+\contentsline {subsection}{\numberline {6.6.2}Test di normalità di Shapiro-Wilk}{68}{subsection.6.6.2}%
+\contentsline {subsection}{\numberline {6.6.3}Test \(K^2\) di D'Agostino}{68}{subsection.6.6.3}%
+\contentsline {chapter}{\numberline {7}Analisi predittiva}{69}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Modello}{69}{section.7.1}%
+\contentsline {subsection}{\numberline {7.1.1}Modelli predittivi}{69}{subsection.7.1.1}%
+\contentsline {section}{\numberline {7.2}Predizione vs Spiegazione}{70}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Predizione}{70}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Spiegazione}{71}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Compromesso tra Predizione e Spiegazione}{71}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Statistica vs Machine Learning}{71}{section.7.3}%
+\contentsline {subsection}{\numberline {7.3.1}Approccio statistico}{72}{subsection.7.3.1}%
+\contentsline {subsection}{\numberline {7.3.2}Approccio di Machine Learning}{72}{subsection.7.3.2}%
+\contentsline {subsection}{\numberline {7.3.3}Trade-Off di Complessità-Interpretabilità}{72}{subsection.7.3.3}%
+\contentsline {section}{\numberline {7.4}Tipologie di problema}{72}{section.7.4}%
+\contentsline {subsection}{\numberline {7.4.1}Regressione}{73}{subsection.7.4.1}%
+\contentsline {subsection}{\numberline {7.4.2}Classificazione}{73}{subsection.7.4.2}%
+\contentsline {subsection}{\numberline {7.4.3}Clustering}{75}{subsection.7.4.3}%
+\contentsline {section}{\numberline {7.5}Modelli parametrici vs Modelli non parametrici}{75}{section.7.5}%
+\contentsline {subsection}{\numberline {7.5.1}Modelli parametrici}{75}{subsection.7.5.1}%
+\contentsline {subsection}{\numberline {7.5.2}Modelli non parametrici}{76}{subsection.7.5.2}%
+\contentsline {section}{\numberline {7.6}Learning}{76}{section.7.6}%
+\contentsline {subsection}{\numberline {7.6.1}Definizione formale}{76}{subsection.7.6.1}%
+\contentsline {paragraph}{Esempio 1: non parametrico.}{77}{section*.69}%
+\contentsline {paragraph}{Esempio 2: parametrico.}{77}{section*.70}%
+\contentsline {subsection}{\numberline {7.6.2}Il processo di Learning}{77}{subsection.7.6.2}%
+\contentsline {subsection}{\numberline {7.6.3}ERM: Empirical Risk Minimization}{77}{subsection.7.6.3}%
+\contentsline {section}{\numberline {7.7}Capacità del modello}{78}{section.7.7}%
+\contentsline {subsection}{\numberline {7.7.1}Misurare la capacità del modello}{78}{subsection.7.7.1}%
+\contentsline {subsection}{\numberline {7.7.2}Bias e Varianza}{79}{subsection.7.7.2}%
+\contentsline {paragraph}{Bias.}{79}{section*.72}%
+\contentsline {paragraph}{Varianza.}{79}{section*.73}%
+\contentsline {subsection}{\numberline {7.7.3}Parametri vs Iperparametri}{80}{subsection.7.7.3}%
+\contentsline {section}{\numberline {7.8}Selezione del modello}{80}{section.7.8}%
+\contentsline {subsection}{\numberline {7.8.1}Approccio 1: selezione statistica}{80}{subsection.7.8.1}%
+\contentsline {subsection}{\numberline {7.8.2}Approccio 2: selezione predittiva}{81}{subsection.7.8.2}%
+\contentsline {subsection}{\numberline {7.8.3}Validazione Holdout}{81}{subsection.7.8.3}%
+\contentsline {subsection}{\numberline {7.8.4}K-Fold Cross-Validation}{82}{subsection.7.8.4}%
+\contentsline {subsection}{\numberline {7.8.5}Leave-One-Out Cross-Validation (LOOCV)}{82}{subsection.7.8.5}%
+\contentsline {subsection}{\numberline {7.8.6}Ottimizzazione degli iperparametri}{82}{subsection.7.8.6}%
+\contentsline {paragraph}{Grid Search.}{84}{section*.78}%
+\contentsline {paragraph}{Validation set.}{84}{section*.79}%
+\contentsline {chapter}{\numberline {8}Regressione lineare}{87}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Formalizzazione della regressione}{87}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Regressione lineare semplice}{87}{section.8.2}%
+\contentsline {paragraph}{Esempio.}{87}{section*.82}%
+\contentsline {subsection}{\numberline {8.2.1}Analogia geometrica con una retta}{88}{subsection.8.2.1}%
+\contentsline {subsection}{\numberline {8.2.2}OLS: Ordinary Least Squares}{88}{subsection.8.2.2}%
+\contentsline {paragraph}{Varianza dalla popolazione ideale.}{90}{section*.84}%
+\contentsline {subsection}{\numberline {8.2.3}Intervalli di confidenza per i coefficienti}{90}{subsection.8.2.3}%
+\contentsline {paragraph}{Esempio.}{90}{section*.86}%
+\contentsline {subsection}{\numberline {8.2.4}Test statistici per la significatività dei coefficienti}{91}{subsection.8.2.4}%
+\contentsline {section}{\numberline {8.3}Valutazione del modello di regressione}{93}{section.8.3}%
+\contentsline {paragraph}{Residui e RSS.}{93}{section*.91}%
+\contentsline {subsection}{\numberline {8.3.1}Metriche per la bontà del modello}{93}{subsection.8.3.1}%
+\contentsline {paragraph}{RSE: Residual Standard Error.}{93}{section*.92}%
+\contentsline {paragraph}{Statistica di $\mathbf {R^2}$.}{94}{section*.93}%
+\contentsline {subsection}{\numberline {8.3.2}Grafici di diagnostica}{94}{subsection.8.3.2}%
+\contentsline {paragraph}{Grafico dei residui vs valori predetti.}{94}{section*.95}%
+\contentsline {paragraph}{Grafici Q-Q (Quantile-Quantile).}{95}{section*.97}%
+\contentsline {section}{\numberline {8.4}Regressione lineare multivariata}{95}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}Interpretazione geometrica}{96}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}Interpretazione statistica}{96}{subsection.8.4.2}%
+\contentsline {paragraph}{Come variano i coefficienti al variare delle variabili indipendenti.}{98}{section*.100}%
+\contentsline {subsection}{\numberline {8.4.3}Stima dei coeffficienti di regressione}{98}{subsection.8.4.3}%
+\contentsline {subsection}{\numberline {8.4.4}F-Test}{99}{subsection.8.4.4}%
+\contentsline {subsection}{\numberline {8.4.5}Eliminazione backward delle variabili}{99}{subsection.8.4.5}%
+\contentsline {subsection}{\numberline {8.4.6}Colinearità e instabilità di OLS}{100}{subsection.8.4.6}%
+\contentsline {subsection}{\numberline {8.4.7}Adjusted $\mathbf {R^2}$}{100}{subsection.8.4.7}%
+\contentsline {section}{\numberline {8.5}Predittori qualitativi}{101}{section.8.5}%
+\contentsline {subsection}{\numberline {8.5.1}Variabili dummy}{101}{subsection.8.5.1}%
+\contentsline {paragraph}{Predittori con più di due categorie}{102}{section*.102}%
+\contentsline {chapter}{\numberline {9}Oltre la regressione lineare}{103}{chapter.9}%
+\contentsline {section}{\numberline {9.1}Interazione tra variabili}{103}{section.9.1}%
+\contentsline {paragraph}{Additive Model (R-squared)}{103}{section*.103}%
+\contentsline {paragraph}{Interaction Model (R-squared)}{103}{section*.104}%
+\contentsline {subsection}{\numberline {9.1.1}Interpretazione dei coefficienti}{103}{subsection.9.1.1}%
+\contentsline {section}{\numberline {9.2}Regressione polinomiale}{104}{section.9.2}%
+\contentsline {subsection}{\numberline {9.2.1}Regressione quadratica}{104}{subsection.9.2.1}%
+\contentsline {subsection}{\numberline {9.2.2}Polinomi di grado superiore}{105}{subsection.9.2.2}%
+\contentsline {subsection}{\numberline {9.2.3}Problema dell'interpretabilità}{105}{subsection.9.2.3}%
+\contentsline {subsection}{\numberline {9.2.4}Metriche di predizione}{106}{subsection.9.2.4}%
+\contentsline {subsection}{\numberline {9.2.5}MSE: Mean Squared Error}{106}{subsection.9.2.5}%
+\contentsline {subsection}{\numberline {9.2.6}RMSE: Root Mean Squared Error}{107}{subsection.9.2.6}%
+\contentsline {subsection}{\numberline {9.2.7}MAE: Mean Absolute Error}{107}{subsection.9.2.7}%
+\contentsline {section}{\numberline {9.3}Overfitting}{108}{section.9.3}%
+\contentsline {subsection}{\numberline {9.3.1}Regolarizzazione}{108}{subsection.9.3.1}%
+\contentsline {paragraph}{Ridge Regression (L2 Regularization)}{108}{section*.112}%
+\contentsline {paragraph}{Lasso Regression (L1 Regularization)}{109}{section*.114}%
+\contentsline {subsection}{\numberline {9.3.2}Bias-Varianza trade-off con la regolarizzazione}{110}{subsection.9.3.2}%
+\contentsline {chapter}{\numberline {10}Classificazione}{113}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Definizione formale}{113}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Misure di valutazione}{114}{section.10.2}%
+\contentsline {subsection}{\numberline {10.2.1}Accuratezza}{114}{subsection.10.2.1}%
+\contentsline {subsection}{\numberline {10.2.2}Tipi di errori}{114}{subsection.10.2.2}%
+\contentsline {subsection}{\numberline {10.2.3}Matrice di confusione}{115}{subsection.10.2.3}%
+\contentsline {paragraph}{Esempio.}{115}{section*.118}%
+\contentsline {subsection}{\numberline {10.2.4}Precision e recall}{116}{subsection.10.2.4}%
+\contentsline {paragraph}{High precision vs high recall.}{116}{section*.120}%
+\contentsline {subsection}{\numberline {10.2.5}$F_1$-score}{116}{subsection.10.2.5}%
+\contentsline {subsection}{\numberline {10.2.6}Matrice di confusione multiclasse}{117}{subsection.10.2.6}%
+\contentsline {subsection}{\numberline {10.2.7}ROC e AUC}{117}{subsection.10.2.7}%
+\contentsline {paragraph}{Statistica J di Youden.}{119}{section*.124}%
+\contentsline {paragraph}{Esempio: classificatore a soglia.}{119}{section*.125}%
+\contentsline {section}{\numberline {10.3}K-Nearest Neighbors (KNN)}{121}{section.10.3}%
+\contentsline {subsection}{\numberline {10.3.1}1-NN}{121}{subsection.10.3.1}%
+\contentsline {subsection}{\numberline {10.3.2}K-NN}{122}{subsection.10.3.2}%
+\contentsline {section}{\numberline {10.4}Curse of dimensionality}{122}{section.10.4}%
+\contentsline {subsection}{\numberline {10.4.1}Spazio vuoto}{123}{subsection.10.4.1}%
+\contentsline {subsection}{\numberline {10.4.2}Impatto su K-NN}{123}{subsection.10.4.2}%
+\contentsline {section}{\numberline {10.5}Classificatori discriminativi e generativi}{124}{section.10.5}%
+\contentsline {subsection}{\numberline {10.5.1}Classificatori discriminativi}{124}{subsection.10.5.1}%
+\contentsline {paragraph}{Esempio.}{124}{section*.132}%
+\contentsline {subsection}{\numberline {10.5.2}Classificatori generativi}{124}{subsection.10.5.2}%
+\contentsline {paragraph}{Esempio.}{124}{section*.133}%
+\contentsline {subsection}{\numberline {10.5.3}Macro, Micro e Weighted Averaging}{125}{subsection.10.5.3}%
+\contentsline {paragraph}{Macro averaging.}{125}{section*.134}%
+\contentsline {paragraph}{Weighted averaging.}{125}{section*.135}%
+\contentsline {paragraph}{Micro averaging.}{125}{section*.136}%
+\contentsline {subsection}{\numberline {10.5.4}Decision Boundary}{125}{subsection.10.5.4}%
+\contentsline {section}{\numberline {10.6}K-NN per regressione}{127}{section.10.6}%
+\contentsline {subsection}{\numberline {10.6.1}Bias-Varianza trade-off}{127}{subsection.10.6.1}%
+\contentsline {paragraph}{Trovare il miglior valore di $k$.}{127}{section*.138}%
+\contentsline {chapter}{\numberline {11}Regressione logistica}{129}{chapter.11}%
+\contentsline {section}{\numberline {11.1}Modello di regressione logistica}{130}{section.11.1}%
+\contentsline {subsection}{\numberline {11.1.1}Funzione logistica}{130}{subsection.11.1.1}%
+\contentsline {subsection}{\numberline {11.1.2}Modello di regressione logistica}{130}{subsection.11.1.2}%
+\contentsline {subsection}{\numberline {11.1.3}Odds}{131}{subsection.11.1.3}%
+\contentsline {subsection}{\numberline {11.1.4}Log-odds}{131}{subsection.11.1.4}%
+\contentsline {section}{\numberline {11.2}Stima dei parametri}{131}{section.11.2}%
+\contentsline {subsection}{\numberline {11.2.1}Interpretazione probabilistica del modello}{132}{subsection.11.2.1}%
+\contentsline {subsection}{\numberline {11.2.2}Cross-entropy loss}{132}{subsection.11.2.2}%
+\contentsline {subsection}{\numberline {11.2.3}Visualizzazione della cross-entropy loss}{133}{subsection.11.2.3}%
+\contentsline {section}{\numberline {11.3}Interpretazione statistica dei coefficienti}{133}{section.11.3}%
+\contentsline {subsection}{\numberline {11.3.1}Interpretazione dell'intercetta}{134}{subsection.11.3.1}%
+\contentsline {subsection}{\numberline {11.3.2}Interpretazione dei coefficienti delle variabili indipendenti}{134}{subsection.11.3.2}%
+\contentsline {section}{\numberline {11.4}Valutazione della regressione logistica}{134}{section.11.4}%
+\contentsline {subsection}{\numberline {11.4.1}Pseudo $R^2$}{135}{subsection.11.4.1}%
+\contentsline {section}{\numberline {11.5}Regressione logistica multiclasse}{135}{section.11.5}%
+\contentsline {subsection}{\numberline {11.5.1}Modello di regressione logistica multiclasse}{135}{subsection.11.5.1}%
+\contentsline {subsection}{\numberline {11.5.2}Interpretazione geometrica dei coefficienti}{135}{subsection.11.5.2}%
+\contentsline {paragraph}{Decision boundary.}{135}{section*.143}%
+\contentsline {section}{\numberline {11.6}Regressione softmax}{136}{section.11.6}%
+\contentsline {subsection}{\numberline {11.6.1}Funzione softmax}{136}{subsection.11.6.1}%
+\contentsline {subsection}{\numberline {11.6.2}Interpretazione geometrica dei coefficienti}{137}{subsection.11.6.2}%
+\contentsline {section}{\numberline {11.7}Altri modi di regressione multiclasse}{138}{section.11.7}%
+\contentsline {subsection}{\numberline {11.7.1}One-vs-Rest (OvR)}{138}{subsection.11.7.1}%
+\contentsline {subsection}{\numberline {11.7.2}One-vs-One (OvO)}{138}{subsection.11.7.2}%
+\contentsline {chapter}{\numberline {12}Classificatori generativi}{139}{chapter.12}%
+\contentsline {section}{\numberline {12.1}MAP: Maximum A Posteriori}{139}{section.12.1}%
+\contentsline {subsection}{\numberline {12.1.1}Probabilità a priori}{140}{subsection.12.1.1}%
+\contentsline {subsection}{\numberline {12.1.2}Likelihood}{140}{subsection.12.1.2}%
+\contentsline {section}{\numberline {12.2}Il problema della likelihood}{140}{section.12.2}%
+\contentsline {subsection}{\numberline {12.2.1}Il modello ideale nei dati discreti}{140}{subsection.12.2.1}%
+\contentsline {subsection}{\numberline {12.2.2}Il modello ideale nei dati continui}{141}{subsection.12.2.2}%
+\contentsline {paragraph}{QDA: Quadratic Discriminant Analysis.}{141}{section*.146}%
+\contentsline {paragraph}{LDA: Linear Discriminant Analysis.}{141}{section*.148}%
+\contentsline {section}{\numberline {12.3}Naive Bayes}{142}{section.12.3}%
+\contentsline {subsection}{\numberline {12.3.1}Assunzione di indipendenza condizionata}{142}{subsection.12.3.1}%
+\contentsline {paragraph}{Varianti del modello Naive Bayes.}{143}{section*.150}%
+\contentsline {section}{\numberline {12.4}Naive Bayes Gaussiano}{143}{section.12.4}%
+\contentsline {subsection}{\numberline {12.4.1}Implicazioni delle assunzioni di Naive Bayes gaussiano}{144}{subsection.12.4.1}%
+\contentsline {subsection}{\numberline {12.4.2}Confronto dei decision boundaries}{145}{subsection.12.4.2}%
+\contentsline {paragraph}{Perché il decision boundary di Naive Bayes è lineare?}{145}{section*.153}%
+\contentsline {section}{\numberline {12.5}Naive Bayes Multinomiale}{146}{section.12.5}%
+\contentsline {subsection}{\numberline {12.5.1}Stima dei parametri}{147}{subsection.12.5.1}%
+\contentsline {paragraph}{Stimare la probabilità a priori.}{147}{section*.154}%
+\contentsline {paragraph}{Stimare le probabilità condizionate.}{147}{section*.155}%
+\contentsline {subsection}{\numberline {12.5.2}Problemi di stima e smoothing}{147}{subsection.12.5.2}%
+\contentsline {paragraph}{Problema delle probabilità nulle.}{147}{section*.156}%
+\contentsline {paragraph}{Problema dell'underflow numerico.}{148}{section*.157}%
+\contentsline {chapter}{\numberline {13}Rappresentazione dei Dati}{149}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Spazio di feature}{149}{section.13.1}%
+\contentsline {subsection}{\numberline {13.1.1}Feature extraction}{149}{subsection.13.1.1}%
+\contentsline {subsection}{\numberline {13.1.2}Proprietà dello spazio di feature}{150}{subsection.13.1.2}%
+\contentsline {section}{\numberline {13.2}Metriche}{151}{section.13.2}%
+\contentsline {subsection}{\numberline {13.2.1}Metriche euclidee}{152}{subsection.13.2.1}%
+\contentsline {subsection}{\numberline {13.2.2}Distanza del coseno}{153}{subsection.13.2.2}%
+\contentsline {section}{\numberline {13.3}Feature e funzioni di rappresentazione}{154}{section.13.3}%
+\contentsline {subsection}{\numberline {13.3.1}Feature extraction ''Black Box''}{154}{subsection.13.3.1}%
+\contentsline {subsection}{\numberline {13.3.2}DPI: Data Processing Inequality}{155}{subsection.13.3.2}%
+\contentsline {chapter}{\numberline {14}Clustering}{157}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Definizione del problema}{157}{section.14.1}%
+\contentsline {section}{\numberline {14.2}K-means Clustering}{157}{section.14.2}%
+\contentsline {subsection}{\numberline {14.2.1}Ottimizzazione}{158}{subsection.14.2.1}%
+\contentsline {subsection}{\numberline {14.2.2}Scegliere il giusto K}{159}{subsection.14.2.2}%
+\contentsline {chapter}{\numberline {15}Stima della densità}{161}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Densità di probabilità}{161}{section.15.1}%
+\contentsline {section}{\numberline {15.2}Metodi non parametrici}{161}{section.15.2}%
+\contentsline {subsection}{\numberline {15.2.1}Istogrammi}{161}{subsection.15.2.1}%
+\contentsline {subsection}{\numberline {15.2.2}Kernel Density Estimation (KDE)}{162}{subsection.15.2.2}%
+\contentsline {paragraph}{Kernel view.}{163}{section*.165}%
+\contentsline {paragraph}{Problemi del kernel circolare.}{164}{section*.167}%
+\contentsline {subsection}{\numberline {15.2.3}Epanechnikov Kernel}{164}{subsection.15.2.3}%
+\contentsline {subsection}{\numberline {15.2.4}Tradeoff bias-varianza: sccelta della bandwith}{165}{subsection.15.2.4}%
+\contentsline {section}{\numberline {15.3}Metodi parametrici}{168}{section.15.3}%
+\contentsline {subsection}{\numberline {15.3.1}Distribuzione Gaussiana Multivariata}{168}{subsection.15.3.1}%
+\contentsline {paragraph}{MLE: Maximum Likelihood Estimation.}{168}{section*.172}%
+\contentsline {paragraph}{Media e covarianza campionaria.}{169}{section*.175}%
+\contentsline {paragraph}{Limiti dell’approccio MLE.}{170}{section*.176}%
+\contentsline {subsection}{\numberline {15.3.2}Gaussian Mixture Model}{170}{subsection.15.3.2}%
+\contentsline {paragraph}{Soft clustering con GMM.}{172}{section*.178}%
+\contentsline {paragraph}{Stima dei parametri con MLE.}{172}{section*.179}%
+\contentsline {paragraph}{GMM vs K-means.}{172}{section*.180}%
+\contentsline {chapter}{\numberline {16}Riduzione della dimensionalità}{175}{chapter.16}%
+\contentsline {section}{\numberline {16.1}Feature Selection vs Feature Extraction}{175}{section.16.1}%
+\contentsline {subsection}{\numberline {16.1.1}Feature Selection}{175}{subsection.16.1.1}%
+\contentsline {subsection}{\numberline {16.1.2}Feature Extraction}{175}{subsection.16.1.2}%
+\contentsline {section}{\numberline {16.2}PCA: Principal Component Analysis}{176}{section.16.2}%
+\contentsline {subsection}{\numberline {16.2.1}Interpretazione geometrica}{176}{subsection.16.2.1}%
+\contentsline {subsection}{\numberline {16.2.2}Massimizzazione della varianza}{176}{subsection.16.2.2}%
+\contentsline {subsection}{\numberline {16.2.3}Matrice di covarianza}{176}{subsection.16.2.3}%
+\contentsline {subsection}{\numberline {16.2.4}Varianza della proiezione}{178}{subsection.16.2.4}%
+\contentsline {subsection}{\numberline {16.2.5}Autovalori e autovettori}{178}{subsection.16.2.5}%
+\contentsline {subsection}{\numberline {16.2.6}Costruzione e proiezione delle componenti principali}{178}{subsection.16.2.6}%
+\contentsline {subsection}{\numberline {16.2.7}Data Whitening: decorrelazione e normalizzazione}{179}{subsection.16.2.7}%
+\contentsline {subsection}{\numberline {16.2.8}Scelta del numero di componenti principali}{179}{subsection.16.2.8}%
+\contentsline {subsection}{\numberline {16.2.9}Interpretazione delle prime componenti principali}{179}{subsection.16.2.9}%
+\contentsline {chapter}{\numberline {17}Grafici}{181}{chapter.17}%
+\contentsline {section}{\numberline {17.1}Istogramma}{181}{section.17.1}%
+\contentsline {paragraph}{Esempio.}{181}{section*.184}%
+\contentsline {section}{\numberline {17.2}Grafico a barre}{182}{section.17.2}%
+\contentsline {paragraph}{Esempio.}{183}{section*.186}%
+\contentsline {section}{\numberline {17.3}Boxplot}{183}{section.17.3}%
+\contentsline {paragraph}{Esempio.}{183}{section*.188}%
+\contentsline {section}{\numberline {17.4}Grafici di dispersione}{185}{section.17.4}%
+\contentsline {paragraph}{Esempio.}{185}{section*.190}%
+\contentsline {subsection}{\numberline {17.4.1}Matrice di scatter plot}{186}{subsection.17.4.1}%
+\contentsline {paragraph}{Esempio.}{186}{section*.192}%
+\contentsline {subsection}{\numberline {17.4.2}Scatter plot con intervalli di confidenza}{186}{subsection.17.4.2}%
+\contentsline {paragraph}{Esempio.}{186}{section*.194}%
+\contentsline {section}{\numberline {17.5}Hexbin plot}{188}{section.17.5}%
+\contentsline {paragraph}{Esempio.}{188}{section*.196}%
+\contentsline {section}{\numberline {17.6}Grafici di densità e di contorno}{189}{section.17.6}%
+\contentsline {paragraph}{Esempio.}{189}{section*.198}%
+\contentsline {section}{\numberline {17.7}Heatmaps}{190}{section.17.7}%
+\contentsline {paragraph}{Esempio.}{190}{section*.200}%
+\contentsline {section}{\numberline {17.8}Load plots}{190}{section.17.8}%

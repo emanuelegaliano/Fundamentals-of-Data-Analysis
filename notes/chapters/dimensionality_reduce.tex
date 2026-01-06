@@ -1,0 +1,159 @@
+\chapter{Riduzione della dimensionalità}
+Finché i dataset con piccole dimensioni erano la norma, l'analisi dei dati era relativamente semplice. Un problema che sussiste tuttavia, è che ad oggi esistono dati rappresentati da dataset con moltissime dimensioni, basti pensare ad un'immagine a colori di risoluzione $800 \times 600 \time 3 = 1.440.000$ dimensioni. Situazioni come queste possono creare due problemi principali:
+\begin{itemize}
+    \item \textbf{Maledizione della dimensionalità}: con l'aumento del numero di dimensioni, lo spazio diventa sempre più vuoto e i dati diventano sempre più sparsi. Questo rende difficile trovare pattern significativi nei dati, poiché la distanza tra i punti diventa meno significativa.
+    \item \textbf{Multicollinearità}: in dataset con molte dimensioni, è comune che alcune caratteristiche siano altamente correlate tra loro. Questo può portare a problemi di ridondanza e può complicare l'analisi dei dati, rendendo difficile identificare le caratteristiche più importanti.
+\end{itemize}
+
+\section{Feature Selection vs Feature Extraction}
+
+Per affrontare i problemi legati all’alta dimensionalità, esistono due approcci principali:
+\begin{itemize}
+    \item \textbf{Feature selection}
+    \item \textbf{Feature extraction}
+\end{itemize}
+
+Sebbene entrambi mirino a ridurre la dimensionalità dei dati, essi si basano su principi concettualmente diversi.
+
+\subsection{Feature Selection}
+
+La \textbf{feature selection} consiste nel selezionare un sottoinsieme delle feature originali, eliminando quelle ritenute ridondanti o poco informative.
+In questo caso, lo spazio delle feature non viene trasformato: le variabili selezionate sono un sottoinsieme di quelle originali.
+
+Questo approccio presenta il vantaggio di mantenere l’interpretabilità delle feature, ma può risultare limitato quando l’informazione rilevante è distribuita su molte variabili fortemente correlate.
+
+\subsection{Feature Extraction}
+
+La \textbf{feature extraction} (o riduzione della dimensionalità) consiste nel costruire nuove feature come combinazioni delle feature originali, ottenendo una rappresentazione dei dati in uno spazio di dimensione inferiore. A differenza della feature selection, la feature extraction modifica lo spazio delle feature, proiettando i dati in un nuovo spazio che cerca di preservare le proprietà più rilevanti del dataset.
+
+Tra le tecniche di feature extraction, una delle più utilizzate è la \textbf{Principal Component Analysis (PCA)}, che consente di ottenere una rappresentazione a dimensionalità ridotta preservando la massima varianza dei dati.
+
+\section{PCA: Principal Component Analysis}
+
+La \textbf{Principal Component Analysis (PCA)} è una tecnica di \textit{feature extraction} non supervisionata che consente di ridurre la dimensionalità di un dataset proiettando i dati in uno spazio a dimensione inferiore, preservando quanta più informazione possibile.
+
+In particolare, la PCA cerca una nuova base ortogonale dello spazio delle feature tale che le nuove variabili, dette \textit{componenti principali}, siano ordinate in base alla varianza dei dati lungo tali direzioni.
+
+\subsection{Interpretazione geometrica}
+
+Un dataset può essere visto come un insieme di punti in uno spazio $D$-dimensionale.
+In presenza di correlazioni tra le feature, i dati tendono a distribuirsi lungo direzioni privilegiate, occupando solo una porzione dello spazio delle feature.
+
+\noindent
+La Principal Component Analysis individua un nuovo sistema di riferimento in cui:
+\begin{itemize}
+    \item gli assi sono ortogonali tra loro;
+    \item le coordinate risultano non correlate;
+    \item il primo asse corrisponde alla direzione lungo cui la varianza dei dati è massima;
+    \item gli assi successivi descrivono direzioni di varianza decrescente.
+\end{itemize}
+
+Nel nuovo sistema di riferimento, la maggior parte della variabilità dei dati è concentrata nelle prime coordinate, rendendo possibile una rappresentazione a dimensionalità ridotta.
+
+\subsection{Massimizzazione della varianza}
+
+Sia $\mathbf{x} \in \mathbb{R}^D$ una variabile aleatoria che rappresenta un punto del dataset.
+La PCA cerca una direzione unitaria $\mathbf{u} \in \mathbb{R}^D$ tale che la varianza dei dati proiettati lungo $\mathbf{u}$ sia massima:
+\[
+\max_{\mathbf{u}} \; \mathrm{Var}(\mathbf{u}^T \mathbf{x})
+\quad \text{soggetto a} \quad \|\mathbf{u}\| = 1.
+\]
+
+\noindent
+Il vincolo di norma evita soluzioni banali in cui la varianza cresce indefinitamente.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/pca_random_projections.png}
+    \caption{Proiezione dei dati lungo diverse direzioni nello spazio delle feature. La varianza delle proiezioni dipende dalla direzione scelta: la PCA individua la direzione che massimizza la varianza dei dati proiettati.}
+    \label{fig:pca_random_projections}
+\end{figure}
+
+\subsection{Matrice di covarianza}
+
+La varianza dei dati proiettati lungo una direzione può essere espressa in termini della matrice di covarianza del dataset.
+Sia $\mathbf{x} \in \mathbb{R}^D$ una variabile aleatoria con media $\boldsymbol{\mu}$.
+La matrice di covarianza è definita come:
+\[
+\mathbf{S} = \frac{1}{N} \sum_{n=1}^N (\mathbf{x}_n - \overline{\mathbf{x}}) (\mathbf{x}_n - \overline{\mathbf{x}})^T
+\]
+
+La matrice $\mathbf{S}$ è simmetrica e semidefinita positiva e descrive le relazioni di correlazione tra le feature del dataset.
+
+\subsection{Varianza della proiezione}
+
+La varianza dei dati proiettati lungo una direzione unitaria $\mathbf{u}$ può essere scritta come:
+\begin{align*}
+&\frac{1}{N} \sum_{n=1}^N (\mathbf{u}_1^T \mathbf{x}_n - \mathbf{u}_1^T \overline{\mathbf{x}}) (\mathbf{u}_1^T \mathbf{x}_n - \mathbf{u}_1^T \overline{\mathbf{x}})^T \\ 
+=& \frac{1}{N} \sum_{n=1}^N \mathbf{u}_1^T (\mathbf{x}_n -  \overline{\mathbf{x}}) ( \mathbf{x}_n - \overline{\mathbf{x}})^T \mathbf{u}_1 \\
+=& \mathbf{u}_1^T \frac{1}{N} \sum_{n=1}^N (\mathbf{x}_n -  \overline{\mathbf{x}}) ( \mathbf{x}_n - \overline{\mathbf{x}})^T \mathbf{u}_1 \\
+=& \mathbf{u}_1^T \mathbf{S}\mathbf{u}_1
+\end{align*}
+
+Il problema della PCA consiste quindi nel trovare la direzione $\mathbf{u}$ che massimizza tale quantità, sotto il vincolo $\|\mathbf{u}\| = 1$.
+
+\subsection{Autovalori e autovettori}
+
+Il problema di massimizzazione della varianza può essere risolto tramite lo studio degli autovalori e autovettori della matrice di covarianza $\mathbf{S}$. Queto perché gli autovettori di $\mathbf{S}$ rappresentano le direzioni principali del dataset, mentre gli autovalori associati indicano la quantità di varianza spiegata lungo ciascuna di queste direzioni. Si può dimostrare che il problema di ottimizzazione ha varianza massima quando:
+\[
+\mathbf{u}_1^T \mathbf{S} \mathbf{u}_1 = \lambda_1
+\]
+dove $\lambda_1$ è il massimo autovalore di $\mathbf{S}$ e $\mathbf{u}_1$ è l’autovettore associato a $\lambda_1$.
+
+La direzione che massimizza la varianza dei dati proiettati è l’autovettore associato al massimo autovalore di $\mathbf{S}$.
+Analogamente, le direzioni successive sono date dagli autovettori associati agli autovalori successivi, ordinati in senso decrescente. 
+
+\subsection{Costruzione e proiezione delle componenti principali}
+Si può dimostrare che le prime $M$ componenti principali possono essere trovate scegliendo i primi $M$ autovettori di $\mathbf{S}$ della matrice di covarianza $S$ ordinati in base ai loro autovalori decrescenti, definiti dalla matrice $W$:
+\[
+W 
+= 
+\begin{bmatrix}
+    u_1 \\
+    u_2 \\
+    \vdots \\
+    u_M
+\end{bmatrix} 
+=
+\begin{bmatrix}
+    u_{11} & u_{12} & \cdots & u_{1D} \\
+    u_{21} & u_{22} & \cdots & u_{2D} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    u_{M1} & u_{M2} & \cdots & u_{MD}
+\end{bmatrix}
+\]
+dove $u_i = [u_{i1}, u_{i2}, \ldots, u_{iD}]$ è l’autovettore associato all’autovalore $\lambda_i$. Da questo proiettiamo i dati originali della matrice $X$ nella nuova base delle componenti principali:
+\[
+X = 
+\begin{pmatrix}
+    x_1 \\
+    x_2 \\
+    \vdots \\
+    x_N
+\end{pmatrix}
+=
+\begin{pmatrix}
+    x_{11} & x_{12} & \cdots & x_{1D} \\
+    x_{21} & x_{22} & \cdots & x_{2D} \\
+    \vdots & \vdots & \ddots & \vdots \\
+    x_{N1} & x_{N2} & \cdots & x_{ND}
+\end{pmatrix}
+\]
+tramite la seguente operazione di proiezione:
+\[
+Z = X W^T
+\]
+dove $Z$ è la matrice dei dati proiettati nello spazio delle componenti principali, di dimensione $N \times M$. Chiamiamo $Z$ una \emph{variabile latente} in quanto rappresenta una nuova rappresentazione dei dati in uno spazio a dimensionalità ridotta.
+
+In termini geometrici, la PCA fa una rotazione del sistema di riferimento originale e proietta i dati sugli assi principali, riducendo la dimensionalità del dataset mantenendo la massima varianza possibile.
+
+\subsection{Data Whitening: decorrelazione e normalizzazione}
+Può essere dimostrato che la PCA trasforma i dati in modo tale che le nuove feature risultino non correlate tra loro, ovvero formano una matrice di covarianza diagonale. Questo perché ruotando i dati in modo tale che i nuovi assi sono allineati con le direzioni di massima varianza, si eliminano le correlazioni tra le feature originali. Questo processo si chiama \textbf{data whitening}.
+
+\subsection{Scelta del numero di componenti principali}
+La scelta del numero di componenti principali $M$ da mantenere dipende dall’obiettivo dell’analisi e dalla quantità di varianza che si desidera preservare. Una strategia comune è quella di scegliere $M$ in modo tale che la somma degli autovalori associati alle prime $M$ componenti principali rappresenti una percentuale significativa (ad esempio, il 95\%) della varianza totale del dataset.
+
+\subsection{Interpretazione delle prime componenti principali}
+Una volta trasformati i dati nello spazio delle componenti principali, si possono analizzare le prime componenti per comprendere quali caratteristiche originali contribuiscono maggiormente alla varianza dei dati. Per fare questo, si utilizza i \textbf{pesi delle componenti principali}, ovvero gli autovalori associati a ciascuna componente principale, per valutare l’importanza relativa di ciascuna feature originale nella formazione delle nuove componenti. Questi pesi sono anche chiamati \textbf{loadings}. 
+
+Analizzando i loadings, è possibile identificare quali feature originali hanno un impatto maggiore sulle prime componenti principali e, di conseguenza, sulla variabilità complessiva dei dati. Per farlo, si può utilizzare un grafico chiamato \textbf{load plot} (sezione \ref{sec:loadplots}), che mostra i pesi delle feature originali per ciascuna componente principale.

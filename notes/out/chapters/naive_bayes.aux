@@ -1,0 +1,75 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {12}Classificatori generativi}{139}{chapter.12}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {12.1}MAP: Maximum A Posteriori}{139}{section.12.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1.1}Probabilità a priori}{140}{subsection.12.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.1.2}Likelihood}{140}{subsection.12.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.2}Il problema della likelihood}{140}{section.12.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2.1}Il modello ideale nei dati discreti}{140}{subsection.12.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.2.2}Il modello ideale nei dati continui}{141}{subsection.12.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{QDA: Quadratic Discriminant Analysis.}{141}{section*.146}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12.1}{\ignorespaces Esempio di classificazione tramite \emph  {Quadratic Discriminant Analysis} (QDA) applicato alle caratteristiche dei petali del dataset Iris. Le diverse regioni colorate rappresentano le aree dello spazio in cui il classificatore assegna la classe più probabile sulla base delle distribuzioni gaussiane stimate per ciascuna classe. Le ellissi mostrano le isodensity delle gaussiane apprese, che evidenziano le differenti varianze e correlazioni tra le feature: a differenza della LDA, la QDA permette covariance matrices differenti per ciascuna classe, producendo confini decisionali curvi e non lineari.\relax }}{141}{figure.caption.147}\protected@file@percent }
+\newlabel{fig:qda}{{12.1}{141}{Esempio di classificazione tramite \emph {Quadratic Discriminant Analysis} (QDA) applicato alle caratteristiche dei petali del dataset Iris. Le diverse regioni colorate rappresentano le aree dello spazio in cui il classificatore assegna la classe più probabile sulla base delle distribuzioni gaussiane stimate per ciascuna classe. Le ellissi mostrano le isodensity delle gaussiane apprese, che evidenziano le differenti varianze e correlazioni tra le feature: a differenza della LDA, la QDA permette covariance matrices differenti per ciascuna classe, producendo confini decisionali curvi e non lineari.\relax }{figure.caption.147}{}}
+\@writefile{toc}{\contentsline {paragraph}{LDA: Linear Discriminant Analysis.}{141}{section*.148}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12.2}{\ignorespaces Esempio di classificazione ottenuta tramite LDA (Linear Discriminant Analysis) sul dataset Iris utilizzando due caratteristiche dei petali. Le regioni colorate rappresentano le aree dello spazio delle caratteristiche assegnate a ciascuna classe dal modello lineare. Le curve ellittiche mostrano le distribuzioni gaussiane con covarianza condivisa stimate per ciascuna classe, mentre le linee di separazione evidenziano le \emph  {decision boundary} lineari tipiche dell'LDA.\relax }}{142}{figure.caption.149}\protected@file@percent }
+\newlabel{fig:lda}{{12.2}{142}{Esempio di classificazione ottenuta tramite LDA (Linear Discriminant Analysis) sul dataset Iris utilizzando due caratteristiche dei petali. Le regioni colorate rappresentano le aree dello spazio delle caratteristiche assegnate a ciascuna classe dal modello lineare. Le curve ellittiche mostrano le distribuzioni gaussiane con covarianza condivisa stimate per ciascuna classe, mentre le linee di separazione evidenziano le \emph {decision boundary} lineari tipiche dell'LDA.\relax }{figure.caption.149}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {12.3}Naive Bayes}{142}{section.12.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.3.1}Assunzione di indipendenza condizionata}{142}{subsection.12.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Varianti del modello Naive Bayes.}{143}{section*.150}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.4}Naive Bayes Gaussiano}{143}{section.12.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12.3}{\ignorespaces Distribuzioni marginali delle caratteristiche utilizzate in un classificatore Naïve Bayes. La curva rossa rappresenta la distribuzione della variabile \textit  {peso} condizionata alla classe $C$ (\(P(W \mid C)\)), mentre la curva verde rappresenta la distribuzione della variabile \textit  {altezza} condizionata alla stessa classe (\(P(H \mid C)\)). Il grafico mostra come le due variabili vengano trattate come indipendenti nel modello, permettendo di modellare separatamente le loro densità anche in presenza di una forte correlazione apparente nei dati osservati.\relax }}{144}{figure.caption.151}\protected@file@percent }
+\newlabel{fig:naive_bayes_gaussian}{{12.3}{144}{Distribuzioni marginali delle caratteristiche utilizzate in un classificatore Naïve Bayes. La curva rossa rappresenta la distribuzione della variabile \textit {peso} condizionata alla classe $C$ (\(P(W \mid C)\)), mentre la curva verde rappresenta la distribuzione della variabile \textit {altezza} condizionata alla stessa classe (\(P(H \mid C)\)). Il grafico mostra come le due variabili vengano trattate come indipendenti nel modello, permettendo di modellare separatamente le loro densità anche in presenza di una forte correlazione apparente nei dati osservati.\relax }{figure.caption.151}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.4.1}Implicazioni delle assunzioni di Naive Bayes gaussiano}{144}{subsection.12.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.4.2}Confronto dei decision boundaries}{145}{subsection.12.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Perché il decision boundary di Naive Bayes è lineare?}{145}{section*.153}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {12.4}{\ignorespaces Confronto tra tre modelli generativi per la classificazione multiclasse sul dataset \textit  {Iris}. A sinistra è mostrato il modello QDA, che utilizza matrici di covarianza \emph  {complete} e differenti per ciascuna classe: ciò permette di modellare forme ellittiche con orientamenti e ampiezze diverse, producendo confini decisionali nettamente \textbf  {non lineari}. Al centro è riportato il modello LDA, che assume una matrice di covarianza \emph  {condivisa} tra tutte le classi: le distribuzioni risultano quindi ellissi con la stessa forma e orientamento, e i confini decisionali diventano necessariamente \textbf  {lineari}. A destra è illustrato il Gaussian Naive Bayes, che assume una matrice di covarianza \emph  {diagonale} e diversa per ciascuna classe: ogni classe presenta ellissi allineate con gli assi, e i confini decisionali rimangono \textbf  {lineari}, ma organizzati secondo regioni che riflettono le varianze specifiche di ogni classe. Questo confronto evidenzia come le diverse assunzioni sulla struttura della covarianza influenzino profondamente la flessibilità del modello e la forma dei confini decisionali.\relax }}{146}{figure.caption.152}\protected@file@percent }
+\newlabel{fig:decision_boundaries}{{12.4}{146}{Confronto tra tre modelli generativi per la classificazione multiclasse sul dataset \textit {Iris}. A sinistra è mostrato il modello QDA, che utilizza matrici di covarianza \emph {complete} e differenti per ciascuna classe: ciò permette di modellare forme ellittiche con orientamenti e ampiezze diverse, producendo confini decisionali nettamente \textbf {non lineari}. Al centro è riportato il modello LDA, che assume una matrice di covarianza \emph {condivisa} tra tutte le classi: le distribuzioni risultano quindi ellissi con la stessa forma e orientamento, e i confini decisionali diventano necessariamente \textbf {lineari}. A destra è illustrato il Gaussian Naive Bayes, che assume una matrice di covarianza \emph {diagonale} e diversa per ciascuna classe: ogni classe presenta ellissi allineate con gli assi, e i confini decisionali rimangono \textbf {lineari}, ma organizzati secondo regioni che riflettono le varianze specifiche di ogni classe. Questo confronto evidenzia come le diverse assunzioni sulla struttura della covarianza influenzino profondamente la flessibilità del modello e la forma dei confini decisionali.\relax }{figure.caption.152}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {12.5}Naive Bayes Multinomiale}{146}{section.12.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5.1}Stima dei parametri}{147}{subsection.12.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Stimare la probabilità a priori.}{147}{section*.154}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Stimare le probabilità condizionate.}{147}{section*.155}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {12.5.2}Problemi di stima e smoothing}{147}{subsection.12.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Problema delle probabilità nulle.}{147}{section*.156}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Problema dell'underflow numerico.}{148}{section*.157}\protected@file@percent }
+\@setckpt{chapters/naive_bayes}{
+\setcounter{page}{149}
+\setcounter{equation}{0}
+\setcounter{enumi}{5}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{12}
+\setcounter{section}{5}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{4}
+\setcounter{table}{0}
+\setcounter{lstnumber}{1}
+\setcounter{parentequation}{0}
+\setcounter{section@level}{4}
+\setcounter{Item}{13}
+\setcounter{Hfootnote}{23}
+\setcounter{bookmark@seq@number}{268}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{float@type}{16}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{52}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{nicequotecnt}{0}
+\setcounter{lstlisting}{0}
+}

@@ -1,0 +1,455 @@
+\chapter{Inferenza Statistica}
+Molto spesso, in statistica, ci si trova nella situazione di dover prendere decisioni o fare previsioni basate su dati campionari. L'inferenza statistica fornisce gli strumenti necessari per trarre conclusioni riguardo a una popolazione più ampia a partire da un campione limitato di dati. 
+
+\section{Campionamento}
+Il campionamento è il processo di selezione di un sottoinsieme di individui, oggetti o osservazioni da una popolazione più grande. Quando scarichiamo un dataset, il campionamento è stato già effettuato per noi, mentre se collezionassimo i dati dovremmo campionare dalla popolazione per intero.
+
+\subsection{Campionamento casuale semplice}
+Il modo più facile di selezionare un campione dalla popolazione è in \textbf{modo casuale}. Questo tipo di campionamento è detto \textbf{campionamento casuale semplice} (simple random sampling). Si fanno due assunzioni principali:
+\begin{itemize}
+    \item Ogni elemento ha la stessa probabilità di essere selezionato. (selezione equi-probabile).
+    \item La selezione di un elemento non influenza la selezione di un altro elemento (selezione indipendente).
+\end{itemize}
+
+Grazie a questo approccio garantiamo che, per un grande un numero di campioni, le proprietà del campione riflettano quelle della popolazione.
+
+Un problema di questo tipo di campionamento è che, in pratica, è difficile da realizzare. Inoltre non è sempre detto che le assunzioni di selezione equi-probabile e indipendente siano soddisfatte: Ipotizziamo di chiedere agli abitanti di una città se sono soddisfatti dei servizi pubblici, ma lo facciamo solo in centro città. In questo caso, la selezione non è equi-probabile, in quanto gli abitanti delle periferie non hanno la stessa probabilità di essere selezionati rispetto a quelli del centro città.
+
+Inoltre, in questo tipo di campionamento è molto importante il numero di campioni che si estraggono: più campioni si estraggono, più le proprietà del campione tenderanno a riflettere quelle della popolazione.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/simple_random_sampling.png}
+    \caption{Illustrazione del campionamento casuale semplice da una popolazione normale. Ogni riga corrisponde a un diverso numero di osservazioni campionate dalla stessa popolazione (\(n = 5, 20, 50, 100, 1000\)). 
+    Nella prima colonna è mostrata la distribuzione della popolazione (istogramma ad alta risoluzione con la sua densità teorica). 
+    Nella seconda colonna è mostrato l'istogramma del singolo campione estratto a quella dimensione \(n\), con una stima di densità sovrapposta. 
+    Nella terza colonna è mostrata la stima di densità (KDE, in rosso) del campione confrontata con la densità della popolazione reale (in blu). 
+    All'aumentare della dimensione del campione, l'istogramma e la densità stimata del campione diventano via via più simili alla distribuzione originale della popolazione: questo evidenzia che campioni più grandi approssimano meglio la popolazione.}
+    \label{fig:simple_random_sampling}
+\end{figure}
+
+\subsection{Campionamento stratificato}
+Uno dei problemi riscontrabili durante il campionamento è che la popolazione è \textbf{eterogenea}, ovvero è composta da sottogruppi con caratteristiche diverse. In questi casi, il campionamento casuale semplice potrebbe non essere rappresentativo della popolazione intera, poiché alcuni sottogruppi potrebbero essere sottorappresentati o sovrarappresentati nel campione.
+
+Per risolvere questa problematica si usa il \textbf{campionamento stratificato} (stratified sampling). In questo approccio, la popolazione viene suddivisa in sottogruppi omogenei chiamati \textbf{strati} (strata) basati su caratteristiche rilevanti (ad esempio età, genere, reddito). Successivamente, si esegue un campionamento casuale semplice all'interno di ciascuno strato.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/stratified_sampling.png}
+    \caption{Confronto tra diversi metodi di campionamento su una popolazione suddivisa in 10 professioni. 
+    Riga superiore: popolazione completa, mostrata sia come dot plot (a sinistra, ogni punto è un individuo colorato per professione) sia come istogramma normalizzato (a destra, proporzioni reali di ciascuna professione nella popolazione). 
+    Riga centrale: campione ottenuto tramite campionamento casuale semplice (uniform random sample). Le proporzioni osservate nel campione possono discostarsi da quelle reali della popolazione, specialmente per le categorie meno frequenti. 
+    Riga inferiore: campione stratificato (stratified sample), in cui si forza la presenza di ogni categoria in proporzione alla popolazione. In questo caso, l'istogramma delle proporzioni nel campione è molto più fedele alla distribuzione originale.}
+    \label{fig:stratified_sampling}
+\end{figure}
+
+Come si vede nella figura \ref{fig:stratified_sampling}, il campionamento stratificato garantisce che ogni strato sia rappresentato nel campione in proporzione alla sua presenza nella popolazione, migliorando così la rappresentatività del campione sulla popolazione complessiva.
+
+\section{Campionare la distribuzione della media}
+Uno degli obiettivi principali dell'inferenza statistica è stimare parametri della popolazione, come la media o la varianza, a partire dai dati campionari. Un concetto fondamentale in questo contesto è la \textbf{distribuzione campionaria} (sampling distribution) di una statistica, che descrive come quella statistica varia da un campione all'altro. In particolare, la distribuzione campionaria della media campionaria è di grande interesse. La media campionaria è la media calcolata su un campione estratto dalla popolazione. Questo viene fatto perché spesso non si ha accesso all'intera popolazione, ma solo a un campione di essa.
+
+Consideriamo questo esempio: un panificio pacchi di biscotti da 1kg ciascuno. Ogni pacco ha un peso che varia leggermente a causa delle variazioni nel processo di produzione. Supponiamo di prendere un campione randomico di $n = 1000$ pacchi e misurare il loro peso medio:
+\[
+\bar{X} = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]
+
+Troviamo tuttavia, che il peso medio è uguale a 1000.2g, leggermente superiore al peso nominale di 1000g. Ci rendiamo conto che se ripetessimo l'estrazione di un campione di 1000 pacchi e calcolassimo nuovamente la media, otterremmo un valore leggermente diverso. Questo accade perché ogni campione è diverso e quindi la media campionaria varia da campione a campione.
+
+Questo fenomeno ripetuto è descritto dalla \textbf{distribuzione campionaria della media} (sampling distribution of the sample mean). La distribuzione campionaria della media descrive come la media campionaria varia quando si estraggono ripetutamente campioni dalla popolazione. Trattando ogni pacco come una variabile casuale $X_i$ che ha \(E[X_i] = \mu\) e \(Var(X_i) = \sigma^2\), la media campionaria \(\bar{X}\) è anch'essa una variabile casuale con:
+\[
+\bar{X} = \frac{1}{n} \sum_{i=1}^{n} X_i
+\]
+
+Dal limite del teorema centrale (sotto-sezione \ref{sec:clt}) si sa che, per campioni sufficientemente grandi, la distribuzione campionaria della media tende a una distribuzione normale con media \(\mu\) e varianza \(\frac{\sigma^2}{n}\). Quindi possiamo scrivere:
+\begin{align*}
+    \mathbb{E}[\bar{X}]
+    &= \mathbb{E}\!\left[ \frac{1}{n} \sum_{i=1}^{n} X_i \right]
+    = \frac{1}{n} \sum_{i=1}^{n} \mathbb{E}[X_i]
+    = \mu
+    \\
+    \mathrm{Var}[\bar{X}]
+    &= \mathrm{Var}\!\left[ \frac{1}{n} \sum_{i=1}^{n} X_i \right]
+    = \frac{1}{n^2} \sum_{i=1}^{n} \mathrm{Var}[X_i]
+    = \frac{\sigma^2}{n}
+    \\
+    \mathrm{Std}[\bar{X}]
+    &= \sqrt{\mathrm{Var}[\bar{X}]} = \frac{\sigma}{\sqrt{n}}
+\end{align*}
+
+\noindent
+Possiamo notare diverse cose:
+\begin{itemize}
+    \item La media della distribuzione campionaria della media tende alla media della popolazione \(\mu\). Questo significa che la media campionaria è uno stimatore non distorto della media della popolazione.
+    \item La deviazione standard della distribuzione campionaria della media quantifica la precisione della stima della media campionaria, in quanto un campione più grande (maggiore \(n\)) riduce la variabilità della media campionaria intorno alla media della popolazione.
+\end{itemize}
+
+\noindent
+Tuttavia persiste un problema: nella maggior parte dei casi, non conosciamo la varianza della popolazione \(\sigma^2\).
+
+\subsection{Errore standard}
+Per risolvere il problema dela varianza sconosciuta, si può stimare la varianza della popolazione utilizzando quella che si chiama "varianza campionaria" (sample variance):
+\[
+s_{n-1} = \sqrt{\frac{1}{n-1} \sum_{i=1}^n (x_i - \bar{x})^2}
+\]
+
+Da questa misura, possiamo definire l'errore standard (standard error) della media campionaria come:
+\[
+SE_{\bar{X}} = \frac{s_{n-1}}{\sqrt{n}}
+\]
+
+L'errore standard fornisce una stima della variabilità della media campionaria intorno alla media della popolazione. È molto simile alla deviazione standard della distribuzione campionaria della media, ma utilizza la varianza stimata dal campione invece della varianza reale della popolazione.
+
+Notiamo anche una cosa: ridurre l'errore standard è molto costoso, in quanto per dimezzare l'errore standard bisogna quadruplicare la dimensione del campione \(n\) perché l'errore standard decresce con la radice quadrata di \(n\).
+
+Questo può essere descritto bene in una figura del genere (figura \ref{fig:standard_error_vs_sample_size}):
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/standard_error_vs_sample_size.png}
+    \caption{Distribuzione delle medie campionarie per diversi valori di $n$ (10, 100, 1000) ottenute simulando il campionamento ripetuto dalla stessa popolazione. Ogni pannello mostra l'istogramma delle medie dei campioni e una stima di densità sovrapposta. All'aumentare della dimensione del campione, la distribuzione delle medie diventa più stretta attorno al valore medio della popolazione e la deviazione standard della media campionaria (errore standard) diminuisce in accordo con $\mathrm{Std}[\bar{X}] = \sigma / \sqrt{n}$.}
+    \label{fig:standard_error_vs_sample_size}
+\end{figure}
+
+\subsection{Distribuzione t-Student}\label{subsec:student_t_distribution}
+Per risolvere il problema della stima su una piccola dimensione del campione, si può utilizzare la distribuzione t di Student (Student's t-distribution). Questa distribuzione è simile alla distribuzione normale, ma ha code più pesanti, il che significa che c'è una maggiore probabilità di osservare valori estremi. Viene definita come:
+\[
+t_{n-1} = \frac{\bar{X} - \mu}{SE_{\bar{X}}}
+\]
+
+Dove \(n-1\) sono i gradi di libertà\footnote{I gradi di libertà rappresentano il numero di valori indipendenti che possono variare in un'analisi statistica. Nel caso della distribuzione t di Student, i gradi di libertà sono pari a \(n-1\) perché stiamo stimando la media della popolazione a partire da un campione di dimensione \(n\).} (degrees of freedom). Al crescere di $n$ la distribuzione t di Student si avvicina sempre più alla distribuzione normale (figura \ref{fig:t_distribution_vs_normal}).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/t_distribution_vs_normal.png}
+    \caption{Confronto tra la distribuzione $t$ di Student e la distribuzione normale standard. Ogni curva $t$ corrisponde a un diverso numero di gradi di libertà ($n = 1, 2, 5, 30$). Per valori piccoli di $n$ la distribuzione $t$ ha code più pesanti (maggiore probabilità di valori estremi) e un picco più basso rispetto alla Gaussiana. All'aumentare di $n$, la distribuzione $t$ si avvicina alla distribuzione normale standard, fino a diventare praticamente indistinguibile per $n$ grandi.}
+    \label{fig:t_distribution_vs_normal}
+\end{figure}
+
+\subsection{Intervallo di confidenza}
+Nel nostro esempio del panificio, se dovessimo riportare il peso medio dei pacchi di biscotti, potremmo voler includere una misura della nostra incertezza riguardo a questa stima. Un modo comune per farlo è attraverso un \textbf{intervallo di confidenza} (confidence interval). Un intervallo di confidenza fornisce un range di valori all'interno del quale ci aspettiamo che il vero parametro della popolazione (in questo caso, la media del peso dei pacchi) cada con una certa probabilità (ad esempio, il 95\%).
+
+Ricordando che la media campionaria $\bar{X}$ segue una distribuzione normale centrata sulla media della popolazione $\mu$ e ricordando che per una distribuzione normale il 68\% dei valori è compreso in $\mu \pm \sigma$ possiamo scrivere:
+\[
+P(\mu - \sigma \leq \bar{X} \leq \mu + \sigma) = 0.68
+\]
+
+\noindent
+E ovviamente segue che:
+\[
+\bar{x} \in [\mu - \sigma, \mu + \sigma] \Leftrightarrow \mu \in [\bar{x} - \sigma, \bar{x} + \sigma]
+\]
+
+\noindent
+E quindi possiamo stimare un intervallo di confidenza al 68\% per la media della popolazione come:
+\[
+P(\bar{x} - \sigma \leq \mu \leq \bar{x} + \sigma) = 0.68
+\]
+
+\noindent
+Questo risultato può anche essere visto nel grafico della figura \ref{fig:confidence_interval_68}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/confidence_interval_68.png}
+    \caption{Visualizzazione dell'intervallo $\,[\mu - \sigma,\, \mu + \sigma]$ (barra orizzontale blu) e delle medie campionarie $\bar{X}_1, \bar{X}_2, \ldots, \bar{X}_9$ ottenute da campioni diversi. Per ciascun campione è mostrato il suo intervallo $\bar{X}_i \pm \sigma$ (barra orizzontale). I punti verdi indicano le medie campionarie i cui intervalli contengono la media reale $\mu$, mentre i punti rossi indicano quelle che non la contengono. L'idea è che, ripetendo il campionamento, la maggior parte degli intervalli stimati copre il valore vero del parametro, ma non tutti.}
+    \label{fig:confidence_interval_68}
+\end{figure}
+
+Questo è un risultato molto potente, in quanto ci permette di quantificare l'incertezza associata alla nostra stima della media della popolazione. Tuttavia, è importante notare che l'intervallo di confidenza dipende dalla dimensione del campione e dalla variabilità dei dati: campioni più grandi e dati meno variabili portano a intervalli di confidenza più stretti, indicando una maggiore precisione nella stima della media della popolazione.
+
+Chiamiamo quindi, in questo contesto, l'intervallo $[\bar{x} - \sigma, \bar{x} + \sigma]$ di confidenza al 68\%.
+
+Il problema però rimmane che molto spesso non abbiamo a disposizione la deviazione standard della popolazione $\sigma$, ma solo quella del campione $s_{n-1}$, da cui ricaviamo lo standard error e lo sostituiamo nell'intervallo di confidenza:
+\[
+[\bar{x} - SE_{\bar{X}}, \bar{x} + SE_{\bar{X}}]
+\]
+
+\paragraph{Generalizzazione per altri livelli di confidenza.}
+In generale, si può generalizzare questa formulazione per un certa percentuale di confidenza $p$ chiamata \textbf{livello di confidenza} (confidence level). Da questo, formuliamo la probabilità come:
+\[
+p = P(\bar{x} - \beta \sigma \leq \mu \leq \bar{x} + \beta \sigma)
+\]
+
+\noindent
+Che porta a:
+\[
+[\bar{x} - \beta \cdot SE_{\bar{X}}, \bar{x} + \beta \cdot SE_{\bar{X}}]
+\]
+
+\paragraph{Livello di significatività.}
+Possiamo scrivere una formulazione alternativa basata su un parametro $\alpha$ definito come \textbf{livello di significatività} (significance level). In questo contesto $\alpha$ rappresenta la probabilità che l'intervallo di confidenza non contenga il vero parametro della popolazione. Quindi, se vogliamo un intervallo di confidenza del 95\%, il livello di significatività sarà $\alpha = 0.05$. Quindi:
+\begin{itemize}
+    \item Con probabilità $1 - \alpha$, l'intervallo di confidenza contiene il vero parametro della popolazione, quindi "cattura" $\mu$.
+    \item Con probabilità $\alpha$, l'intervallo di confidenza non contiene il vero parametro della popolazione, quindi "manca" $\mu$.
+\end{itemize}
+
+\noindent
+Se scegliessimo $\alpha = 0.05$, avremmo un intervallo di confidenza del 95\% dato da:
+\[
+[\bar{x} - \beta \cdot SE_{\bar{X}}, \bar{x} + \beta \cdot SE_{\bar{X}}]
+\]
+
+Dove $\beta$ è scelto in modo tale che l'area sotto la curva della distribuzione normale tra $-\beta$ e $+\beta$ sia pari a $1 - \alpha$. Per $\alpha = 0.05$, $\beta$ è approssimativamente uguale a 1.96.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/confidence_level.png}
+    \caption{Interpretazione dell'intervallo di confidenza al 95\%. L'area verde rappresenta l'intervallo di confidenza $(1-\alpha)=95\%$, che corrisponde ai valori della media campionaria $\bar{X}$ che, una volta stimati sul campione, ``catturano'' la vera media $\mu$. Le aree rosse nelle code (ciascuna di area $\alpha/2$) rappresentano i casi in cui l'intervallo stimato non contiene la media reale: la probabilità complessiva di errore è $\alpha = 0.05$. Le linee tratteggiate verdi indicano i limiti $\bar{X} \pm 1.96 \cdot SE(\bar{X})$, mentre la linea tratteggiata nera indica la vera media $\mu$.}
+    \label{fig:confidence_interval_95}
+\end{figure}
+
+\section{Bootstrapping}
+Il bootstrapping è una tecnica di inferenza statistica che consente di stimare la distribuzione di una statistica campionaria quando è piccola e non segue una distribuzione normale. Questa tecnica si basa sul concetto di campionamento con reinserimento dal campione originale per creare nuovi campioni chiamati \textbf{campioni bootstrap}.
+
+L'idea alla basa del bootstrapping è semplice:
+\begin{enumerate}
+    \item Si parte con il campione di dimensione $n$.
+    \item Si creano $B$ nuovi campioni bootstrap, ciascuno di dimensione $n$, estraendo casualmente con reinserimento dal campione originale. Il nuovo campione avrà dimensione originale ma alcuni elementi potrebbero essere ripetuti, mentre altri potrebbero non essere selezionati.
+    \item Si calcola la statistica di interesse (ad esempio, la media, la mediana, la varianza) per ciascun campione bootstrap.
+    \item Si ripetono gli step 2 e 3 per un numero elevato di volte per ottenere una distribuzione della statistica di interesse.
+    \item Si ricostruisce la distribuzione della statistica di interesse dai valori calcolati sui campioni bootstrap.
+\end{enumerate}
+
+\section{Stimatori}
+Nell'inferenza statistica, uno degli obiettivi principali è stimare i parametri della popolazione a partire dai dati campionari. Per fare questo, si introducono gli \textbf{stimatori} (estimators), che sono funzioni dei dati campionari utilizzate per stimare i parametri della popolazione. Un esempio è la media, che è uno stimatore della media della popolazione.
+
+\subsection{Stimatore del bias}
+Sia $X$ una variabile casuale e siano $x = (x_1, x_2, \ldots, x_n)$ un campione di dimensione $n$ estratto da $X$. Sia $T(X)$ uno stimatore della quantità di popolazione $\phi$:
+\[
+T(X) = \frac{1}{n} \sum_{i=1}^{n} x_i
+\]
+
+\noindent
+Poiché il campione cambia, anche il valore di $T(X)$ cambia. Quindi $T(X)$ è anch'esso una variabile casuale con una sua distribuzione. 
+
+Possiamo quindi definire il \textbf{bias} (bias) dello stimatore $T(X)$ come la differenza tra il valore atteso dello stimatore e il vero valore del parametro della popolazione:
+\[
+\text{Bias}(T) = \mathbb{E}[T(X)] - \phi
+\]
+
+Che è una misura di quanto lo stimatore si discosta in media dal vero parametro della popolazione. Se il bias è zero, lo stimatore è detto \textbf{non distorto} (unbiased), altrimenti è \textbf{distorto} (biased).
+
+\subsection{Stimatore della varianza}
+\paragraph{Varianza distorta.}
+Se volessimo riprendere l'esempio dei biscotti, potremmo usare la varianza campionaria per stimare la varianza della popolazione:
+\[
+s_n^2 = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2
+\]
+
+Il problema di questa stima è che è uno stimatore distorto della varianza della popolazione, in quanto il valore atteso è:
+\[
+\mathbb{E}[s_n^2] = \frac{n-1}{n} \sigma^2
+\]
+
+\noindent
+che è sempre minore della varianza reale della popolazione $\sigma^2$:
+\[
+\frac{n-1}{n} < 1 \quad \Rightarrow \quad \mathbb{E}[s_n^2] < \sigma^2
+\]
+
+Quindi lo stimatore $s_n^2$ è distorto, con un bias negativo e va a sottostimare la varianza della popolazione. Per risolvere si può usare lo stimatore della varianza non distorto:
+\[
+s_{n-1}^2 = \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2
+\]
+
+\noindent
+risolvendo il problema del bias perché ha valore atteso \( \mathbb{E}[s_{n-1}^2] = \sigma^2 \).
+
+\subsection{Varianza di uno stimatore}
+Grazie alla varianza possiamo misurare la precisione di uno stimatore. La \textbf{varianza di uno stimatore} è definita come:
+\[
+Var(T(X)) = \mathbb{E}[(T(X) - \mathbb{E}[T(X)])^2]
+\]
+
+\noindent
+Anche qui una bassa misura di varianza indica che lo stimatore è preciso, mentre una varianza alta indica che lo stimatore è meno preciso.
+
+\subsection{Bias-Varianza Tradeoff}
+Nella scelta di uno stimatore, spesso si deve affrontare un compromesso tra bias e varianza, noto come \textbf{bias-variance tradeoff}. Uno stimatore con un bias basso potrebbe avere una varianza elevata, mentre uno stimatore con una varianza bassa potrebbe avere un bias elevato. Si possono distinguere quattro casi principali, (illustrati nella figura \ref{fig:bias_variance_tradeoff}):
+
+\begin{figure}[htbp]
+    \centering
+
+    % Colonna sinistra: testo descrittivo
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt} % allinea in alto
+        \small
+        \begin{itemize}
+            \item \textbf{Basso bias, bassa varianza:}  
+            Le stime sono vicine tra loro e vicine al valore vero.  
+            Lo stimatore è sia accurato che stabile (caso ideale).
+
+            \item \textbf{Basso bias, alta varianza:}  
+            Le stime sono in media corrette (attorno al valore vero), ma molto disperse.  
+            Lo stimatore è accurato in media, ma instabile.
+
+            \item \textbf{Alto bias, bassa varianza:}  
+            Le stime sono tutte raggruppate, ma lontane dal valore vero.  
+            Lo stimatore è sistematicamente sbilanciato, ma coerente.
+
+            \item \textbf{Alto bias, alta varianza:}  
+            Le stime sono lontane dal valore vero e molto disperse.  
+            È il caso peggiore: impreciso e inaccurato.
+        \end{itemize}
+    \end{minipage}
+    \hfill
+    % Colonna destra: immagine
+    \begin{minipage}[t]{0.48\textwidth}
+        \vspace{0pt} % allinea in alto
+        \centering
+        \includegraphics[width=\linewidth]{images/bias_variance_tradeoff.png}
+    \end{minipage}
+
+    \caption{Illustrazione concettuale di bias e varianza con l'analogia del bersaglio. Ogni pannello dell’immagine mostra una serie di stime (punti blu) rispetto al valore vero (centro del bersaglio). Il modo in cui i punti si distribuiscono rispetto al centro riflette combinazioni diverse di bias (quanto siamo lontani dal valore vero) e varianza (quanto le stime sono stabili tra loro).}
+    \label{fig:bias_variance_tradeoff}
+\end{figure}
+
+\section{Test statistici}
+I test statistici sono procedure utilizzate per prendere decisioni riguardo a una popolazione basandosi su dati campionari. Questi test permettono di valutare ipotesi specifiche riguardo a parametri della popolazione, come la media o la varianza, e di determinare se le osservazioni campionarie forniscono prove sufficienti per accettare o rifiutare tali ipotesi.
+
+\subsection{Test di ipotesi}
+Gli intervalli di confidenza e gli stimatori sono strettamente legati ai \textbf{test di ipotesi} (hypothesis testing), che sono procedure statistiche utilizzate per prendere decisioni riguardo a una popolazione basandosi su dati campionari. La differenza sta nel fatto che mentre gli intervalli di confidenza forniscono un range di valori plausibili per un parametro della popolazione, i test di ipotesi valutano la validità di una specifica affermazione riguardo a quel parametro.
+
+\noindent
+Si definisce:
+\begin{itemize}
+    \item \textbf{Ipotesi nulla} (null hypothesis, \(H_0\)): è l'ipotesi di base che si vuole testare. Spesso rappresenta uno stato di "nessun effetto" o "nessuna differenza".
+    \item \textbf{Ipotesi alternativa} (alternative hypothesis, \(H_a\)): è l'ipotesi che si vuole sostenere se i dati forniscono prove sufficienti contro l'ipotesi nulla.
+\end{itemize}
+
+L'ipotesi nulla è l'ipotesi che stiamo cercando di smentire\footnote{Un po' come avviene con le dimostrazioni per assurdo.} e usiamo l'ipotesi alternativa come supporto per la nostra affermazione.
+
+Prima di procedere con il testo, si sceglie un \textbf{livello di significatività} \(\alpha\), che rappresenta la probabilità di rifiutare l'ipotesi nulla $H_0$ quando essa è vera. Dopo ci chiediamo qual è la probabilità di osservare i dati campionari (o qualcosa di più estremo) sotto l'assunzione che l'ipotesi nulla sia vera. Questa probabilità è chiamata \textbf{valore p} (p-value).
+
+Per fare questo, utilizziamo la statistica di test usando la distribuzione t di Student (sezione \ref{subsec:student_t_distribution}) perché ci dice come si comporta la media campionaria rispetto alla media della popolazione sotto l'ipotesi nulla.
+
+Dopo aver calcolato il valore p, lo confrontiamo con il livello di significatività \(\alpha\):
+\begin{itemize}
+    \item Se il valore p è minore o uguale a \(\alpha\), rifiutiamo l'ipotesi nulla \(H_0\) a favore dell'ipotesi alternativa \(H_a\).
+    \item Se il valore p è maggiore di \(\alpha\), non rifiutiamo l'ipotesi nulla \(H_0\).
+\end{itemize}
+
+\paragraph{Esempio: una moneta è truccata?}
+Immaginiamo di avere una moneta e di voler capire se è equa (ossia, se la probabilità di ottenere testa è uguale a quella di ottenere croce). Formuliamo le ipotesi:
+\begin{itemize}
+    \item Ipotesi nulla \(H_0\): la moneta è equa, quindi \(p = 0.5\).
+    \item Ipotesi alternativa \(H_a\): la moneta è truccata, quindi \(p \neq 0.5\).
+\end{itemize}
+
+\noindent
+Facciamo l'esperimento: lanciamo la moneta 10 volte e otteniamo 9 teste e 1 croce. Fissiamo un livello di significatività \(\alpha = 0.05\), ovvero siamo disposti ad accettare un 5\% di rischio di rifiutare l'ipotesi nulla quando essa è vera (ovvero dire "la moneta è truccata" quando in realtà è equa).
+
+Calcoliamo il valore p (che indica la probabilità di ottenere 9 o più teste in 10 lanci se la moneta fosse equa):
+\[
+\text{Valore p} = P(X \geq 9) = P(X = 9) + P(X = 10) = \binom{10}{9} (0.5)^{10} + \binom{10}{10} (0.5)^{10}\approxeq 1.6\%
+\]
+
+Con una moneta onesta ($P(Testa) = P(Croce) = 0.5$), la probabilità di ottenere 9 o più teste in 10 lanci è: 
+
+\[
+\binom{10}{9} (0.5)^{10} \cdot (0.5)^{10} + \binom{10}{10} (0.5)^{10} = \frac{10}{1024} + \frac{1}{1024} = \frac{11}{1024} \approx 1.07\%
+\]
+
+Ma siccome stiamo testando $p \neq 0.5$, dobbiamo considerare anche l'altra coda della distribuzione (ovvero ottenere 1 o meno teste in 10 lanci):
+\[
+\binom{10}{0} (0.5)^{10} + \binom{10}{1} (0.5)^{10} = \frac{1}{1024} + \frac{10}{1024} = \frac{11}{1024} \approx 1.07\%
+\]
+
+Quindi se la moneta fosse onesta, un risultato così estremo capitrebbe solo nel:
+\[
+p-value \approx 2 \cdot 1.07\% = 2.14\%
+\]
+
+Adesso confrontiamo il p-value con $\alpha$:
+\[
+2.14\% < 5\%
+\]
+
+Poiché il p-value è minore di \(\alpha\), rifiutiamo l'ipotesi nulla \(H_0\) e concludiamo che c'è evidenza sufficiente per suggerire che la moneta è truccata (ipotesi alternativa \(H_a\)).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/hypothesis_testing_coin.png}
+    \caption{Esempio di test di ipotesi su una moneta. Le barre mostrano la probabilità di ottenere \(k\) teste su 10 lanci se la moneta fosse equa (\(H_0 : p = 0.5\)). Le barre rosse evidenziano gli esiti “estremi” (\(k \leq 1\) o \(k \geq 9\)) che contribuiscono al valore \(p\) in un test bilaterale. Nell’esperimento osserviamo 9 teste (linea tratteggiata): questo caso cade in zona estrema. Il valore \(p \approx 2.15\%\) è minore di \(\alpha = 5\%\), quindi rifiutiamo \(H_0\) e concludiamo che ci sono evidenze per dire che la moneta è truccata (\(H_a : p \neq 0.5\)).}
+    \label{fig:hypothesis_testing_coin}
+\end{figure}
+
+\paragraph{Tipi di errori nei test statistici.}
+Il test di ipotesi è una tipologia di test che può portare a due tipi di errori: rigettare l'ipotesi nulla oppure non rigettarla e questa è una tipologia di classificazione binaria.
+
+Come in tutte le classificazioni binarie, non si ha mai la probabilità del 100\% di prendere la decisione giusta. Si possono quindi commettere due tipi di errori:
+\begin{itemize}
+    \item \textbf{Errore di tipo I} (Type I error): si verifica quando si rifiuta l'ipotesi nulla \(H_0\) quando essa è vera. La probabilità di commettere un errore di tipo I è pari al livello di significatività \(\alpha\).
+    \item \textbf{Errore di tipo II} (Type II error): si verifica quando non si rifiuta l'ipotesi nulla \(H_0\) quando essa è falsa. La probabilità di commettere un errore di tipo II è indicata con \(\beta\).
+\end{itemize}
+
+Da questo, si può costruire una tabella di contingenza che riassume i possibili esiti di una classificazione binaria:
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{|c|c|c|}
+        \hline
+        & \textbf{Ipotesi nulla vera} & \textbf{Ipotesi nulla falsa} \\
+        \hline
+        \textbf{Rifiuto} & Errore di tipo I (\(\alpha\)) & Vero positivo \\
+        \hline
+        \textbf{Non rifiuto} & Vero negativo & Errore di tipo II (\(\beta\)) \\
+        \hline
+    \end{tabular}
+    \caption{Tabella di contingenza per i test di ipotesi.}
+    \label{tab:contingency_table}
+\end{table}
+
+\subsection{T-test a un campione}
+Il t-test a un campione (one-sample t-test) è un test statistico utilizzato per determinare se la media di un campione differisce significativamente da un valore specifico della popolazione. Questo test è particolarmente utile quando la varianza della popolazione è sconosciuta e il campione è di dimensioni ridotte.
+
+\subsection{T-test a due campioni}
+Il t-test a due campioni (two-sample t-test) è un test statistico utilizzato per confrontare le medie di due gruppi indipendenti e determinare se esistono differenze significative tra di esse. Questo test è utile quando si vuole valutare l'effetto di un trattamento o di una condizione su due gruppi distinti. 
+
+\subsection{Test $\chi^2$ per indipendenza}
+Il test $\chi^2$ per indipendenza è un test statistico utilizzato per determinare se esiste una relazione significativa tra due variabili categoriali. Questo test confronta le frequenze osservate in un campione con le frequenze attese se le due variabili fossero indipendenti. Utilizza il test di ipotesi, formulando come ipotesi nulla $H_0$ l'indipendenza tra le due variabili e come ipotesi alternativa $H_a$ la dipendenza tra di esse. 
+
+È spesso accompagnato dalla statistica di Cramér, che misura la forza dell'associazione tra le due variabili categoriali.
+
+\subsection{Test $\chi^2$ di bontà di adattamento}
+Il test $\chi^2$ di bontà di adattamento è un test statistico utilizzato per determinare se un insieme di dati osservati si discosta significativamente da un modello teorico atteso. Questo test è spesso utilizzato per verificare se una distribuzione di frequenze osservate si adatta a una distribuzione attesa, come la distribuzione uniforme o la distribuzione normale. L'ipotesi nulla $H_0$ in questo caso afferma che non ci sono differenze significative tra le frequenze osservate e quelle attese, mentre l'ipotesi alternativa $H_a$ suggerisce che ci sono differenze significative.
+
+\subsection{Test di correlazione di Pearson}
+Il test di correlazione di Pearson è un test statistico utilizzato per misurare la forza e la direzione della relazione lineare tra due variabili continue. Il coefficiente di correlazione di Pearson, denotato come \(r\), varia tra -1 e 1, dove valori vicini a 1 indicano una forte correlazione positiva, valori vicini a -1 indicano una forte correlazione negativa, e valori vicini a 0 indicano nessuna correlazione lineare (sotto-sezione \ref{subsec:pearson_correlation}). L'ipotesi nulla \(H_0\) afferma che non esiste una correlazione significativa tra le due variabili, mentre l'ipotesi alternativa \(H_a\) suggerisce che esiste una correlazione significativa.
+
+\subsection{Test di correlazione di Spearman}
+Il test di correlazione di Spearman, d'altra parte, è un test non parametrico utilizzato per misurare la forza e la direzione della relazione monotona tra due variabili ordinali o continue. Il coefficiente di correlazione di Spearman, denotato come \(\rho\) (rho), varia anch'esso tra -1 e 1, con interpretazioni simili a quelle del coefficiente di Pearson (sotto-sezione \ref{subsec:spearman_correlation}). L'ipotesi nulla \(H_0\) afferma che non esiste una correlazione monotona significativa tra le due variabili, mentre l'ipotesi alternativa \(H_a\) suggerisce che esiste una correlazione monotona significativa.
+
+\section{Valutare quando un campione è distribuito normalmente}
+Per valutare se un campione di dati segue una distribuzione normale, si possono utilizzare diversi metodi statistici e grafici.
+
+\subsection{Grafici Q-Q}
+I grafici Q-Q (quantile-quantile) sono strumenti grafici per confrontare la distribuzione di un campione con una distribuzione teorica (ad esempio una normale). Si mettono sull'asse orizzontale i quantili teorici e sull'asse verticale i quantili osservati nel campione.  
+
+\begin{itemize}
+    \item Se i punti stanno vicino a una linea retta, il campione segue bene la distribuzione teorica.  
+    \item Se i punti si allontanano dalla linea in modo sistematico, i dati non seguono quella distribuzione.
+\end{itemize}
+Un esempio di Q-Q plot rispetto alla normale è mostrato in figura \ref{fig:qq_plot_normal}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/qq_plot_normal.png}
+    \caption{Q-Q plot rispetto alla normale: più i punti seguono la linea rossa, più i dati possono essere considerati circa normali.}
+    \label{fig:qq_plot_normal}
+\end{figure}
+
+All'inizio interpretare un Q-Q plot non è sempre immediato. Per questo spesso si confrontano diversi casi tipici, così da riconoscere pattern ricorrenti (figura \ref{fig:qq_plot_guidelines}).
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/qq_plot_guidelines.png}
+    \caption{Relazione tra forma delle code e Q-Q plot. Code troppo leggere (\textit{short tails}) piegano verso l'interno; code pesanti (\textit{long tails}) si incurvano verso l'esterno; una coda destra lunga fa salire la parte destra del Q-Q plot sopra la linea; una coda sinistra lunga fa scendere la parte sinistra sotto la linea.}
+    \label{fig:qq_plot_guidelines}
+\end{figure}
+
+\subsection{Test di normalità di Shapiro-Wilk}
+Il test di Shapiro-Wilk è un test statistico utilizzato per valutare se un campione di dati segue una distribuzione normale. È usato principalmente quando si ha un campione di dimensioni ridotte (tipicamente $n \le 2000$). Il test funziona calcolando una statistica \(W\) che confronta l'ordine dei dati osservati con l'ordine atteso se i dati fossero normalmente distribuiti. Se il valore di \(W\) è significativamente basso, si rifiuta l'ipotesi nulla \(H_0\) che i dati seguono una distribuzione normale.
+
+\subsection{Test \(K^2\) di D'Agostino}
+Per campioni grandi ($n \ge 50$) si può utilizzare il test \(K^2\) di D'Agostino, che valuta la normalità basandosi su due misure: la skewness (asimmetria) e la kurtosis (appiattimento). Il test calcola una statistica \(K^2\) combinando queste due misure e confronta il risultato con una distribuzione $\chi^2$. Se il valore di \(K^2\) è significativamente alto, si rifiuta l'ipotesi nulla \(H_0\) che i dati seguono una distribuzione normale.

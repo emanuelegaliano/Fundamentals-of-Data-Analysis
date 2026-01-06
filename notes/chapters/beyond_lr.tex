@@ -1,0 +1,225 @@
+\chapter{Oltre la regressione lineare}
+Un problema evidente nell'esempio del dataset \ref{tab:car_dataset} è che la relazione tra le variabili non è lineare. In questi casi, l'uso di una regressione lineare semplice non è adatto per modellare i dati. 
+
+\section{Interazione tra variabili}
+Un modo per affrontare la non linearità è introdurre termini di interazione tra le variabili. Un modello del dataset così formato:
+\[
+\text{mpg} = \beta_0 + \beta_1 \cdot \text{horsepower} + \beta_2 \cdot \text{weight}
+\]
+può essere esteso includendo un termine di interazione:
+\[
+\text{mpg} = \beta_0 + \beta_1 \cdot \text{horsepower} + \beta_2 \cdot \text{weight} + \beta_3 \cdot (\text{horsepower} \times \text{weight})
+\]
+
+Questo modello consente di catturare l'effetto combinato di \textit{horsepower} e \textit{weight} sulla variabile dipendente \textit{mpg}. I risultati di questo modello sono:
+
+\paragraph{Additive Model (R-squared)}
+\(
+\text{Adjusted } R^2 = 0.7049
+\)
+
+\paragraph{Interaction Model (R-squared)}
+\(
+\text{Adjusted } R^2 = 0.7465
+\)
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{lrrrrr}
+\hline
+ & coef & std err & t & P$>|t|$ & [0.025, 0.975] \\
+\hline
+Intercept           & 63.5579 & 2.343 & 27.127 & 0.000 & 58.951 -- 68.164 \\
+horsepower          & -0.2508 & 0.027 & -9.195 & 0.000 & -0.304 -- -0.197 \\
+weight              & -0.0108 & 0.001 & -13.921 & 0.000 & -0.012 -- -0.009 \\
+horsepower:weight   & 5.355e-05 & 6.65e-06 & 8.054 & 0.000 & 4.05e-05 -- 6.66e-05 \\
+\hline
+\end{tabular}
+\caption{Coefficients for the Interaction Regression Model}
+\end{table}
+
+\subsection{Interpretazione dei coefficienti}
+Dai risultati, si evince che il termine di interazione tra \textit{horsepower} e \textit{weight} è statisticamente significativo ($\text{p-value} < 0.05$). Questo indica che l'effetto di \textit{horsepower} sul \textit{mpg} dipende dal valore di \textit{weight}, e viceversa.
+
+Possiamo riscrvere l'equazione del modello come:
+\[
+\text{mpg} = \beta_0 + (\beta_1 + \beta_3 \cdot \text{weight}) \cdot \text{horsepower} + \beta_2 \cdot \text{weight}
+\]
+Ciò significa che l'effetto di horsepower non è più il valore fisso di $\beta_1$, ma varia in funzione del peso dell'auto. Ad esempio, per un'auto più pesante, l'effetto negativo di un aumento di horsepower sul mpg sarà maggiore rispetto a un'auto più leggera. L'effetto può essere visto nella figura \ref{fig:interaction_plot}, da cui si nota come il modello con interazione migliori la distribuzione dei residui e del Q-Q plot rispetto al modello additivo.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/interaction_plot.png}
+    \caption{Confronto tra il modello additivo 
+    $mpg = \beta_0 + \beta_1 \text{horsepower} + \beta_2 \text{weight}$ (prima riga)
+    e il modello con interazione 
+    $mpg = \beta_0 + \beta_1 \text{horsepower} + \beta_2 \text{weight} + \beta_3 \text{horsepower}\times\text{weight}$ (seconda riga). 
+    A sinistra sono riportati i grafici dei residui, a destra i Q-Q plot dei residui rispetto alla distribuzione normale teorica.}
+    \label{fig:interaction_plot}
+\end{figure}
+
+\section{Regressione polinomiale}
+Un altro approccio per modellare relazioni non lineari è l'uso di regressioni polinomiali, ovvero modelli che includono termini di potenza delle variabili indipendenti. 
+
+\subsection{Regressione quadratica}
+Ad esempio, possiamo estendere il modello originale includendo un termine quadratico per \textit{horsepower}:
+\[
+\text{mpg} = \beta_0 + \beta_1 \cdot \text{horsepower} + \beta_2 \cdot \text{horsepower}^2
+\]
+
+e notando che l'aggiunta del termine quadratico migliora l'adattamento del modello ai dati. I risultati di questo modello sono:
+\begin{table}[h!]
+
+\centering
+\begin{tabular}{lrrrrr}
+\hline
+ & coef & std err & t & P$>|t|$ & [0.025, 0.975] \\
+\hline
+Intercept          & 56.9001 & 1.800 & 31.604 & 0.000 & 53.360 -- 60.440 \\
+horsepower         & -0.4662 & 0.031 & -14.978 & 0.000 & -0.527 -- -0.405 \\
+I(horsepower$^{2}$) & 0.0012 & 0.000 & 10.080 & 0.000 & 0.001 -- 0.001 \\
+\hline
+\end{tabular}
+\caption{Risultati della regressione con termine quadratico}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/quadratic_regression.png}
+    \caption{Curva del modello di regressione polinomiale di secondo grado per il dataset delle auto. Si nota come la curva si adatti meglio ai dati rispetto a una retta.}
+    \label{fig:polynomial_regression}
+\end{figure}
+
+\subsection{Polinomi di grado superiore}
+Possiamo anche considerare polinomi di grado superiore, come un modello di grado 4:
+\[
+\text{mpg} = \beta_0 + \beta_1 \cdot \text{horsepower} + \beta_2 \cdot \text{horsepower}^2 + \beta_3 \cdot \text{horsepower}^3 + \beta_4 \cdot \text{horsepower}^4
+\]
+
+Questo modello fitta i dati in modo ancora più accurato, come mostrato nella figura \ref{fig:polynomial_regression_degree4}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/polynomial_regression_degree4.png}
+    \caption{Curva del modello di regressione polinomiale di quarto grado per il dataset delle auto. Si nota come la curva si adatti molto bene ai dati.}
+    \label{fig:polynomial_regression_degree4}
+\end{figure}
+
+\subsection{Problema dell'interpretabilità}
+Un aspetto importante da considerare quando si utilizzano modelli polinomiali è l'interpretabilità dei coefficienti. A differenza della regressione lineare semplice, dove ogni coefficiente rappresenta l'effetto marginale di una variabile indipendente sulla variabile dipendente, nei modelli polinomiali i coefficienti delle potenze superiori non hanno un'interpretazione diretta.
+
+Proviamo a interpretare il modello con grado 4. In questo caso i coefficienti indicano l'effetto complessivo delle variazioni di \textit{horsepower} sulla variabile \textit{mpg}. Provando a isolarli, si può descrivere $\beta_1$ come l'effetto marginale iniziale di un aumento di \textit{horsepower}, ma gli effetti di $\beta_2$, $\beta_3$ e $\beta_4$ dipendono dai valori specifici di \textit{horsepower}. Ad esempio, l'effetto di un aumento di 1 unità di \textit{horsepower} quando \textit{horsepower} è basso sarà diverso rispetto a quando \textit{horsepower} è alto, a causa dei termini di potenza superiore.
+
+Notiamo subito una cosa: l'interpretazione dei coefficienti diventa complessa e meno intuitiva man mano che complichiamo il modello. Da qui nasce il paradigma \emph{machine learning}, che si concentra più sulla capacità predittiva del modello piuttosto che sull'interpretabilità dei coefficienti.
+
+\subsection{Metriche di predizione}
+Poiché l'obiettivo principale dei modelli più complessi è la predizione accurata, è importante utilizzare metriche appropriate per valutare le prestazioni del modello sul test set (ovvero valutare l'errore).
+
+\subsection{MSE: Mean Squared Error}
+Una metrica comune per valutare le prestazioni di un modello di regressione è il Mean Squared Error (MSE), che misura la media dei quadrati degli errori tra i valori previsti e i valori effettivi:
+\[
+\text{MSE} = \frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2
+\]
+dove \(y_i\) sono i valori effettivi, \(\hat{y}_i\) sono i valori previsti dal modello, e \(n\) è il numero di osservazioni.
+
+L'MSE ha un problema: le unità sono quadratiche rispetto alla variabile di interesse. Per esempio, se la variabile di interesse è espressa in miglia per gallone (mpg), l'MSE sarà espresso in (mpg)$^2$, rendendo difficile l'interpretazione diretta dell'errore, inoltre l'MSE è sensibile ai valori anomali (outliers) a causa della natura quadratica della formula.
+
+\subsection{RMSE: Root Mean Squared Error}
+Per risolvere il problema delle unità, si può utilizzare la radice quadrata dell'MSE, nota come Root Mean Squared Error (RMSE):
+\[
+\text{RMSE} = \sqrt{\text{MSE}} = \sqrt{\frac{1}{n} \sum_{i=1}^{n} (y_i - \hat{y}_i)^2}
+\]
+Il RMSE riporta l'errore nella stessa unità della variabile di interesse, rendendo più facile l'interpretazione. Tuttavia, rimane sensibile ai valori anomali.
+
+\subsection{MAE: Mean Absolute Error}
+La metrica che risolve entrambi i problemi precedenti è il Mean Absolute Error (MAE), che misura la media degli errori assoluti tra i valori previsti e i valori effettivi:
+\[
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+\]
+Il MAE è espresso nella stessa unità della variabile di interesse e non è influenzato in modo significativo dai valori anomali, poiché utilizza il valore assoluto invece del quadrato degli errori.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/error_metrics_comparison.png}
+    \caption{Confronto visivo tra tre modelli di regressione con diverso livello di adattamento ai dati.
+    Da sinistra a destra: \textit{High Fit}, \textit{Medium Fit} e \textit{Low Fit}. 
+    Per ciascun modello sono riportati i punti osservati, la retta di regressione stimata e le principali metriche di performance 
+    ($R^2$, MSE, RMSE e MAE). Si osserva come la dispersione crescente dei dati attorno alla retta comporti un peggioramento sistematico di tutte le metriche di errore.}
+    \label{fig:error_metrics_comparison}
+\end{figure}
+
+\section{Overfitting}
+Il problema dell'\emph{underfitting} è stato risolto con l'introduzione di modello più complessi, quadratico nel caso del dataset di auto. Ma sussite ancora un altro problema: \textbf{l'overfitting}. L'overfitting si verifica quando un modello si adatta troppo strettamente ai dati di addestramento, catturando il rumore invece del segnale sottostante. Questo porta a una scarsa capacità di generalizzazione su nuovi dati. Per esempio, un modello di regressione polinomiale di grado molto alto potrebbe adattarsi perfettamente ai dati di addestramento, ma fallire nel prevedere correttamente i valori su un set di test.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.9\textwidth]{images/overfitting_underfitting.png}
+   \caption{Esempio di underfitting, good fit e overfitting nel rapporto tra \textit{horsepower} e \textit{MPG}. 
+    La curva di grado 1 (verde) sottostima la complessità della relazione (\textit{underfit}), quella di grado 2 (rossa) fornisce un buon compromesso tra bias e varianza, mentre il modello di grado 15 (linea tratteggiata nera) si adatta eccessivamente al rumore dei dati (\textit{overfit}), mostrando forti oscillazioni prive di significato inferenziale.}
+    \label{fig:overfitting_underfitting}
+\end{figure}
+
+Generalmente questo è un problema di \emph{alta varianza}, ovvero il modello è troppo sensibile alle variazioni nei dati di addestramento (come si vede in figura \ref{fig:overfitting_underfitting})
+
+\subsection{Regolarizzazione}
+Per mitigare l'overfitting, si possono utilizzare tecniche di regolarizzazione che penalizzano la complessità del modello. La regolarizzazione aggiunge un termine di \textbf{penalità} alla funzione di costo del modello, scoraggiando coefficienti troppo grandi. Questo termine è progettato per forzare il vettore dei coefficienti $\beta$ ad essere più piccolo, riducendo così la complessità del modello e migliorando la sua capacità di generalizzazione.
+
+\paragraph{Ridge Regression (L2 Regularization)}
+La Ridge Regression aggiunge una penalità basata sulla somma dei quadrati dei coefficienti:
+\[
+\text{RSS}_{L2} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} \beta_j^2
+\]
+dove \(\lambda\) è un iperparametro che controlla la forza della penalità. Un valore più alto di \(\lambda\) porta a coefficienti più piccoli.
+
+Da qui possiamo scrivere OLS con regolarizzazione L2 come:
+\[
+\hat{\beta}^{ridge} =(X^T X + \lambda I)^{-1} X^T y
+\]
+dove \(I\) è la matrice identità, quindi $\lambda I$ aggiunge un termine positivo alla diagonale di \(X^T X\), migliorando la stabilità numerica dell'inversione della matrice.
+
+\begin{figure}[htpb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/ridge_regression_effect.png}
+    \caption{Percorsi dei coefficienti del modello Ridge al variare del parametro di penalizzazione $\lambda$.
+    All'aumentare di $\lambda$, i coefficienti vengono spinti verso valori più piccoli in modulo, riducendo la varianza del modello.
+    Si osserva come le variabili con minore rilevanza predittiva vengano contratte più rapidamente, mentre i predittori più informativi rimangono relativamente stabili per valori più elevati di $\lambda$.}
+    \label{fig:ridge_regression_effect}
+\end{figure}
+
+Come si vede in figura \ref{fig:ridge_regression_effect}, all'aumentare di \(\lambda\), i coefficienti del modello vengono spinti verso zero, riducendo la varianza del modello e migliorando la sua capacità di generalizzazione.
+
+\paragraph{Lasso Regression (L1 Regularization)}
+La Lasso Regression utilizza una penalità basata sulla somma dei valori assoluti dei coefficienti:
+\[
+\text{RSS}_{L1} = \sum_{i=1}^{n} (y_i - \hat{y}_i)^2 + \lambda \sum_{j=1}^{p} |\beta_j|
+\]
+Anche in questo caso, \(\lambda\) controlla la forza della penalità. Un aspetto interessante della Lasso è che può portare a coefficienti esattamente pari a zero, effettuando una \textbf{selezione automatica} delle variabili. Questo rende la Lasso particolarmente utile quando si sospetta che solo un sottoinsieme delle variabili predittive sia rilevante per il modello.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/lasso_regression_effect.png}
+    \caption{Percorsi dei coefficienti del modello Lasso al variare del parametro di penalizzazione $\lambda$.
+    A differenza della regressione Ridge, la penalizzazione L1 forza progressivamente alcuni coefficienti esattamente a zero, effettuando una vera e propria selezione delle variabili. 
+    Si osserva che, per valori crescenti di $\lambda$, solo pochi predittori mantengono un coefficiente diverso da zero, mentre gli altri vengono eliminati dal modello.}
+    \label{fig:lasso_regression_effect}
+\end{figure}
+
+
+\subsection{Bias-Varianza trade-off con la regolarizzazione}
+La regolarizzazione introduce un compromesso tra bias e varianza nel modello. Aumentando la penalità (cioè aumentando \(\lambda\)), si riduce la varianza del modello, ma si introduce anche un certo bias, poiché il modello potrebbe non adattarsi perfettamente ai dati di addestramento. Tuttavia, questo compromesso spesso porta a una migliore performance complessiva su nuovi dati, riducendo l'overfitting. In particolare, l'iperparametro \(\lambda\) può essere visto come una "manopola" che regola il bilanciamento tra bias e varianza:
+\begin{itemize}
+    \item Quando $\lambda=0$, non c'è regolarizzazione e il modello può avere alta varianza (overfitting).
+    \item Man mano che $\lambda$ aumenta, la varianza diminuisce ma il bias aumenta.
+    \item Esiste un valore ottimale di $\lambda$ che bilancia bias e varianza, minimizzando l'errore di generalizzazione.
+    \item Per $\lambda \rightarrow \infty$, tutti i coefficienti tendono a zero, portando a un modello con alto bias e bassa varianza (underfitting).
+\end{itemize}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/bias_variance_tradeoff_reg.png}
+    \caption{Curva di validazione per la regressione Ridge con modello polinomiale di grado 15.
+    La penalizzazione $\lambda$ controlla il compromesso tra bias e varianza: 
+    per valori molto piccoli di $\lambda$ il modello soffre di alta varianza (overfitting), mentre per valori molto grandi mostra alto bias (underfitting). 
+    L'errore di validazione (curva rossa) raggiunge il minimo attorno a $\lambda \approx 2.85$, indicato dalla linea tratteggiata, che rappresenta il valore ottimale di regolarizzazione.}
+    \label{fig:bias_variance_tradeoff_reg}
+\end{figure}

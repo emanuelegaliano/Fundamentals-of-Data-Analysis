@@ -1,0 +1,413 @@
+\chapter{Classificazione}
+La classificazione è un altro tipo di modello \emph{predittivo}. In particolare, la classificazione viene utilizzata quando l'obiettivo è prevedere una categoria o una classe a cui appartiene un'osservazione basandosi su un insieme di caratteristiche o attributi. A differenza della regressione, che prevede valori continui, la classificazione si occupa di variabili categoriche.
+
+\section{Definizione formale}
+\begin{nicequote}
+    Sia dato un insieme di dati $D$, dove ogni osservazione $x_i$ è rappresentata da un vettore di caratteristiche $(x_{i1}, x_{i2}, \ldots, x_{in})$ e associata a una classe $y_i$ appartenente a un insieme finito di classi $C = \{c_1, c_2, \ldots, c_k\}$. Il modello di classificazione può essere definito come:
+    \[
+    h: \mathbb{R}^n \rightarrow C = \{c_1, c_2, \ldots, c_k\}
+    \]
+    dove $h$ è la funzione di classificazione che mappa le caratteristiche dell'osservazione alla sua classe corrispondente.
+\end{nicequote}
+
+Anche in questo caso, l'insieme dei dati $D$ viene suddiviso in training set e test set per addestrare e valutare il modello di classificazione:
+\[
+D = \{(x_i, y_i)\}^N_{i=1} = D_{train} \cup D_{test}
+\]
+
+Da questo capiamo che $x_i \in \mathbb{R}^n$ rappresenta il vettore delle caratteristiche dell'osservazione $i$-esima, mentre $y_i \in C$ rappresenta la classe associata a quell'osservazione, ovvero l'etichetta che vogliamo prevedere. possiamo utilizzare il \textbf{rischio empirico} per valutare le prestazioni del modello, utilizzando come \emph{loss function}:
+\[
+L(y, \hat{y}) =
+\begin{cases}
+1 & \text{se } \hat{y} \neq y \\
+0 & \text{se } \hat{y} = y
+\end{cases} 
+\]
+e da qui scriviamo la formula del rischio empirico:
+\[
+R_{emph}(h) = \frac{1}{N} \sum_{i=1}^{N} L(\hat{y}_i, y_i)
+= \frac{\text{numero di classificazioni errate}}{N}
+\]
+
+Il rischio empirico calcolato in questo modo si chiama \textbf{tasso di errore} (error rate) e rappresenta la proporzione di osservazioni che sono state classificate in modo errato dal modello. Il classificatore ideale è quello che minimizza il rischio empirico, quindi:
+\[
+\hat{h} = \arg\min_{h \in \mathcal{H}} R_{emph}(h)    
+\]
+dove $\mathcal{H}$ è l'insieme di tutti i possibili classificatori.
+
+\section{Misure di valutazione}
+Come nel caso della regressione, è necessario valutare il modello di classificazione durante il training, per fare \emph{fine tuning}\footnote{Il \emph{fine tuning} è il processo di ottimizzazione dei parametri del modello per migliorare le sue prestazioni.} e per valutare le sue prestazioni sul test set. Come nel caso della regressione consideriamo come input di valutazione i risultati corretti e le etichette predette dal modello.
+
+\subsection{Accuratezza}
+L'\textbf{accuratezza} (accuracy) è una delle misure più comuni per valutare le prestazioni di un modello di classificazione. Essa rappresenta la proporzione di osservazioni correttamente classificate rispetto al totale delle osservazioni:
+\[
+\text{Accuratezza}(Y_{\text{TE}}, \hat{Y}_{\text{TE}}) = \frac{\text{Numero di classificazioni corrette}}{\text{Totale delle osservazioni}} = \frac{|y^{(i)}: y^{(i) = \hat{y}^{(i)}}|}{|Y_{\text{TE}}|}
+\]
+Dove $Y_{\text{TE}}$ è l'insieme delle etichette vere del test set e $\hat{Y}_{\text{TE}}$ è l'insieme delle etichette predette dal modello.
+
+Calcolata in questo modo l'accuratezza è complementare al tasso di errore, quindi se avessimo il 30\% di accuracy avremo il 70\% di tasso di errore.
+
+\subsection{Tipi di errori}
+In un problema di classificazione distinguiamo due tipi di errori principali:
+\begin{itemize}
+    \item \textbf{Falsi positivi (FP)}: Si verificano quando il modello predice una classe positiva (ad esempio, la presenza di una malattia), ma l'osservazione appartiene effettivamente alla classe negativa (assenza della malattia).
+    \item \textbf{Falsi negativi (FN)}: Si verificano quando il modello predice una classe negativa, ma l'osservazione appartiene effettivamente alla classe positiva.
+\end{itemize}
+
+\noindent
+Dalla lista dei tipi di errori si può estrapolare la lista delle predizioni corrette:
+\begin{itemize}
+    \item \textbf{Vero positivo (TP)}: Si verificano quando il modello predice correttamente una classe positiva.
+    \item \textbf{Vero negativo (TN)}: Si verificano quando il modello predice correttamente una classe negativa.
+\end{itemize}
+
+\subsection{Matrice di confusione}
+La \textbf{matrice di confusione} (confusion matrix) è uno strumento utile per visualizzare le prestazioni di un modello di classificazione. Essa mostra il numero di predizioni corrette e errate suddivise per ciascuna classe. La matrice di confusione per un problema di classificazione binaria è rappresentata come segue:
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{c|c|c}
+        \textbf{Matrice di confusione} & Predetto Positivo & Predetto Negativo \\
+        \hline
+        Reale Positivo & TP & FN \\
+        Reale Negativo & FP & TN \\
+    \end{tabular}
+    \caption{Matrice di confusione per un problema di classificazione binaria}
+\end{table}
+
+In questa matrice abbiamo che le righe rappresentano le classi reali, mentre le colonne rappresentano le classi predette dal modello. Questo strumento ci permette di calcolare diverse metriche di valutazione utili per analizzare le prestazioni del modello.
+
+Dalla matrice, per esempio, possiamo calcolare l'accuratezza come:
+\[
+\text{Accuratezza} = \frac{TP + TN}{TP + TN + FP + FN}
+\]
+
+Si può notare che l'accuratezza è la somma delle predizioni positive (la diagonale principale della matrice) divisa per il totale delle osservazioni. Questa misura non è sempre utile, specialmente in presenza di classi sbilanciate, dove una classe è molto più rappresentata dell'altra.
+
+\paragraph{Esempio.}
+Supponiamo di avere un dataset con 1000 osservazioni, di cui 900 appartengono alla classe negativa e 100 alla classe positiva. Un modello \textit{naive} $f(x) = 1$ che predice sempre la classe negativa, avrà una matrice di confusione del tipo:
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{c|c|c}
+        \textbf{Matrice di confusione} & Predetto Positivo & Predetto Negativo \\
+        \hline
+        Reale Positivo & 0 & 100 \\
+        Reale Negativo & 0 & 900 \\
+    \end{tabular}
+    \caption{Matrice di confusione per il modello naive}
+\end{table}
+
+In questo caso, l'accuratezza del modello sarà:
+\[
+\text{Accuratezza} = \frac{0 + 900}{0 + 900 + 0 + 100} = \frac{900}{1000} = 0.9
+\]
+Quindi, nonostante il modello abbia un'accuratezza del 90\%, non è in grado di identificare correttamente nessuna delle osservazioni della classe positiva, il che lo rende inefficace per questo tipo di problema e dimostra che l'accuratezza da sola non è sufficiente per valutare le prestazioni di un modello di classificazione, specialmente in presenza di classi sbilanciate.
+
+\subsection{Precision e recall}
+Per risolvere i problemi legati all'accuratezza in presenza di classi sbilanciate, possiamo utilizzare altre metriche come la \textbf{precision} (precisione) e il \textbf{recall} (richiamo). In particolare, si definisce la precisione come:
+\[
+\text{Precisione} = \frac{TP}{TP + FP}
+\]
+ovvero la proporzione di predizioni positive corrette rispetto al totale delle predizioni positive effettuate dal modello.
+
+Il recall, invece, si definisce come:
+\[
+\text{Recall} = \frac{TP}{TP + FN}
+\]
+ovvero la proporzione di osservazioni positive correttamente identificate dal modello rispetto al totale delle osservazioni positive reali. 
+
+\paragraph{High precision vs high recall.}
+In alcuni casi, potrebbe essere più importante avere un'alta precisione, mentre in altri casi potrebbe essere più importante avere un alto recall. Ad esempio, in un sistema di rilevamento delle frodi, potrebbe essere più importante avere un alto recall per identificare il maggior numero possibile di transazioni fraudolente, anche a costo di avere qualche falso positivo in più. Al contrario, in un sistema di raccomandazione di prodotti, potrebbe essere più importante avere un'alta precisione per evitare di raccomandare prodotti non rilevanti agli utenti. Si può anche pensare a un test medico per una malattia grave: in questo caso, un alto recall è cruciale per assicurarsi che il maggior numero possibile di casi veri venga identificato, anche se ciò comporta alcuni falsi positivi. D'altra parte, in uno screening di massa per una malattia rara, un'alta precisione potrebbe essere preferibile per evitare di causare ansia inutile ai pazienti con falsi positivi.
+
+\subsection{$F_1$-score}
+Per bilanciare l'importanza di precisione e recall, possiamo utilizzare l'\textbf{$F_1$-score}, che è la media armonica\footnote{La media armonica di due numeri $a$ e $b$ è definita come $\frac{2ab}{a+b}$ ed indica un tipo di media che tende a penalizzare valori molto bassi rispetto alla media aritmetica.} tra precisione e recall. L'$F_1$-score viene calcolato come:
+\[
+F_1 = 2 \cdot \frac{\text{Precisione} \cdot \text{Recall}}{\text{Precisione} + \text{Recall}}
+\]
+
+L'$F_1$-score fornisce una singola misura che bilancia sia la precisione che il recall, ed è particolarmente utile quando si desidera un compromesso tra i due.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/f1_score.png}
+    \caption{Curve di livello dell'F\textsubscript{1}-score (a sinistra) e della media aritmetica tra precision e recall, (precision+recall)/2 (a destra), al variare di precision e recall.}
+    \label{fig:f1_score}
+\end{figure}
+
+Nella figura \ref{fig:f1_score} sono rappresentate le curve di livello dell'$F_1$-score (a sinistra) e della media aritmetica tra precision e recall, (precision+recall)/2 (a destra), al variare di precision e recall. Si può notare come l'$F_1$-score penalizzi maggiormente gli squilibri tra precision e recall rispetto alla media aritmetica, evidenziando l'importanza di mantenere un equilibrio tra le due metriche per ottenere buone prestazioni complessive del modello di classificazione.
+
+\subsection{Matrice di confusione multiclasse}
+La matrice di confusione per un problema di classificazione multiclasse è una generalizzazione della matrice di confusione binaria. In questo caso, la matrice avrà dimensioni $k \times k$, dove $k$ è il numero di classi. Ogni cella $(i, j)$ della matrice rappresenta il numero di osservazioni della classe $i$ che sono state classificate come classe $j$ e la diagonale principale rappresenta le predizioni corrette per ciascuna classe.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/confusion_matrix_multiclass.png}
+    \caption{Matrice di confusione per un problema di classificazione a quattro classi: sulla diagonale sono visibili le predizioni corrette, mentre i valori fuori diagonale rappresentano gli errori di classificazione tra le diverse classi.}
+    \label{fig:confusion_matrix_multiclass}
+\end{figure}
+
+\subsection{ROC e AUC}
+La curva ROC (Receiver Operating Characteristic) è uno strumento grafico molto utile per analizzare le prestazioni di un classificatore binario in modo indipendente dalla soglia di decisione utilizzata. L'idea è la seguente: invece di fissare una soglia specifica per stabilire se un'osservazione appartiene alla classe positiva, valutiamo come cambiano il tasso di veri positivi (True Positive Rate, TPR) e il tasso di falsi positivi (False Positive Rate, FPR) al variare della soglia stessa.
+
+Sia quindi $c(\mathbf{x})$ la funzione che assegna a ciascuna osservazione $\mathbf{x}$ un valore di confidenza, tipicamente interpretato come la probabilità che $\mathbf{x}$ appartenga alla classe positiva. A partire da questo valore definiamo un classificatore binario dipendente dalla soglia $\theta$:
+
+\[
+h_\theta(\mathbf{x}) = [\,c(\mathbf{x}) \ge \theta\,]
+\]
+
+dove le parentesi di Iverson (le parentesi quadre) indicano che l'espressione vale $1$ se la condizione è vera e $0$ altrimenti. Variando $\theta$ da $0$ a $1$ otteniamo una famiglia di classificatori, ognuno dei quali produce una diversa matrice di confusione. In particolare i valori di $\theta$ producono:
+\[
+TP_{\theta}, FP_{\theta}, TN_{\theta}, FN_{\theta}
+\]
+da cui possiamo calcolare il TPR e l'FPR, ovvero il tasso di veri positivi e il tasso di falsi positivi:
+\[
+TPR(\theta) = \frac{TP_{\theta}}{TP_{\theta} + FN_{\theta}} \quad , \quad FPR(\theta) = \frac{FP_{\theta}}{FP_{\theta} + TN_{\theta}}
+\]
+
+Notiamo che il TPR è equivalente al recall, mentre il FPR rappresenta la proporzione di osservazioni negative che sono state erroneamente classificate come positive. Da questo possiamo dire che:
+\begin{itemize}
+    \item Per una soglia $\theta$ bassa, il classificatore tenderà a predire più osservazioni come positive, aumentando sia il TPR che l'FPR.
+    \item Per una soglia $\theta$ alta, il classificatore tenderà a predire meno osservazioni come positive, riducendo sia il TPR che l'FPR.    
+\end{itemize}
+
+Si può mostrare graficamente la curva ROC tracciando il TPR in funzione dell'FPR, come mostrato in figura \ref{fig:roc_curve}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/roc_curve.png}
+    \caption{Curva ROC ottenuta sul dataset Breast Cancer: la curva mostra il compromesso tra TPR e FPR al variare della soglia di decisione, mentre l'AUC pari a 0.78 indica una buona capacità discriminante rispetto alla classificazione casuale (linea tratteggiata).}
+    \label{fig:roc_curve}
+\end{figure}
+
+Un classificatore ideale raggiungerebbe il punto più in alto a sinistra della curva ROC, dove il TPR è $1$ (tutte le osservazioni positive sono correttamente identificate) e l'FPR è $0$ (nessuna osservazione negativa è erroneamente classificata come positiva). Al contrario, un classificatore casuale produrrebbe una curva ROC che si avvicina alla diagonale del grafico, rappresentando una performance equivalente al caso casuale.
+
+Come misura, possiamo utilizzare l'\textbf{AUC} (Area Under the Curve), che rappresenta l'area sotto la curva ROC. L'AUC varia tra $0$ e $1$, dove un valore di $0.5$ indica una performance equivalente al caso casuale, mentre un valore di $1$ indica un classificatore perfetto. In generale, un AUC più alto indica una migliore capacità del modello di distinguere tra le classi positive e negative.
+
+\paragraph{Statistica J di Youden.} La statistica J di youden è una misura utilizzata per massimizzare la somma della sensibilità (TPR) e della specificità ($1-$FPR) di un classificatore. La statistica J è definita come:
+\[
+J = TPR + (1 - FPR)
+\]
+L'obiettivo è trovare la soglia di decisione che massimizza il valore di J, ovvero:
+\[
+\theta^* = \arg\max_{\theta} J(\theta)
+\]
+Questa soglia ottimale $\theta^*$ rappresenta il punto in cui il classificatore bilancia al meglio la capacità di identificare correttamente le osservazioni positive (sensibilità) e di evitare falsi positivi (specificità).
+
+\paragraph{Esempio: classificatore a soglia.} Consideriamo un classificatore che assegna una classe positiva se la misurazione stimata $c(\mathbf{x})$ supera una soglia $\theta$. Consideriamo quindi un classificatore che assegna la classe \emph{uomo} se l'altezza stimata supera la soglia $\theta$, e la classe \emph{donna} altrimenti. Ipotizziamo che la distribuzione nel nostro insieme dei dati sia quella in figura \ref{fig:height_distribution}.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/height_distribution.png}
+    \caption{Distribuzione dell'altezza per uomini e donne.}
+    \label{fig:height_distribution}
+\end{figure}
+
+Da qui capiamo che, generalmente, gli uomini, sono più alti delle donne. Supponiamo di scegliere una soglia $\theta = 170$ cm per classificare le persone in uomini e donne. In questo caso, tutte le persone con altezza superiore a 170 cm saranno classificate come uomini, mentre tutte le persone con altezza inferiore o uguale a 170 cm saranno classificate come donne producendo i seguenti risultati:
+
+\begin{table}[htbp]
+    \centering
+    \begin{tabular}{c|c|c}
+        \textbf{Matrice di confusione} & Predetto Uomo & Predetto Donna \\
+        \hline
+        Reale Uomo & 1804 & 481 \\
+        Reale Donna & 257 & 1689 \\
+    \end{tabular}
+    \caption{Matrice di confusione per il classificatore a soglia $\theta = 170$ cm}
+\end{table}
+
+\begin{table}[htbp]
+\centering
+\begin{tabular}{lcccc}
+\hline
+\textbf{Class} & \textbf{Precision} & \textbf{Recall} & \textbf{F1-score} & \textbf{Support} \\
+\hline
+False & 0.88 & 0.79 & 0.83 & 2285 \\
+True  & 0.78 & 0.87 & 0.82 & 1946 \\
+\hline
+\textbf{Accuracy} & \multicolumn{3}{c}{0.83} & 4231 \\
+\textbf{Macro Avg} & 0.83 & 0.83 & 0.83 & 4231 \\
+\textbf{Weighted Avg} & 0.83 & 0.83 & 0.83 & 4231 \\
+\hline
+\end{tabular}
+\caption{Metriche di classificazione per le classi \texttt{False} e \texttt{True}.}
+\end{table}
+
+I risultati sono abbastanza buoni, con un'accuratezza complessiva dell'83\%. Tuttavia, possiamo notare che il recall per la classe \texttt{True} (donne) è più alto rispetto alla precisione, indicando che il modello è più efficace nell'identificare le donne rispetto a quanti uomini classifica correttamente. Al contrario, per la classe \texttt{False} (uomini), la precisione è più alta del recall, suggerendo che il modello tende a classificare correttamente gli uomini, ma perde alcune donne che vengono erroneamente classificate come uomini. 
+
+Si potrebbe utilizzare la statistica J di Youden per trovare una soglia ottimale che bilanci meglio precisione e recall per entrambe le classi, migliorando così le prestazioni complessive del classificatore.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{images/youden_statistic.png}
+    \caption{Statistica J di Youden: la curva mostra il compromesso tra sensibilità e specificità al variare della soglia di decisione, mentre il punto ottimale (massimo della curva) indica la soglia che bilancia meglio i due aspetti.}
+    \label{fig:youden_statistic}
+\end{figure}
+
+Dalla figura \ref{fig:youden_statistic} possimamo notare come la migliore soglia di decisione sia 172.72 cm, che massimizza la statistica J di Youden, bilanciando al meglio la sensibilità e la specificità del classificatore basato sull'altezza.
+
+\section{K-Nearest Neighbors (KNN)}
+Il problema dei classificatori a soglia è che spesso non è possibile trovare una soglia che separi perfettamente le classi, specialmente in presenza di dati rumorosi o sovrapposti. Inoltre funzionano solamente con una feature alla volta. L'algoritmo KNN, invece, va a trasformare le caratteristiche di un'osservazione in uno spazio multidimensionale e utilizza la distanza tra le osservazioni per effettuare la classificazione.
+
+\subsection{1-NN}
+L'algoritmo più semplice della famiglia KNN è il \textbf{1-NN} (1-Nearest Neighbor). In questo caso, per classificare una nuova osservazione, l'algoritmo cerca l'osservazione più vicina nel training set e assegna la stessa classe dell'osservazione trovata. La distanza tra le osservazioni può essere calcolata utilizzando diverse metriche, come la distanza euclidea, la distanza di Manhattan o altre metriche appropriate per il tipo di dati.
+
+In particolare, possiamo misurare la distanza tra due osservazioni $x$ e $x'$ con la distanza euclidea:
+\[
+d(x, x') = ||x - x'||_2 = \sqrt{\sum_{i=1}^{n} (x_i - x'_i)^2}
+\]
+
+Dalla distanza euclidea poi, si cerca di minimizzare la distanza tra l'osservazione da classificare e le osservazioni del training set:
+\[
+h(x') = \arg \min_{y} \{d(x, x') : (x, y) \in \text{TR}\}
+\]
+dove TR è il training set. L'algoritmo 1-NN è molto semplice per il resto e funziona in due fasi principali:
+\begin{itemize}
+    \item Trova l'elemento $\bar{x}$ nel training set che minimizza la distanza $d(x, x')$ con l'osservazione $x'$ da classificare.
+    \item Assegna a $x'$ la stessa etichetta di $\bar{x}$, ovvero $h(x') = y$ dove $(\bar{x}, y) \in \text{TR}$.
+\end{itemize}
+
+\subsection{K-NN}
+L'algoritmo \textbf{K-NN} (K-Nearest Neighbors) è una generalizzazione del 1-NN che considera i $K$ vicini più prossimi invece di uno solo. In questo caso, per classificare una nuova osservazione, l'algoritmo trova i $K$ osservazioni più vicine nel training set e assegna la classe più comune tra queste osservazioni. Il valore di $K$ è un \textbf{iperparametro} che deve essere scelto in base al problema specifico e può influenzare significativamente le prestazioni del modello.
+
+In modo analogo a quanto visto nel caso della stima di densità, nel K-NN definiamo, per un punto di test $x'$, un intorno di ampiezza $K$ centrato proprio in $x'$. Indichiamo tale insieme con:
+\[
+N_K(x') = N(x', R_K(x'))
+\]
+dove $N(x, r)$ rappresenta l'intorno centrato in $x$ con raggio $r$. Il raggio $R_K(x')$ è definito come il più grande valore tale per cui l'intorno contiene \emph{al massimo} $K$ punti del training set (escludendo eventualmente $x'$ stesso). Formalmente:
+\[
+R_K(x') = \sup\{\, r : |N(x', r) \setminus \{x'\}| \le K \,\}
+\]
+
+In questo modo, l'intorno $N_K(x')$ contiene esattamente i $K$ punti del training set più vicini a $x'$, sui quali verrà poi applicata la regola di maggioranza per determinare la classe predetta.
+
+\section{Curse of dimensionality}
+Uno dei principali problemi che si incontrano con gli algoritmi basati sulla distanza, come K-NN, è la \textbf{maledizione della dimensionalità} (curse of dimensionality). Questo fenomeno si verifica quando il numero di caratteristiche (dimensioni) aumenta, rendendo difficile per l'algoritmo distinguere tra le osservazioni. In spazi ad alta dimensionalità, tutte le osservazioni tendono a essere equidistanti tra loro, rendendo la nozione di vicinanza meno significativa.
+
+\subsection{Spazio vuoto}
+Il concetto di spazio vuoto si riferisce a quella parte di uno spazio multidimensionale che non contiene alcuna osservazione del dataset. In spazi con bassa dimensione, questo problema è meno evidente, perché le osservazioni tendono a essere più vicine tra loro. Tuttavia, man mano che la dimensionalità aumenta, lo spazio vuoto diventa predominante, rendendo difficile per gli algoritmi basati sulla distanza trovare vicini significativi.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/empty_space_multidimensional.png}
+    \caption{Distribuzione di 50 punti in spazi di diversa dimensionalità: a sinistra uno spazio 1D, al centro uno spazio 2D e a destra uno spazio 3D. Al crescere della dimensionalità, i punti si disperdono in regioni sempre più ampie dello spazio delle caratteristiche.}
+    \label{fig:empty_space_multidimensional}
+\end{figure}
+
+\subsection{Impatto su K-NN}
+L'impatto della maledizione della dimensionalità sugli algoritmi K-NN è significativo. In spazi ad alta dimensionalità, la distanza tra le osservazioni tende a diventare simile, rendendo difficile per l'algoritmo identificare i vicini più prossimi in modo efficace. Questo può portare a una riduzione delle prestazioni del modello, poiché le predizioni basate sui vicini più prossimi diventano meno affidabili.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{images/curse_of_dimensionality.png}
+    \caption{Illustrazione del \emph{curse of dimensionality}: a sinistra sono riportate la distanza minima e massima tra 100 punti generati casualmente al crescere della dimensionalità dello spazio; a destra è mostrata la riduzione relativa della variabilità delle distanze, evidenziando come, in spazi ad alta dimensionalità, le distanze tra punti tendano a diventare sempre più simili, causando il collasso del concetto di “vicinato”.}
+    \label{fig:curse_of_dimensionality}
+\end{figure}
+
+Dalla figura \ref{fig:curse_of_dimensionality} possiamo notare come, al crescere della dimensionalità dello spazio, la distanza minima e massima tra i punti generati casualmente si avvicinano sempre di più. Questo fenomeno porta a una riduzione relativa della variabilità delle distanze, evidenziando come, in spazi ad alta dimensionalità, le distanze tra punti tendano a diventare sempre più simili, causando il collasso del concetto di “vicinato”. Di conseguenza, gli algoritmi K-NN possono perdere efficacia, poiché la distinzione tra vicini prossimi e lontani diventa meno significativa. 
+
+Si può inoltre calcolare lo \textbf{spread relativo}, ovvero la differenza tra la distanza massima e minima normalizzata rispetto alla distanza minima:
+\[
+\text{Spread relativo} = \frac{d_{max} - d_{min}}{d_{min}}
+\]
+
+\section{Classificatori discriminativi e generativi}
+Nella classificazione, i modelli possono essere suddivisi in due categorie principali: \textbf{classificatori discriminativi} e \textbf{classificatori generativi}. La differenza è nel modo in cui i modelli apprendono a classificare le osservazioni.
+
+\subsection{Classificatori discriminativi}
+I classificatori discriminativi si concentrano direttamente sulla modellazione della frontiera decisionale tra le classi. In altre parole, questi modelli cercano di imparare la funzione che mappa le caratteristiche delle osservazioni alle loro classi senza fare assunzioni esplicite sulla distribuzione dei dati. Rispondono alla domanda "Qual è la differenza tra le classi dato un insieme di caratteristiche?".
+
+\paragraph{Esempio.}
+Un esempio di classificatore discriminativo è la \textbf{regressione logistica}, che modella la probabilità condizionata della classe data le caratteristiche delle osservazioni. La regressione logistica utilizza una funzione sigmoide per mappare le caratteristiche a una probabilità compresa tra 0 e 1, permettendo di classificare le osservazioni in base a una soglia predefinita.
+
+\subsection{Classificatori generativi}
+I classificatori generativi, d'altra parte, cercano di modellare la distribuzione congiunta delle caratteristiche e delle classi. Questi modelli fanno assunzioni sulla distribuzione dei dati e cercano di imparare come le osservazioni vengono generate per ciascuna classe. Rispondono alla domanda "Come vengono generate le osservazioni per ciascuna classe?".
+
+\paragraph{Esempio.}
+Un esempio di classificatore generativo è il \textbf{Naive Bayes}, che assume che le caratteristiche siano condizionalmente indipendenti dato la classe. Il modello stima la probabilità congiunta delle caratteristiche e delle classi e utilizza il teorema di Bayes per calcolare la probabilità condizionata della classe data le caratteristiche, permettendo di classificare le osservazioni in base alla massima probabilità a posteriori.
+
+\subsection{Macro, Micro e Weighted Averaging}
+Quando valutiamo un modello di classificazione multi-classe, le metriche come \emph{precision}, \emph{recall} e \emph{F1-score} vengono inizialmente calcolate per ciascuna classe in modo indipendente. Tuttavia, spesso abbiamo bisogno di un singolo valore che riassuma le prestazioni globali del modello. Per ottenere questa misura complessiva, è necessario definire una strategia di aggregazione delle metriche tra le diverse classi. Le tre più utilizzate sono: \emph{macro averaging}, \emph{weighted averaging} e \emph{micro averaging}.
+
+\paragraph{Macro averaging.}
+In questo caso calcoliamo la metrica (ad esempio la precision) separatamente per ogni classe e, alla fine, ne facciamo la media semplice:
+\[
+\text{Macro Precision} = \frac{1}{K} \sum_{i=1}^K \text{Precision}_i .
+\]
+Ogni classe contribuisce allo stesso modo, indipendentemente dal numero di esempi che la compongono. È quindi una misura particolarmente utile quando ci interessa valutare le prestazioni su tutte le classi, incluse quelle rare.
+
+\paragraph{Weighted averaging.}
+Anche qui la metrica viene calcolata per ciascuna classe, ma la media finale assegna a ogni classe un peso proporzionale alla sua numerosità (il cosiddetto \emph{support}):
+\[
+\text{Weighted Precision} = \frac{\sum_{i=1}^K \text{Precision}_i \cdot \text{Support}_i}{\sum_{i=1}^K \text{Support}_i}.
+\]
+In questo modo, le classi più frequenti hanno un'influenza maggiore sul risultato finale. Si tratta di una media “equilibrata”, particolarmente appropriata in presenza di dataset sbilanciati.
+
+\paragraph{Micro averaging.}
+Diversamente dai metodi precedenti, qui non si calcola la metrica per classe: si sommano invece tutte le quantità globali (TP, FP, FN) su tutte le classi e si applica la formula della metrica una sola volta:
+\[
+\text{Micro Precision} = 
+\frac{\sum_i TP_i}{\sum_i (TP_i + FP_i)}.
+\]
+Ogni singolo \emph{campione} ha lo stesso peso, indipendentemente dalla classe a cui appartiene. Da notare che, nelle classificazioni multi-classe, la micro-precisione (così come micro-recall e micro-F1) coincide esattamente con l'\emph{accuracy}.
+
+\subsection{Decision Boundary}
+Un classificatore $f$ assegna una classe a ciascun punto dello spazio delle caratteristiche. La \textbf{frontiera decisionale} (decision boundary) è l'insieme dei punti in cui il classificatore cambia la sua predizione da una classe all'altra. In altre parole, è la superficie che separa le regioni dello spazio delle caratteristiche in cui il classificatore assegna classi diverse.
+
+\begin{figure}[htbp]
+    \centering
+
+    % Prima riga
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/knn_k1.png}
+        \caption{$K = 1$}
+        \label{fig:knn_k1}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/knn_k5.png}
+        \caption{$K = 5$}
+        \label{fig:knn_k5}
+    \end{subfigure}
+
+    \vspace{0.5cm}
+
+    % Seconda riga
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/knn_k10.png}
+        \caption{$K = 10$}
+        \label{fig:knn_k10}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[b]{0.48\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{images/knn_k20.png}
+        \caption{$K = 20$}
+        \label{fig:knn_k20}
+    \end{subfigure}
+
+    \caption{Confronto dei confini decisionali del classificatore K-NN sul dataset Iris al variare del numero di vicini $K$. Per $K=1$ (in alto a sinistra) la frontiera segue in modo molto dettagliato i singoli punti di training, risultando irregolare e potenzialmente soggetta a overfitting. Aumentando $K$ a 5 e 10 (in alto a destra e in basso a sinistra) le regioni decisionali diventano via via più lisce, riducendo la sensibilità al rumore ma smussando alcune strutture locali, in particolare nella zona di separazione tra \textit{versicolor} e \textit{virginica}. Per $K=20$ (in basso a destra) la frontiera è molto regolare: il modello è più stabile, ma rischia di sottostimare le differenze tra le due classi non linearmente separabili, evidenziando il classico compromesso tra complessità del modello e capacità di generalizzazione.}
+    \label{fig:knn_decision_boundaries_grid}
+\end{figure}
+
+Come si può notare dalla figura \ref{fig:knn_decision_boundaries_grid}, la forma della frontiera decisionale dipende fortemente dal valore di $K$ scelto nell'algoritmo K-NN. Con un valore di $K$ basso, la frontiera tende a essere molto irregolare e sensibile al rumore nei dati, mentre con un valore di $K$ più alto, la frontiera diventa più liscia e meno influenzata da singoli punti anomali. Tuttavia, un valore di $K$ troppo alto può portare a una perdita di dettagli importanti nella struttura dei dati, risultando in una sottostima delle differenze tra le classi.
+
+Questo è un trade-off che rispecchia il bilanciamento tra \textbf{bias} e \textbf{varianza} nel modello, dove un valore di $K$ basso tende a ridurre il bias ma aumentare la varianza, mentre un valore di $K$ alto tende a ridurre la varianza ma aumentare il bias.
+
+\section{K-NN per regressione}
+Sebbene l'algoritmo K-NN sia principalmente utilizzato per la classificazione, può essere adattato anche per problemi di regressione. In questo caso, invece di assegnare una classe basata sui vicini più prossimi, l'algoritmo calcola la media (o la mediana) dei valori target dei $K$ vicini più prossimi per fare una predizione continua.
+
+\subsection{Bias-Varianza trade-off}
+Come nel caso della classificazione, la scelta di $k$ controlla il compromesso tra bias e varianza nel modello di regressione K-NN. Un valore di $k$ basso tende a ridurre il bias, permettendo al modello di adattarsi più strettamente ai dati di training, ma aumenta la varianza, rendendo il modello più sensibile al rumore nei dati. Al contrario, un valore di $k$ alto tende a ridurre la varianza, rendendo il modello più stabile, ma aumenta il bias, poiché il modello può perdere dettagli importanti nella struttura dei dati.
+
+\paragraph{Trovare il miglior valore di $k$.}
+Anche in questo caso si può utilizzare la cross-validation per trovare il valore ottimale di $k$ che minimizza l'errore di predizione su dati non visti.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{images/knn_cross_validation.png}
+    \caption{Curva di validazione per il modello K-NN in regressione, ottenuta tramite cross-validation. L'asse delle ascisse rappresenta il numero di vicini $K$, mentre l'asse delle ordinate mostra l'errore medio (RMSE) sui diversi fold. Si osserva che l'errore diminuisce rapidamente per valori piccoli di $K$, per poi stabilizzarsi. Il valore ottimale individuato è $K = 25$, che corrisponde al minimo RMSE medio, rappresentato dalla linea tratteggiata rossa.}
+    \label{fig:knn_regression_bias_variance}
+\end{figure}

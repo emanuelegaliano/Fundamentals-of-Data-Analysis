@@ -1,0 +1,268 @@
+\documentclass[a4paper,11pt]{book}
+
+% ======================
+% Lingua e codifica
+% ======================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+
+% ======================
+% Tipografia (più moderna ma seria)
+% ======================
+\usepackage{libertinus} % text + math
+\usepackage[scale=0.95]{sourcesanspro}
+
+\usepackage{microtype}
+\usepackage{xcolor}
+
+% Palette sobria
+\definecolor{Accent}{HTML}{0B3A3E} % petrolio scuro
+\definecolor{TextGray}{gray}{0.25}
+\definecolor{RuleGray}{gray}{0.75}
+
+% ======================
+% Grafica
+% ======================
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc,positioning}
+
+% ======================
+% Codice
+% ======================
+\usepackage{listings}
+\usepackage[scaled=0.9]{beramono}
+\lstdefinestyle{py}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  numbers=left,
+  numbersep=8pt,
+  frame=single,
+  framerule=0.4pt,
+  breaklines=true,
+  tabsize=4,
+  showstringspaces=false,
+  captionpos=b
+}
+
+% ======================
+% Matematica
+% ======================
+\usepackage{amsmath,amssymb,amsthm}
+\numberwithin{equation}{chapter}
+
+% ======================
+% Impaginazione
+% ======================
+\usepackage{geometry}
+\geometry{a4paper, top=28mm, bottom=30mm, left=30mm, right=30mm}
+
+\usepackage{setspace}
+\setstretch{1.12}
+
+\clubpenalty=10000
+\widowpenalty=10000
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{2}
+
+% ======================
+% Intestazioni
+% ======================
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\thepage}
+\fancyhead[LO]{\nouppercase{\rightmark}}
+\fancyhead[RE]{\nouppercase{\leftmark}}
+\setlength{\headheight}{15pt}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% ======================
+% Tabelle, link, figure
+% ======================
+\usepackage{booktabs}
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+% (Opzionale ma utile per URL lunghi; se non vuoi pacchetti extra, puoi rimuoverlo)
+\usepackage{xurl}
+
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{float}
+
+% ======================
+% Liste
+% ======================
+\usepackage{enumitem}
+\setlist[itemize]{topsep=4pt, itemsep=3pt}
+\setlist[enumerate]{topsep=4pt, itemsep=3pt}
+\setlist[description]{font=\normalfont\bfseries, labelsep=0.6em, leftmargin=2em}
+
+% ======================
+% Box definizioni
+% ======================
+\usepackage[most]{tcolorbox}
+\usepackage{chngcntr}
+
+\newcounter{nicequotecnt}
+\counterwithin{nicequotecnt}{chapter}
+\renewcommand{\thenicequotecnt}{\thechapter.\arabic{nicequotecnt}}
+\newcommand{\nicelabelname}{Definizione}
+
+\tcbset{
+  nicequotebox/.style={
+    colback=white,
+    colframe=black,
+    boxrule=0.6pt,
+    arc=2mm,
+    left=8pt,
+    right=8pt,
+    top=6pt,
+    bottom=12pt,
+    boxsep=6pt,
+    fontupper=\itshape,
+    enhanced,
+    breakable
+  }
+}
+
+\newtcolorbox{nicequote}{
+  nicequotebox,
+  before upper=\refstepcounter{nicequotecnt},
+  overlay unbroken={
+    \node[anchor=south east, xshift=-6pt, yshift=4pt, font=\footnotesize]
+      at (frame.south east) {\nicelabelname~\thenicequotecnt};
+  },
+  overlay last={
+    \node[anchor=south east, xshift=-6pt, yshift=4pt, font=\footnotesize]
+      at (frame.south east) {\nicelabelname~\thenicequotecnt};
+  }
+}
+
+% ======================
+% Metadati libro
+% ======================
+\newcommand{\BookTitle}{Fondamenti di Analisi dei Dati}
+\newcommand{\BookSubtitle}{Appunti e dispense}
+\newcommand{\BookAuthor}{Emanuele Galiano}
+\newcommand{\BookUni}{Università degli Studi di Catania}
+\newcommand{\BookDept}{Dipartimento di Matematica e Informatica}
+\newcommand{\BookDegree}{Corso di Laurea Triennale in Informatica (L-31)}
+\newcommand{\BookAY}{Anno Accademico 2025/2026}
+\newcommand{\BookLogoPath}{images/unict_logo.jpg}
+
+% ======================
+% Helper: pattern leggero "data-like" in copertina
+% ======================
+\newcommand{\DataPattern}{
+  \begin{tikzpicture}[remember picture,overlay]
+    \foreach \x in {0.12,0.22,...,0.88} {
+      \foreach \y in {0.10,0.20,...,0.90} {
+        \fill[Accent!7] ($(current page.south west) + (\x\paperwidth,\y\paperheight)$)
+          circle[radius=0.55pt];
+      }
+    }
+    \draw[Accent!10,line width=0.6pt]
+      ($(current page.south west)+(0.06\paperwidth,0.30\paperheight)$)
+      .. controls ($(current page.south west)+(0.35\paperwidth,0.55\paperheight)$)
+      and ($(current page.south west)+(0.55\paperwidth,0.20\paperheight)$)
+      .. ($(current page.south west)+(0.92\paperwidth,0.48\paperheight)$);
+
+    \draw[Accent!10,line width=0.6pt]
+      ($(current page.south west)+(0.08\paperwidth,0.78\paperheight)$)
+      .. controls ($(current page.south west)+(0.35\paperwidth,0.62\paperheight)$)
+      and ($(current page.south west)+(0.62\paperwidth,0.90\paperheight)$)
+      .. ($(current page.south west)+(0.92\paperwidth,0.74\paperheight)$);
+  \end{tikzpicture}
+}
+
+\begin{document}
+
+\frontmatter
+
+% ================== COPERTINA (MODERNA, SERIA) ==================
+\begin{titlepage}
+\thispagestyle{empty}
+\DataPattern
+
+\begin{center}
+\vspace*{18mm}
+
+{\fontsize{28}{34}\selectfont\bfseries\color{Accent} \BookTitle\par}
+
+\vspace{7mm}
+{\color{Accent}\rule{0.66\textwidth}{1.1pt}}
+
+\vspace{10mm}
+{\Large\sffamily\color{TextGray}\BookSubtitle\par}
+
+\vspace{20mm}
+\includegraphics[height=14mm]{\BookLogoPath}
+
+\vspace{12mm}
+{\sffamily\color{TextGray}
+\BookUni\\[1mm]
+\BookDept\\[1mm]
+\BookDegree
+\par}
+
+\vfill
+
+\begin{minipage}{0.92\textwidth}
+\sffamily\small\color{TextGray}
+\begin{flushleft}
+\textbf{\color{Accent}Autore}\hfill \textbf{\color{Accent}Anno accademico}\\
+\BookAuthor \hfill \BookAY
+\end{flushleft}
+
+\vspace{4mm}
+{\color{RuleGray}\rule{\textwidth}{0.4pt}}
+
+\vspace{4mm}
+\begin{flushleft}
+\footnotesize
+Versione: \today
+\end{flushleft}
+\end{minipage}
+
+\vspace*{6mm}
+\end{center}
+\end{titlepage}
+% ======================================================================
+
+% ================== PREFAZIONE ==================
+\cleardoublepage
+\include{frontmatter/preface}
+\include{frontmatter/license}
+\cleardoublepage
+
+% ================== INDICE ==================
+\tableofcontents
+\cleardoublepage
+
+% ================== TESTO ==================
+\mainmatter
+
+\include{chapters/key_concepts}
+\include{chapters/describe_visualize}
+\include{chapters/probability}
+\include{chapters/var_assoc}
+\include{chapters/data_distrb}
+\include{chapters/statistical_inference}
+\include{chapters/predictive_analysis}
+\include{chapters/linear_regression}
+\include{chapters/beyond_lr}
+\include{chapters/classification}
+\include{chapters/logistic_regression}
+\include{chapters/naive_bayes}
+\include{chapters/data_representation}
+\include{chapters/clustering}
+\include{chapters/density_estimation}
+\include{chapters/dimensionality_reduce}
+\include{chapters/grafici}
+
+\backmatter
+
+\end{document}

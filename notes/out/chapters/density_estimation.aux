@@ -1,0 +1,81 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {15}Stima della densità}{161}{chapter.15}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {15.1}Densità di probabilità}{161}{section.15.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {15.2}Metodi non parametrici}{161}{section.15.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.2.1}Istogrammi}{161}{subsection.15.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.2.2}Kernel Density Estimation (KDE)}{162}{subsection.15.2.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.1}{\ignorespaces Esempio di KDE con kernel circolare. Ogni punto dati contribuisce alla stima della densità all'interno della sua finestra circolare.\relax }}{163}{figure.caption.164}\protected@file@percent }
+\newlabel{fig:kde_circle}{{15.1}{163}{Esempio di KDE con kernel circolare. Ogni punto dati contribuisce alla stima della densità all'interno della sua finestra circolare.\relax }{figure.caption.164}{}}
+\@writefile{toc}{\contentsline {paragraph}{Kernel view.}{163}{section*.165}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.2}{\ignorespaces Kernel View nella stima di densità tramite Kernel Density Estimation (KDE). Il grafico mostra il valore del kernel $K_h(\lVert x - x_i \rVert )$ in funzione della distanza normalizzata $\lVert (x - x_i)/h \rVert _2$. I punti verdi contribuiscono alla stima con peso non nullo, mentre i punti rossi, posti oltre il supporto compatto del kernel, hanno peso nullo.\relax }}{164}{figure.caption.166}\protected@file@percent }
+\newlabel{fig:kde_kernel}{{15.2}{164}{Kernel View nella stima di densità tramite Kernel Density Estimation (KDE). Il grafico mostra il valore del kernel $K_h(\lVert x - x_i \rVert )$ in funzione della distanza normalizzata $\lVert (x - x_i)/h \rVert _2$. I punti verdi contribuiscono alla stima con peso non nullo, mentre i punti rossi, posti oltre il supporto compatto del kernel, hanno peso nullo.\relax }{figure.caption.166}{}}
+\@writefile{toc}{\contentsline {paragraph}{Problemi del kernel circolare.}{164}{section*.167}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.2.3}Epanechnikov Kernel}{164}{subsection.15.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.3}{\ignorespaces Kernel View per la Kernel Density Estimation (KDE) con kernel gaussiano. Il valore del kernel $K_h(\lVert x - x_i \rVert )$ decresce in modo continuo all’aumentare della distanza normalizzata $\lVert (x - x_i)/h \rVert _2$. A differenza dei kernel a supporto compatto, tutti i punti contribuiscono alla stima con peso non nullo, evidenziato dalla scala cromatica.\relax }}{165}{figure.caption.168}\protected@file@percent }
+\newlabel{fig:kde_gaussian}{{15.3}{165}{Kernel View per la Kernel Density Estimation (KDE) con kernel gaussiano. Il valore del kernel $K_h(\lVert x - x_i \rVert )$ decresce in modo continuo all’aumentare della distanza normalizzata $\lVert (x - x_i)/h \rVert _2$. A differenza dei kernel a supporto compatto, tutti i punti contribuiscono alla stima con peso non nullo, evidenziato dalla scala cromatica.\relax }{figure.caption.168}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.2.4}Tradeoff bias-varianza: sccelta della bandwith}{165}{subsection.15.2.4}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.4}{\ignorespaces Confronto in Kernel View tra diversi kernel utilizzati nella Kernel Density Estimation (KDE). Da sinistra a destra: kernel uniforme (radiale), kernel di Epanechnikov e kernel gaussiano. Il grafico mostra il peso $K_h(\lVert x - x_i \rVert )$ in funzione della distanza normalizzata $\lVert (x - x_i)/h \rVert _2$. I kernel uniforme ed Epanechnikov presentano supporto compatto, assegnando peso nullo ai punti oltre il raggio unitario, mentre il kernel gaussiano assegna peso non nullo a tutti i punti con contributo decrescente all’aumentare della distanza.\relax }}{166}{figure.caption.169}\protected@file@percent }
+\newlabel{fig:kde_nonparametric_comparison}{{15.4}{166}{Confronto in Kernel View tra diversi kernel utilizzati nella Kernel Density Estimation (KDE). Da sinistra a destra: kernel uniforme (radiale), kernel di Epanechnikov e kernel gaussiano. Il grafico mostra il peso $K_h(\lVert x - x_i \rVert )$ in funzione della distanza normalizzata $\lVert (x - x_i)/h \rVert _2$. I kernel uniforme ed Epanechnikov presentano supporto compatto, assegnando peso nullo ai punti oltre il raggio unitario, mentre il kernel gaussiano assegna peso non nullo a tutti i punti con contributo decrescente all’aumentare della distanza.\relax }{figure.caption.169}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15.5}{\ignorespaces Visualizzazione geometrica della Kernel Density Estimation (KDE) in $\mathbb  {R}^2$ per diversi kernel con banda $h=1$. Da sinistra a destra: kernel circolare (uniforme), kernel di Epanechnikov e kernel gaussiano. Il punto di valutazione $x$ è indicato con una croce blu, mentre il cerchio rappresenta la regione $\lVert x - x_i \rVert _2 \le h$. I punti all’interno del supporto compatto contribuiscono alla stima con peso non nullo per i kernel circolare ed Epanechnikov, mentre il kernel gaussiano assegna un peso decrescente a tutti i punti, inclusi quelli esterni al raggio $h$.\relax }}{166}{figure.caption.170}\protected@file@percent }
+\newlabel{fig:kde_nonparametric_comparison2}{{15.5}{166}{Visualizzazione geometrica della Kernel Density Estimation (KDE) in $\mathbb {R}^2$ per diversi kernel con banda $h=1$. Da sinistra a destra: kernel circolare (uniforme), kernel di Epanechnikov e kernel gaussiano. Il punto di valutazione $x$ è indicato con una croce blu, mentre il cerchio rappresenta la regione $\lVert x - x_i \rVert _2 \le h$. I punti all’interno del supporto compatto contribuiscono alla stima con peso non nullo per i kernel circolare ed Epanechnikov, mentre il kernel gaussiano assegna un peso decrescente a tutti i punti, inclusi quelli esterni al raggio $h$.\relax }{figure.caption.170}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {15.6}{\ignorespaces Effetto del parametro di banda $h$ nella Kernel Density Estimation (KDE) e relativo trade-off bias–varianza. Per valori piccoli di $h$ (in alto a sinistra) la stima presenta bassa distorsione ma alta varianza, con strutture molto frammentate e sensibili al rumore. All’aumentare di $h$ la varianza diminuisce e la stima diventa più liscia, ma un eccessivo smoothing (in basso a destra) introduce bias, fondendo strutture distinte e perdendo dettagli locali. La scelta del bandwidth governa quindi l’equilibrio tra fedeltà ai dati e regolarità della stima.\relax }}{167}{figure.caption.171}\protected@file@percent }
+\newlabel{fig:kde_bandwidth_comparison}{{15.6}{167}{Effetto del parametro di banda $h$ nella Kernel Density Estimation (KDE) e relativo trade-off bias–varianza. Per valori piccoli di $h$ (in alto a sinistra) la stima presenta bassa distorsione ma alta varianza, con strutture molto frammentate e sensibili al rumore. All’aumentare di $h$ la varianza diminuisce e la stima diventa più liscia, ma un eccessivo smoothing (in basso a destra) introduce bias, fondendo strutture distinte e perdendo dettagli locali. La scelta del bandwidth governa quindi l’equilibrio tra fedeltà ai dati e regolarità della stima.\relax }{figure.caption.171}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {15.3}Metodi parametrici}{168}{section.15.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.3.1}Distribuzione Gaussiana Multivariata}{168}{subsection.15.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{MLE: Maximum Likelihood Estimation.}{168}{section*.172}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.7}{\ignorespaces Esempio di stima parametrica tramite \textbf  {Maximum Likelihood Estimation} per una distribuzione gaussiana unidimensionale. In ciascun pannello è mostrata una distribuzione normale $N(\mu ,\sigma ^2)$ con diversi valori di media $\mu $ e deviazione standard $\sigma $. I punti blu sull’asse orizzontale rappresentano i dati osservati, mentre le linee verticali tratteggiate indicano il contributo di ciascun campione alla log-verosimiglianza. La curva arancione è la densità di probabilità associata ai parametri considerati e il valore della log-verosimiglianza totale $\log P(\mathbf  {X} \mid \mu , \sigma )$ è riportato in legenda. Il confronto tra i diversi pannelli evidenzia come la log-verosimiglianza vari al cambiare dei parametri e come essa venga massimizzata quando la distribuzione stimata è coerente con i dati osservati.\relax }}{169}{figure.caption.173}\protected@file@percent }
+\newlabel{fig:mle-gaussian}{{15.7}{169}{Esempio di stima parametrica tramite \textbf {Maximum Likelihood Estimation} per una distribuzione gaussiana unidimensionale. In ciascun pannello è mostrata una distribuzione normale $N(\mu ,\sigma ^2)$ con diversi valori di media $\mu $ e deviazione standard $\sigma $. I punti blu sull’asse orizzontale rappresentano i dati osservati, mentre le linee verticali tratteggiate indicano il contributo di ciascun campione alla log-verosimiglianza. La curva arancione è la densità di probabilità associata ai parametri considerati e il valore della log-verosimiglianza totale $\log P(\mathbf {X} \mid \mu , \sigma )$ è riportato in legenda. Il confronto tra i diversi pannelli evidenzia come la log-verosimiglianza vari al cambiare dei parametri e come essa venga massimizzata quando la distribuzione stimata è coerente con i dati osservati.\relax }{figure.caption.173}{}}
+\newlabel{fig:mle-gaussian-2d}{{\caption@xref {fig:mle-gaussian-2d}{ on input line 215}}{169}{MLE: Maximum Likelihood Estimation}{figure.caption.174}{}}
+\@writefile{toc}{\contentsline {paragraph}{Media e covarianza campionaria.}{169}{section*.175}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Limiti dell’approccio MLE.}{170}{section*.176}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {15.3.2}Gaussian Mixture Model}{170}{subsection.15.3.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.8}{\ignorespaces Esempio di Gaussian Mixture Model (GMM) unidimensionale con 3 componenti gaussiane. I punti blu sull'asse orizzontale rappresentano i dati osservati. Le curve colorate (blu, arancione e verde) indicano le tre distribuzioni gaussiane componenti con i rispettivi pesi $\pi _k$. La curva tratteggiata rossa mostra la densità complessiva risultante dalla somma ponderata delle singole gaussiane. Questo esempio illustra come un GMM possa modellare efficacemente dati multimodali, catturando strutture complesse che una singola gaussiana non potrebbe rappresentare.\relax }}{171}{figure.caption.177}\protected@file@percent }
+\newlabel{fig:gmm_example}{{15.8}{171}{Esempio di Gaussian Mixture Model (GMM) unidimensionale con 3 componenti gaussiane. I punti blu sull'asse orizzontale rappresentano i dati osservati. Le curve colorate (blu, arancione e verde) indicano le tre distribuzioni gaussiane componenti con i rispettivi pesi $\pi _k$. La curva tratteggiata rossa mostra la densità complessiva risultante dalla somma ponderata delle singole gaussiane. Questo esempio illustra come un GMM possa modellare efficacemente dati multimodali, catturando strutture complesse che una singola gaussiana non potrebbe rappresentare.\relax }{figure.caption.177}{}}
+\@writefile{toc}{\contentsline {paragraph}{Soft clustering con GMM.}{172}{section*.178}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Stima dei parametri con MLE.}{172}{section*.179}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{GMM vs K-means.}{172}{section*.180}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {15.9}{\ignorespaces Confronto tra clustering con \textbf  {K-means} e \textbf  {Modello a miscela di gaussiane (GMM)} su dati bidimensionali. Confronto tra clustering con \textbf  {K-means} e \textbf  {Modello a miscela di gaussiane (GMM)} su dati bidimensionali. A sinistra, K-means assegna i punti ai cluster in base alla distanza euclidea dai centroidi, producendo regioni di decisione sferiche e di uguale dimensione (cerchi tratteggiati). A destra, il GMM modella ciascun cluster come una distribuzione gaussiana con media e covarianza proprie, permettendo regioni ellittiche orientate (contorni rossi) e una rappresentazione più flessibile della struttura dei dati.\relax }}{173}{figure.caption.181}\protected@file@percent }
+\newlabel{fig:gmm_vs_kmeans}{{15.9}{173}{Confronto tra clustering con \textbf {K-means} e \textbf {Modello a miscela di gaussiane (GMM)} su dati bidimensionali. Confronto tra clustering con \textbf {K-means} e \textbf {Modello a miscela di gaussiane (GMM)} su dati bidimensionali. A sinistra, K-means assegna i punti ai cluster in base alla distanza euclidea dai centroidi, producendo regioni di decisione sferiche e di uguale dimensione (cerchi tratteggiati). A destra, il GMM modella ciascun cluster come una distribuzione gaussiana con media e covarianza proprie, permettendo regioni ellittiche orientate (contorni rossi) e una rappresentazione più flessibile della struttura dei dati.\relax }{figure.caption.181}{}}
+\@setckpt{chapters/density_estimation}{
+\setcounter{page}{174}
+\setcounter{equation}{0}
+\setcounter{enumi}{5}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{0}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{15}
+\setcounter{section}{3}
+\setcounter{subsection}{2}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{9}
+\setcounter{table}{0}
+\setcounter{lstnumber}{1}
+\setcounter{parentequation}{0}
+\setcounter{section@level}{4}
+\setcounter{Item}{13}
+\setcounter{Hfootnote}{25}
+\setcounter{bookmark@seq@number}{293}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{float@type}{16}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{55}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{nicequotecnt}{0}
+\setcounter{lstlisting}{0}
+}

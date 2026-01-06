@@ -1,0 +1,98 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Inferenza Statistica}{53}{chapter.6}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Campionamento}{53}{section.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.1}Campionamento casuale semplice}{53}{subsection.6.1.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.1}{\ignorespaces Illustrazione del campionamento casuale semplice da una popolazione normale. Ogni riga corrisponde a un diverso numero di osservazioni campionate dalla stessa popolazione (\(n = 5, 20, 50, 100, 1000\)). Nella prima colonna è mostrata la distribuzione della popolazione (istogramma ad alta risoluzione con la sua densità teorica). Nella seconda colonna è mostrato l'istogramma del singolo campione estratto a quella dimensione \(n\), con una stima di densità sovrapposta. Nella terza colonna è mostrata la stima di densità (KDE, in rosso) del campione confrontata con la densità della popolazione reale (in blu). All'aumentare della dimensione del campione, l'istogramma e la densità stimata del campione diventano via via più simili alla distribuzione originale della popolazione: questo evidenzia che campioni più grandi approssimano meglio la popolazione.\relax }}{54}{figure.caption.47}\protected@file@percent }
+\newlabel{fig:simple_random_sampling}{{6.1}{54}{Illustrazione del campionamento casuale semplice da una popolazione normale. Ogni riga corrisponde a un diverso numero di osservazioni campionate dalla stessa popolazione (\(n = 5, 20, 50, 100, 1000\)). Nella prima colonna è mostrata la distribuzione della popolazione (istogramma ad alta risoluzione con la sua densità teorica). Nella seconda colonna è mostrato l'istogramma del singolo campione estratto a quella dimensione \(n\), con una stima di densità sovrapposta. Nella terza colonna è mostrata la stima di densità (KDE, in rosso) del campione confrontata con la densità della popolazione reale (in blu). All'aumentare della dimensione del campione, l'istogramma e la densità stimata del campione diventano via via più simili alla distribuzione originale della popolazione: questo evidenzia che campioni più grandi approssimano meglio la popolazione.\relax }{figure.caption.47}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.1.2}Campionamento stratificato}{55}{subsection.6.1.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.2}{\ignorespaces Confronto tra diversi metodi di campionamento su una popolazione suddivisa in 10 professioni. Riga superiore: popolazione completa, mostrata sia come dot plot (a sinistra, ogni punto è un individuo colorato per professione) sia come istogramma normalizzato (a destra, proporzioni reali di ciascuna professione nella popolazione). Riga centrale: campione ottenuto tramite campionamento casuale semplice (uniform random sample). Le proporzioni osservate nel campione possono discostarsi da quelle reali della popolazione, specialmente per le categorie meno frequenti. Riga inferiore: campione stratificato (stratified sample), in cui si forza la presenza di ogni categoria in proporzione alla popolazione. In questo caso, l'istogramma delle proporzioni nel campione è molto più fedele alla distribuzione originale.\relax }}{55}{figure.caption.48}\protected@file@percent }
+\newlabel{fig:stratified_sampling}{{6.2}{55}{Confronto tra diversi metodi di campionamento su una popolazione suddivisa in 10 professioni. Riga superiore: popolazione completa, mostrata sia come dot plot (a sinistra, ogni punto è un individuo colorato per professione) sia come istogramma normalizzato (a destra, proporzioni reali di ciascuna professione nella popolazione). Riga centrale: campione ottenuto tramite campionamento casuale semplice (uniform random sample). Le proporzioni osservate nel campione possono discostarsi da quelle reali della popolazione, specialmente per le categorie meno frequenti. Riga inferiore: campione stratificato (stratified sample), in cui si forza la presenza di ogni categoria in proporzione alla popolazione. In questo caso, l'istogramma delle proporzioni nel campione è molto più fedele alla distribuzione originale.\relax }{figure.caption.48}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Campionare la distribuzione della media}{56}{section.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.1}Errore standard}{57}{subsection.6.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.3}{\ignorespaces Distribuzione delle medie campionarie per diversi valori di $n$ (10, 100, 1000) ottenute simulando il campionamento ripetuto dalla stessa popolazione. Ogni pannello mostra l'istogramma delle medie dei campioni e una stima di densità sovrapposta. All'aumentare della dimensione del campione, la distribuzione delle medie diventa più stretta attorno al valore medio della popolazione e la deviazione standard della media campionaria (errore standard) diminuisce in accordo con $\mathrm  {Std}[\bar  {X}] = \sigma / \sqrt  {n}$.\relax }}{57}{figure.caption.49}\protected@file@percent }
+\newlabel{fig:standard_error_vs_sample_size}{{6.3}{57}{Distribuzione delle medie campionarie per diversi valori di $n$ (10, 100, 1000) ottenute simulando il campionamento ripetuto dalla stessa popolazione. Ogni pannello mostra l'istogramma delle medie dei campioni e una stima di densità sovrapposta. All'aumentare della dimensione del campione, la distribuzione delle medie diventa più stretta attorno al valore medio della popolazione e la deviazione standard della media campionaria (errore standard) diminuisce in accordo con $\mathrm {Std}[\bar {X}] = \sigma / \sqrt {n}$.\relax }{figure.caption.49}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.2}Distribuzione t-Student}{57}{subsection.6.2.2}\protected@file@percent }
+\newlabel{subsec:student_t_distribution}{{6.2.2}{57}{Distribuzione t-Student}{subsection.6.2.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.4}{\ignorespaces Confronto tra la distribuzione $t$ di Student e la distribuzione normale standard. Ogni curva $t$ corrisponde a un diverso numero di gradi di libertà ($n = 1, 2, 5, 30$). Per valori piccoli di $n$ la distribuzione $t$ ha code più pesanti (maggiore probabilità di valori estremi) e un picco più basso rispetto alla Gaussiana. All'aumentare di $n$, la distribuzione $t$ si avvicina alla distribuzione normale standard, fino a diventare praticamente indistinguibile per $n$ grandi.\relax }}{58}{figure.caption.50}\protected@file@percent }
+\newlabel{fig:t_distribution_vs_normal}{{6.4}{58}{Confronto tra la distribuzione $t$ di Student e la distribuzione normale standard. Ogni curva $t$ corrisponde a un diverso numero di gradi di libertà ($n = 1, 2, 5, 30$). Per valori piccoli di $n$ la distribuzione $t$ ha code più pesanti (maggiore probabilità di valori estremi) e un picco più basso rispetto alla Gaussiana. All'aumentare di $n$, la distribuzione $t$ si avvicina alla distribuzione normale standard, fino a diventare praticamente indistinguibile per $n$ grandi.\relax }{figure.caption.50}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.2.3}Intervallo di confidenza}{58}{subsection.6.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.5}{\ignorespaces Visualizzazione dell'intervallo $\,[\mu - \sigma ,\, \mu + \sigma ]$ (barra orizzontale blu) e delle medie campionarie $\bar  {X}_1, \bar  {X}_2, \ldots  , \bar  {X}_9$ ottenute da campioni diversi. Per ciascun campione è mostrato il suo intervallo $\bar  {X}_i \pm \sigma $ (barra orizzontale). I punti verdi indicano le medie campionarie i cui intervalli contengono la media reale $\mu $, mentre i punti rossi indicano quelle che non la contengono. L'idea è che, ripetendo il campionamento, la maggior parte degli intervalli stimati copre il valore vero del parametro, ma non tutti.\relax }}{59}{figure.caption.51}\protected@file@percent }
+\newlabel{fig:confidence_interval_68}{{6.5}{59}{Visualizzazione dell'intervallo $\,[\mu - \sigma ,\, \mu + \sigma ]$ (barra orizzontale blu) e delle medie campionarie $\bar {X}_1, \bar {X}_2, \ldots , \bar {X}_9$ ottenute da campioni diversi. Per ciascun campione è mostrato il suo intervallo $\bar {X}_i \pm \sigma $ (barra orizzontale). I punti verdi indicano le medie campionarie i cui intervalli contengono la media reale $\mu $, mentre i punti rossi indicano quelle che non la contengono. L'idea è che, ripetendo il campionamento, la maggior parte degli intervalli stimati copre il valore vero del parametro, ma non tutti.\relax }{figure.caption.51}{}}
+\@writefile{toc}{\contentsline {paragraph}{Generalizzazione per altri livelli di confidenza.}{59}{section*.52}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Livello di significatività.}{60}{section*.53}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.6}{\ignorespaces Interpretazione dell'intervallo di confidenza al 95\%. L'area verde rappresenta l'intervallo di confidenza $(1-\alpha )=95\%$, che corrisponde ai valori della media campionaria $\bar  {X}$ che, una volta stimati sul campione, ``catturano'' la vera media $\mu $. Le aree rosse nelle code (ciascuna di area $\alpha /2$) rappresentano i casi in cui l'intervallo stimato non contiene la media reale: la probabilità complessiva di errore è $\alpha = 0.05$. Le linee tratteggiate verdi indicano i limiti $\bar  {X} \pm 1.96 \cdot SE(\bar  {X})$, mentre la linea tratteggiata nera indica la vera media $\mu $.\relax }}{60}{figure.caption.54}\protected@file@percent }
+\newlabel{fig:confidence_interval_95}{{6.6}{60}{Interpretazione dell'intervallo di confidenza al 95\%. L'area verde rappresenta l'intervallo di confidenza $(1-\alpha )=95\%$, che corrisponde ai valori della media campionaria $\bar {X}$ che, una volta stimati sul campione, ``catturano'' la vera media $\mu $. Le aree rosse nelle code (ciascuna di area $\alpha /2$) rappresentano i casi in cui l'intervallo stimato non contiene la media reale: la probabilità complessiva di errore è $\alpha = 0.05$. Le linee tratteggiate verdi indicano i limiti $\bar {X} \pm 1.96 \cdot SE(\bar {X})$, mentre la linea tratteggiata nera indica la vera media $\mu $.\relax }{figure.caption.54}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.3}Bootstrapping}{60}{section.6.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.4}Stimatori}{61}{section.6.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.1}Stimatore del bias}{61}{subsection.6.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.2}Stimatore della varianza}{61}{subsection.6.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Varianza distorta.}{61}{section*.55}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.3}Varianza di uno stimatore}{62}{subsection.6.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.4.4}Bias-Varianza Tradeoff}{62}{subsection.6.4.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.5}Test statistici}{62}{section.6.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.1}Test di ipotesi}{62}{subsection.6.5.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.7}{\ignorespaces Illustrazione concettuale di bias e varianza con l'analogia del bersaglio. Ogni pannello dell’immagine mostra una serie di stime (punti blu) rispetto al valore vero (centro del bersaglio). Il modo in cui i punti si distribuiscono rispetto al centro riflette combinazioni diverse di bias (quanto siamo lontani dal valore vero) e varianza (quanto le stime sono stabili tra loro).\relax }}{63}{figure.caption.56}\protected@file@percent }
+\newlabel{fig:bias_variance_tradeoff}{{6.7}{63}{Illustrazione concettuale di bias e varianza con l'analogia del bersaglio. Ogni pannello dell’immagine mostra una serie di stime (punti blu) rispetto al valore vero (centro del bersaglio). Il modo in cui i punti si distribuiscono rispetto al centro riflette combinazioni diverse di bias (quanto siamo lontani dal valore vero) e varianza (quanto le stime sono stabili tra loro).\relax }{figure.caption.56}{}}
+\@writefile{toc}{\contentsline {paragraph}{Esempio: una moneta è truccata?}{63}{section*.57}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Tipi di errori nei test statistici.}{64}{section*.59}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.8}{\ignorespaces Esempio di test di ipotesi su una moneta. Le barre mostrano la probabilità di ottenere \(k\) teste su 10 lanci se la moneta fosse equa (\(H_0 : p = 0.5\)). Le barre rosse evidenziano gli esiti “estremi” (\(k \leq 1\) o \(k \geq 9\)) che contribuiscono al valore \(p\) in un test bilaterale. Nell’esperimento osserviamo 9 teste (linea tratteggiata): questo caso cade in zona estrema. Il valore \(p \approx 2.15\%\) è minore di \(\alpha = 5\%\), quindi rifiutiamo \(H_0\) e concludiamo che ci sono evidenze per dire che la moneta è truccata (\(H_a : p \neq  0.5\)).\relax }}{65}{figure.caption.58}\protected@file@percent }
+\newlabel{fig:hypothesis_testing_coin}{{6.8}{65}{Esempio di test di ipotesi su una moneta. Le barre mostrano la probabilità di ottenere \(k\) teste su 10 lanci se la moneta fosse equa (\(H_0 : p = 0.5\)). Le barre rosse evidenziano gli esiti “estremi” (\(k \leq 1\) o \(k \geq 9\)) che contribuiscono al valore \(p\) in un test bilaterale. Nell’esperimento osserviamo 9 teste (linea tratteggiata): questo caso cade in zona estrema. Il valore \(p \approx 2.15\%\) è minore di \(\alpha = 5\%\), quindi rifiutiamo \(H_0\) e concludiamo che ci sono evidenze per dire che la moneta è truccata (\(H_a : p \neq 0.5\)).\relax }{figure.caption.58}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {6.1}{\ignorespaces Tabella di contingenza per i test di ipotesi.\relax }}{65}{table.caption.60}\protected@file@percent }
+\newlabel{tab:contingency_table}{{6.1}{65}{Tabella di contingenza per i test di ipotesi.\relax }{table.caption.60}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.2}T-test a un campione}{66}{subsection.6.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.3}T-test a due campioni}{66}{subsection.6.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.4}Test $\chi ^2$ per indipendenza}{66}{subsection.6.5.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.5}Test $\chi ^2$ di bontà di adattamento}{66}{subsection.6.5.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.6}Test di correlazione di Pearson}{66}{subsection.6.5.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.5.7}Test di correlazione di Spearman}{66}{subsection.6.5.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.6}Valutare quando un campione è distribuito normalmente}{67}{section.6.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6.1}Grafici Q-Q}{67}{subsection.6.6.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6.9}{\ignorespaces Q-Q plot rispetto alla normale: più i punti seguono la linea rossa, più i dati possono essere considerati circa normali.\relax }}{67}{figure.caption.61}\protected@file@percent }
+\newlabel{fig:qq_plot_normal}{{6.9}{67}{Q-Q plot rispetto alla normale: più i punti seguono la linea rossa, più i dati possono essere considerati circa normali.\relax }{figure.caption.61}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {6.10}{\ignorespaces Relazione tra forma delle code e Q-Q plot. Code troppo leggere (\textit  {short tails}) piegano verso l'interno; code pesanti (\textit  {long tails}) si incurvano verso l'esterno; una coda destra lunga fa salire la parte destra del Q-Q plot sopra la linea; una coda sinistra lunga fa scendere la parte sinistra sotto la linea.\relax }}{68}{figure.caption.62}\protected@file@percent }
+\newlabel{fig:qq_plot_guidelines}{{6.10}{68}{Relazione tra forma delle code e Q-Q plot. Code troppo leggere (\textit {short tails}) piegano verso l'interno; code pesanti (\textit {long tails}) si incurvano verso l'esterno; una coda destra lunga fa salire la parte destra del Q-Q plot sopra la linea; una coda sinistra lunga fa scendere la parte sinistra sotto la linea.\relax }{figure.caption.62}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6.2}Test di normalità di Shapiro-Wilk}{68}{subsection.6.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {6.6.3}Test \(K^2\) di D'Agostino}{68}{subsection.6.6.3}\protected@file@percent }
+\@setckpt{chapters/statistical_inference}{
+\setcounter{page}{69}
+\setcounter{equation}{0}
+\setcounter{enumi}{5}
+\setcounter{enumii}{0}
+\setcounter{enumiii}{0}
+\setcounter{enumiv}{0}
+\setcounter{footnote}{2}
+\setcounter{mpfootnote}{0}
+\setcounter{part}{0}
+\setcounter{chapter}{6}
+\setcounter{section}{6}
+\setcounter{subsection}{3}
+\setcounter{subsubsection}{0}
+\setcounter{paragraph}{0}
+\setcounter{subparagraph}{0}
+\setcounter{figure}{10}
+\setcounter{table}{1}
+\setcounter{lstnumber}{1}
+\setcounter{parentequation}{0}
+\setcounter{section@level}{2}
+\setcounter{Item}{13}
+\setcounter{Hfootnote}{6}
+\setcounter{bookmark@seq@number}{139}
+\setcounter{caption@flags}{2}
+\setcounter{continuedfloat}{0}
+\setcounter{subfigure}{0}
+\setcounter{subtable}{0}
+\setcounter{float@type}{16}
+\setcounter{tcbbreakpart}{1}
+\setcounter{tcblayer}{0}
+\setcounter{tcolorbox@number}{45}
+\setcounter{tcbrastercolumn}{1}
+\setcounter{tcbrasterrow}{1}
+\setcounter{tcbrasternum}{1}
+\setcounter{tcbraster}{0}
+\setcounter{tcblisting}{0}
+\setcounter{nicequotecnt}{0}
+\setcounter{lstlisting}{0}
+}

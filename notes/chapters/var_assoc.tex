@@ -1,0 +1,262 @@
+\chapter{Associazioni di variabili}
+Spesso, visualizzare statistiche su un campione di dati univariato non è sufficiente. Ad esempio, potremmo voler esaminare la relazione tra due variabili quantitative, come l'altezza e il peso di un gruppo di persone, si parla quindi di come due variabili sono associate tra loro.
+
+\begin{nicequote}
+Si parla di associazione tra due variabile se, osservando i valori assunti da una variabile, è possibile fare delle previsioni sui valori assunti dall'altra variabile.
+\end{nicequote}
+
+\section{Misure di associazioni tra variabili discrete}
+\subsection{Indipendenza}
+Prima di parlare di misure di associazione tra variabili discrete, è importante definire quando due variabili discrete sono \textbf{indipendenti}. Si parla di indipendenza, quando la conoscenza di una variabile non fornisce alcuna informazione sull'altra variabile.
+
+La tabella di contingenza (tabella \ref{tab:contingency_example}) può spiegare bene il concetto di indipendenza tra due variabili discrete:
+tutti quei valori, che sono marginali (cioè che riguardano una sola variabile, indicati con $n_{i+}$ oppure $n_{+j}$) non forniscono alcuna informazione sui valori congiunti (cioè che riguardano entrambe le variabili, indicati con $n_{ij}$). Ipotizziamo quindi, di non conoscere i valori delle frequenze congiunte $f_{ij}$, ma solo le frequenze marginali $f_{i\cdot}$ e $f_{\cdot j}$:
+\begin{table}[H]
+\centering
+\footnotesize
+\setlength{\tabcolsep}{8pt}
+\begin{tabular}{l*{4}{c}c}
+	oprule
+ & $Y=y_1$ & $Y=y_2$ & $\dots$ & $Y=y_l$ & Total \\
+\midrule
+$X=x_1$ & --- & --- & $\dots$ & --- & $n_{1+}$ \\
+$X=x_2$ & --- & --- & $\dots$ & --- & $n_{2+}$ \\
+$\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ & $\vdots$ & $\vdots$ \\
+$X=x_k$ & --- & --- & $\dots$ & --- & $n_{k+}$ \\
+\midrule
+Total & $n_{+1}$ & $n_{+2}$ & $\dots$ & $n_{+l}$ & $n$ \\
+\bottomrule
+\end{tabular}
+\caption{Tabella di contingenza (solo marginali)}
+\label{tab:contingency_marginals}
+\end{table}
+
+Se dovessimo ricostruire i valori mancanti e le variabili sono indipendenti, potremmo dire:
+\[
+P(X = x_i, Y = y_i) = P(X = x_i)P(Y = y_i)
+\]
+
+\noindent
+Ricordando che:
+\[
+P(X = x_i) = \frac{n_{i+}}{n} \quad, \quad P(Y = y_i) = \frac{n_{+i}}{n} \quad, \quad P(X = x_i, Y = y_i) = \frac{n_{ij}}{n}
+\]
+
+\noindent
+Possiamo ricostruire le frequenze congiunte mancanti come:
+\[
+\hat{n}_{ij} = n \cdot P(X = x_i, Y = y_i) = n \cdot P(X = x_i)P(Y = y_i) = n \cdot \frac{n_{i+}}{n} \cdot \frac{n_{+j}}{n} = \frac{n_{i+} n_{+j}}{n}
+\]
+
+\noindent
+Da cui possiamo scrivere:
+\[
+\hat{n}_{ij} = P(X = x_i)n_{+j} = P(Y = y_j)n_{i+}
+\]
+
+\textbf{N.B.}: utilizziamo $\hat{n}_{ij}$ (e non $n_{ij}$ )per indicare che si tratta di una stima della frequenza congiunta, calcolata assumendo l'indipendenza tra le variabili.
+
+Questo ci dice, che date due variabili indipendenti, la frequenza congiunta stimata può essere calcolata a partire dalle frequenze marginali.
+
+\subsection{Statistica di Pearson}
+La statistica di Pearson, chiamata $\chi^2$, misura la discrepanza tra le frequenze congiunte osservate e quelle attese sotto l'ipotesi di indipendenza. Segue la formula:
+\[
+\chi^2 = \sum_{i=1}^k \sum_{j=1}^l \frac{(n_{ij} - \hat{n}_{ij})^2}{\hat{n}_{ij}}
+\]
+
+\noindent
+Dove $k, l$ sono rispettivamente il numero di categorie delle variabili $X$ e $Y$.
+
+Questa statistica calcola il quadrato delle differenze (discrepanza) e lo normalizza rispetto alle frequenze attese, in modo da tenere conto delle diverse dimensioni delle categorie. Un valore elevato di $\chi^2$ indica una maggiore discrepanza tra le frequenze osservate e quelle attese, suggerendo una possibile associazione tra le variabili. Al contrario, un valore basso suggerisce che le variabili sono probabilmente indipendenti.
+
+Questa statistica tuttavia, ha dei problemi. Il valore atteso per ogni cella deve essere sufficientemente grande (almeno 5) per garantire l'accuratezza dell'approssimazione della distribuzione $\chi^2$. Inoltre, il valore di $\chi^2$ dipende dalla dimensione del campione: campioni più grandi tendono a produrre valori più elevati di $\chi^2$, anche per associazioni deboli.
+
+\subsection{Statistica di Cramér}
+Per superare i limiti della statistica di Pearson, si può utilizzare la statistica di Cramér, che normalizza il valore di $\chi^2$ per tener conto della dimensione del campione e del numero di categorie delle variabili. La formula è la seguente:
+\[
+V = \sqrt{\frac{\chi^2 / n}{\min(k-1, l-1)}}
+\]
+
+\noindent
+Dove $n$ è la dimensione del campione, e $k, l$ sono rispettivamente il numero di categorie delle variabili $X$ e $Y$.
+
+Questa statistica ritorna un valore tra 0 e 1, dove 0 indica nessuna associazione tra le variabili e 1 indica un'associazione perfetta. Essendo normalizzata, la statistica di Cramér è meno influenzata dalla dimensione del campione rispetto a $\chi^2$, rendendola una misura più robusta dell'associazione tra variabili discrete.
+
+\subsection{Rischio relativo}
+Il rischio relativo (RR) è una misura utilizzata per quantificare l'associazione tra due variabili discrete, spesso in studi epidemiologici. Esso confronta la probabilità di un evento (ad esempio, una malattia) tra due gruppi distinti (ad esempio, esposti e non esposti a un fattore di rischio). La formula per calcolare il rischio relativo è la seguente:
+\[RR = \frac{P(E | A)}{P(E | \neg A)}\]
+
+\noindent
+Dove $P(E | A)$ è la probabilità dell'evento $E$ dato l'esposizione $A$, e $P(E | \neg A)$ è la probabilità dell'evento $E$ dato la non esposizione $\neg A$.
+
+Per fare un esempio, consideriamo uno studio che esamina l'associazione tra il fumo (esposizione) e lo sviluppo di una malattia polmonare (evento). Supponiamo di avere i seguenti dati:
+\begin{itemize}
+    \item Numero di fumatori che sviluppano la malattia: $a$
+    \item Numero di fumatori che non sviluppano la malattia: $b$
+    \item Numero di non fumatori che sviluppano la malattia: $c$
+    \item Numero di non fumatori che non sviluppano la malattia: $d$
+\end{itemize} 
+
+\noindent
+La probabilità di sviluppare la malattia tra i fumatori è:
+\[P(E | A) = \frac{a}{a + b}\]  
+
+\noindent
+La probabilità di sviluppare la malattia tra i non fumatori è:
+\[P(E | \neg A) = \frac{c}{c + d}\]
+
+\noindent
+Pertanto, il rischio relativo è dato da:
+\[RR = \frac{P(E | A)}{P(E | \neg A)} = \frac{a / (a + b)}{c / (c + d)}\]
+
+Un valore di RR maggiore di 1 indica che l'esposizione è associata a un aumento del rischio dell'evento, mentre un valore inferiore a 1 indica una riduzione del rischio. Un valore di RR uguale a 1 suggerisce che non vi è alcuna associazione tra l'esposizione e l'evento.
+
+\subsection{Odds Ratio}
+L'Odds Ratio (OR) è una misura di associazione utilizzata per quantificare la forza della relazione tra due variabili discrete, spesso in studi caso-controllo. L'OR confronta le probabilità (odds) di un evento tra due gruppi distinti. La formula per calcolare l'Odds Ratio è la seguente:
+\[OR = \frac{P(E | A) / P(\neg E | A)}{P(E | \neg A) / P(\neg E | \neg A)}\]
+
+\noindent
+Per fare lo stesso esempio precedente, consideriamo i seguenti dati:
+\begin{itemize}
+    \item Numero di fumatori che sviluppano la malattia: $a$
+    \item Numero di fumatori che non sviluppano la malattia: $b$
+    \item Numero di non fumatori che sviluppano la malattia: $c$
+    \item Numero di non fumatori che non sviluppano la malattia: $d$
+\end{itemize}   
+
+\noindent
+La probabilità di sviluppare la malattia tra i fumatori è:
+\[P(E | A) = \frac{a}{a + b}\]
+
+\noindent
+La probabilità di non sviluppare la malattia tra i fumatori è:
+\[P(\neg E | A) = \frac{b}{a + b}\]
+
+\noindent
+La probabilità di sviluppare la malattia tra i non fumatori è:
+\[P(E | \neg A) = \frac{c}{c + d}\]
+
+\noindent
+Quindi l'Odds Ratio è dato da:
+\[OR = \frac{(a / b)}{(c / d)} = \frac{a \cdot d}{b \cdot c}\]
+
+Un valore di OR maggiore di 1 indica che l'esposizione è associata a un aumento delle probabilità dell'evento, mentre un valore inferiore a 1 indica una riduzione delle probabilità. Un valore di OR uguale a 1 suggerisce che non vi è alcuna associazione tra l'esposizione e l'evento.
+
+\section{Misure di associazioni tra variabili continue}
+Il problema delle variabili continue, rispetto a quelle discrete, è che non possiamo costruire una tabella di contingenza. Per questo motivo, utilizziamo misure di associazione basate sulla covarianza e sulla correlazione.
+
+\subsection{Visualizzazione grafica dell'associazione}
+Esistono modi grafici di visualizzare una possibile associazione tra due variabili continue, come lo \textbf{scatter plot} (sezione \ref{sec:scatterplot}) che mostra i punti dati in un piano cartesiano, permettendo di osservare visivamente la relazione tra le due variabili. Si può creare una matrice di scatter plot per visualizzare le relazioni tra più variabili continue contemporaneamente, chiamata \textbf{scatter matrix} (sotto-sezione \ref{subsec:scattermatrix}).
+
+Un altro modo è utilizzare gli \textbf{hexbin plots} (sezione \ref{sec:hexbinplot}), ovvero una forma di istogramma a due dimensioni. In questo tipo di grafico, lo spazio bidimensionale viene suddiviso in esagoni (hexbin) e il colore di ciascun esagono rappresenta la densità dei punti dati in quella regione. Questo è particolarmente utile per visualizzare grandi quantità di dati, poiché riduce il sovraffollamento e rende più facile identificare le aree con alta concentrazione di punti.
+
+Un ulteriore modo per visualizzare l'associazione tra due variabili continue è attraverso i \textbf{grafici di densità e di contorno} (sezione \ref{sec:densityplot}). Questi grafici mostrano la distribuzione congiunta delle due variabili, evidenziando le aree di maggiore densità dei dati. I grafici di contorno, in particolare, utilizzano linee per collegare punti con la stessa densità, facilitando l'identificazione di pattern e relazioni tra le variabili.
+
+\subsection{Covarianza}
+La varianza misura la dispersione di una singola variabile rispetto alla sua media. La covarianza estende questo concetto a due variabili.
+
+\begin{nicequote}
+    La covarianza misura come due variabili $X, Y$ variano insieme rispetto alle loro medie $\bar{x}, \bar{y}$. Si definisce come:
+    \[
+    Cov(X, Y) = \frac{1}{N} \sum_{i=1}^{N} (x^{(i)} - \bar{x})(y^{(i)} - \bar{y})
+    \]
+\end{nicequote}
+
+Esiste una versione campionaria della covarianza, che utilizza $N-1$ al denominatore invece di $N$, per correggere il bias nella stima della covarianza dalla popolazione (molto importante per piccoli campioni):
+\[
+Cov_{campione}(X, Y) = \frac{1}{N-1} \sum_{i=1}^{N} (x^{(i)} - \bar{x})(y^{(i)} - \bar{y})
+\]
+
+\noindent
+Notiamo che, in base al valore risultante da \((x^{(i)} - \bar{x})(y^{(i)} - \bar{y})\), possiamo avere tre casi:
+\begin{itemize}
+    \item Se il valore è positivo, significa che entrambe le variabili si discostano dalla loro media nello stesso verso (entrambe sopra o entrambe sotto la media), contribuendo positivamente alla covarianza.
+    \item Se il valore è negativo, significa che le variabili si discostano dalla loro media in direzioni opposte (una sopra e l'altra sotto la media), contribuendo negativamente alla covarianza.
+    \item Quanto il valore è più vicino allo zero, tanto meno le due variabili sono associate tra loro.
+\end{itemize}
+
+\noindent
+In un grafico cartesiano, i punti dati possono essere distribuiti in quattro quadranti:
+\begin{itemize}
+    \item Primo quadrante (entrambe le variabili sopra la media): contribuisce positivamente alla covarianza.
+    \item Secondo quadrante (una variabile sopra la media e l'altra sotto): contribuisce negativamente alla covarianza.
+    \item Terzo quadrante (entrambe le variabili sotto la media): contribuisce positivamente alla covarianza.
+    \item Quarto quadrante (una variabile sotto la media e l'altra sopra): contribuisce negativamente alla covarianza.
+\end{itemize}
+ 
+\noindent
+Si noti che, la covarianza di due variabili uguali, è uguale alla varianza:
+\[
+Cov(X, X) = \frac{1}{N} \sum_{i=1}^{N} (x^{(i)} - \bar{x})^2 = var
+\]
+
+Il problema principale della covarianza è che il suo valore dipende dalle unità di misura delle variabili. Ad esempio, se una variabile è misurata in metri e l'altra in chilogrammi, la covarianza avrà unità di misura miste (metri·chilogrammi), rendendo difficile l'interpretazione del valore.
+
+\subsection{Coefficiente di correlazione di Pearson}\label{subsec:pearson_correlation}
+Per superare il problema delle unità di misura nella covarianza, si utilizza il coefficiente di correlazione di Pearson, che normalizza la covarianza dividendo per il prodotto delle deviazioni standard delle due variabili. La formula è la seguente:
+\[
+p(X, Y) = \frac{Cov(X, Y)}{\sigma_X \sigma_Y} = \frac{1}{N} \sum_{i=1}^{N} \frac{(x^{(i)} - \bar{x})}{\sigma_X} \cdot \frac{(y^{(i)} - \bar{y})}{\sigma_Y} = Cov(z(X), z(Y))
+\]
+
+Dove $\sigma_X$ e $\sigma_Y$ sono le deviazioni standard delle variabili $X$ e $Y$ rispettivamente.
+
+Il coefficiente di correlazione di Pearson varia tra -1 e 1, poiché è stato utilizzata la standardizzazione (z-scoring) $z$ per eliminare le unità di misura:
+\[
+z(X) = \frac{X - \bar{X}}{\sigma_X}
+\]
+
+Un valore di 1 indica una correlazione positiva perfetta, $p(x, x)$, mentre un valore di -1 indica una correlazione negativa perfetta, $p(x, -x)$. Quanto un valore è più vicino a 0, tanto meno le due variabili sono associate tra loro. Si può anche interpretare il segno: un valore positivo indica che le variabili tendono a variare nella stessa direzione, mentre un valore negativo indica che tendono a variare in direzioni opposte.
+
+\paragraph{Coefficiente di correlazione di Pearson per variabili discrete.}
+Anche per le variabili discrete, si può calcolare il coefficiente di correlazione di Pearson, trattando le categorie come valori numerici, ma non ha senso farlo sulle variabili nominali (senza ordine intrinseco). Per le variabili ordinali, invece, si può assegnare un ordine numerico alle categorie e calcolare il coefficiente di correlazione di Pearson sui ranghi delle categorie.
+
+Si noti tuttavia, che se calcolato nel caso specifico di una variabile continua e una dicotomica (0/1), il coefficiente di correlazione di Pearson è equivalente a un valore chiamato \textbf{punto-biseriale}.
+
+Alla luce di tutto questo, il principale problema di questo coefficiente di correlazione, è che misura solo relazioni lineari tra le variabili. Se la relazione tra le variabili è non lineare, il coefficiente di correlazione di Pearson potrebbe non catturare adeguatamente l'associazione tra di esse.
+
+\subsection{Coefficiente di correlazione di Spearman}\label{subsec:spearman_correlation}
+Il coefficiente di correlazione di Spearman è una misura non parametrica della correlazione tra due variabili. A differenza del coefficiente di Pearson, che si basa sui valori effettivi delle variabili, il coefficiente di Spearman si basa sui ranghi dei valori. Per rango si intende la posizione di un valore all'interno di un insieme ordinato di valori e l'intuizione alla base di questa misura è che, se due variabili sono correlate in modo monotono (cioè una variabile tende ad aumentare quando l'altra aumenta, indipendentemente dalla forma della relazione), allora i loro ranghi dovrebbero essere correlati. La formula per calcolare il coefficiente di correlazione di Spearman, siano \(R(x^{(i)}), R(y^{(i)})\) i ranghi associati alle variabili \(X, Y\), è la seguente:
+\[
+R = 1 - \frac{6 \sum_{i=1}^{N} (R(x^{(i)}) - R(y^{(i)}))^2}{N(N^2 - 1)}
+\]
+
+\noindent
+Dove \(N\) è il numero di coppie di dati.
+
+Questo risultato è normalizzato in $[-1, 1]$ e può essere interpretato in modo simile al coefficiente di Pearson: un valore di 1 indica una correlazione positiva perfetta tra i ranghi, -1 indica una correlazione negativa perfetta, e 0 indica nessuna correlazione tra i ranghi.
+
+\subsection{Coefficiente di correlazione di Kendall}
+Il coefficiente di correlazione di Kendall, noto anche come $\tau$ di Kendall, è un'altra misura non parametrica della correlazione tra due variabili basata sui ranghi. A differenza del coefficiente di Spearman, che si basa sulle differenze tra i ranghi, il coefficiente di Kendall si basa sul concetto di coppie concordanti e discordanti. Una coppia di osservazioni \((x^{(i)}, y^{(i)})\) e \((x^{(j)}, y^{(j)})\) è considerata concordante se l'ordine dei ranghi è lo stesso per entrambe le variabili:
+\[
+(x^{(i)} - x^{(j)})(y^{(i)} - y^{(j)}) > 0
+\]
+Al contrario, è considerata discordante se l'ordine dei ranghi è opposto:
+\[
+(x^{(i)} - x^{(j)})(y^{(i)} - y^{(j)}) < 0
+\]
+
+Il coefficiente \(\tau\) di Kendall è calcolato come:
+\[
+\tau = \frac{(C - D)}{\frac{1}{2} N(N-1)}
+\]
+
+\noindent
+Dove \(C\) è il numero di coppie concordanti, \(D\) è il numero di coppie discordanti, e \(N\) è il numero totale di osservazioni.
+
+Questo risultato è normalizzato in $[-1, 1]$ e può essere interpretato in modo simile al coefficiente di Pearson: un valore di 1 indica una correlazione positiva perfetta tra i ranghi, -1 indica una correlazione negativa perfetta, e 0 indica nessuna correlazione tra i ranghi.
+
+\paragraph{Matrice di correlazione.}
+Una matrice di correlazione è una tabella che mostra i coefficienti di correlazione tra più variabili (sezione \ref{sec:correlationmatrix}). Ogni cella della matrice rappresenta il coefficiente di correlazione tra due variabili specifiche. La matrice è simmetrica, poiché il coefficiente di correlazione tra la variabile \(X\) e la variabile \(Y\) è lo stesso del coefficiente tra \(Y\) e \(X\). La diagonale principale della matrice contiene sempre il valore 1, poiché ogni variabile è perfettamente correlata con se stessa.
+
+Da questa matrice, può nascere una heatmap (sezione \ref{sec:heatmaps}): una rappresentazione grafica della matrice di correlazione, in cui i valori dei coefficienti di correlazione sono rappresentati da colori. Le heatmap facilitano l'identificazione visiva delle relazioni tra le variabili, evidenziando rapidamente quali coppie di variabili sono fortemente correlate (positive o negative) e quali non lo sono.
+
+\section{Consigli utili su come scegliere la misura di associazione}
+
+Di seguito alcuni suggerimenti pratici, organizzati per tipo di variabili e obiettivo dell'analisi.
+
+\begin{description}
+    \item[Discrete - Discrete:] se entrambe le variabili sono categoriali usare tabelle di contingenza, statistica di Pearson (\(\chi^2\)) per testare indipendenza, e Cramér's V per ottenere una misura normalizzata dell'intensità dell'associazione. Per studi caso-controllo o epidemiologici valutare anche Odds Ratio o Rischio Relativo.
+    \item[Continuous - Continuous:] valutare prima la relazione visiva con uno scatter plot. Usare il coefficiente di Pearson per relazioni lineari (assunzione: approssimativamente normale e assenza di outlier influenti). Se la relazione è monotona ma non lineare usare Spearman o Kendall (ranghi) che sono più robusti agli outlier.
+    \item[Ordinal - Ordinal:] i coefficienti basati sui ranghi (Spearman, Kendall) sono i più appropriati perché rispettano l'ordine senza imporre distanze metriche arbitrarie.
+    \item[Più variabili / esplorazione:] utilizzare matrici di correlazione (per variabili continue), heatmap, scatter-matrix e analisi di regressione (lineare o non lineare) per stimare l'effetto condizionato di una variabile su un'altra mentre si controlla per confondenti.
+\end{description}
