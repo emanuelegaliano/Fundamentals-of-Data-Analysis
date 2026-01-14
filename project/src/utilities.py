@@ -5,6 +5,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
 import seaborn as sns
+from scipy import stats
 
 PALETTE = {
     "red": "#902F1A",
@@ -328,3 +329,96 @@ def plotCategorialVsNumeric(
     plt.legend(title=categorialCol)
     plt.grid(True)
     plt.show()
+
+def check_anova_assumptions(groups, labels=None, max_normaltest_n=5000):
+    """
+    Check basic assumptions for one-way ANOVA on a list of groups.
+    
+    Parameters
+    ----------
+    groups : list of array-like
+        Each element is a 1D array/Series with the data for one group.
+    labels : list of str, optional
+        Names of the groups (same length as groups). If None, generic labels are used.
+    max_normaltest_n : int, default 5000
+        Maximum sample size used for the D'Agostino-Pearson normality test
+        (if a group is larger, a random subsample of this size is used).
+        
+    Returns
+    -------
+    results : dict
+        Dictionary with:
+        - "levene": (stat, p)
+        - "groups": list of dicts with per-group summary (label, n, std, skew, kurtosis, normaltest_stat, normaltest_p)
+        - "variance_ratio": max(std^2) / min(std^2)
+    """
+    # Convert to numpy arrays and drop NaN
+    clean_groups = []
+    for g in groups:
+        g = np.asarray(g)
+        g = g[~np.isnan(g)]
+        clean_groups.append(g)
+    
+    if labels is None:
+        labels = [f"group_{i}" for i in range(len(clean_groups))]
+    
+    # Basic sizes
+    print("=== Group sizes ===")
+    for lab, g in zip(labels, clean_groups):
+        print(f"{lab}: n = {len(g)}")
+    
+    # 1) Levene test for homogeneity of variances
+    levene_stat, levene_p = stats.levene(*clean_groups)
+    print("\n=== Levene test for equality of variances ===")
+    print(f"Statistic = {levene_stat:.3f}, p-value = {levene_p:.3e}")
+    
+    # 2) Per-group shape: skewness, kurtosis, normality (D'Agostino K^2)
+    group_results = []
+    print("\n=== Per-group shape and normality (D'Agostino-Pearson) ===")
+    for lab, g in zip(labels, clean_groups):
+        std = np.std(g, ddof=1)
+        skew = stats.skew(g, bias=False)
+        kurt = stats.kurtosis(g, bias=False)  # excess kurtosis (0 for normal)
+        
+        # Normality test: use subsample if very large
+        if len(g) >= 8:  # minimum recommended for normaltest
+            if len(g) > max_normaltest_n:
+                sample = np.random.default_rng(0).choice(g, size=max_normaltest_n, replace=False)
+            else:
+                sample = g
+            k2_stat, k2_p = stats.normaltest(sample)
+        else:
+            k2_stat, k2_p = np.nan, np.nan
+        
+        print(f"{lab}: std = {std:.3f}, skew = {skew:.3f}, excess kurtosis = {kurt:.3f}, "
+              f"normality p = {k2_p:.3e}")
+        
+        group_results.append({
+            "label": lab,
+            "n": len(g),
+            "std": std,
+            "skew": skew,
+            "kurtosis": kurt,
+            "normaltest_stat": k2_stat,
+            "normaltest_p": k2_p
+        })
+    
+    # 3) Simple numeric measure of heteroscedasticity: ratio of max/min variance
+    variances = [gr["std"]**2 for gr in group_results if not np.isnan(gr["std"])]
+    if len(variances) > 1:
+        variance_ratio = max(variances) / min(variances)
+    else:
+        variance_ratio = np.nan
+    
+    print("\n=== Variance ratio (max variance - min variance) ===")
+    print(f"Variance ratio = {variance_ratio:.3f}")
+    
+    if variance_ratio > 4:
+        print("Warning: large variance ratio (> 4) suggests strong heteroscedasticity.")
+    
+    results = {
+        "levene": (levene_stat, levene_p),
+        "groups": group_results,
+        "variance_ratio": variance_ratio
+    }
+    return results
