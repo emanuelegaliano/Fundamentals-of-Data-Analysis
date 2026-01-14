@@ -4,6 +4,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
+from matplotlib.colors import LinearSegmentedColormap
 import seaborn as sns
 from scipy import stats
 
@@ -422,3 +423,153 @@ def check_anova_assumptions(groups, labels=None, max_normaltest_n=5000):
         "variance_ratio": variance_ratio
     }
     return results
+
+CMAP_PIZZA = LinearSegmentedColormap.from_list(
+    "pizza",
+    [PALETTE["light_bg"], "#E0B085", "#C97A4A", PALETTE["red"]],
+    N=256,
+)
+
+def plot_decision_boundary(
+    X_2d: np.ndarray,
+    y: np.ndarray,
+    xx: np.ndarray,
+    yy: np.ndarray,
+    proba: np.ndarray,
+    *,
+    title: str,
+    transparent_bg: bool = False,
+    label0: str = "Interna (0)",
+    label1: str = "Costiera (1)",
+    show_colorbar: bool = True,
+    levels: int = 13,
+):
+    """
+    Plot a 2D decision surface (probability for class 1) plus scatter points.
+
+    Parameters
+    ----------
+    X_2d : np.ndarray
+        2D coordinates of samples, shape (n_samples, 2) (e.g., PCA projection).
+    y : np.ndarray
+        Binary labels (0/1), shape (n_samples,).
+    xx, yy : np.ndarray
+        Meshgrid arrays from np.meshgrid, shape (n_grid, n_grid).
+    proba : np.ndarray
+        Probability for class 1 on the mesh, shape like xx/yy (n_grid, n_grid).
+    title : str
+        Plot title.
+    transparent_bg : bool
+        If True, transparent background (useful for slides).
+    label0, label1 : str
+        Legend labels for classes 0 and 1.
+    show_colorbar : bool
+        Whether to draw a colorbar.
+    levels : int
+        Number of filled contour levels between 0 and 1.
+
+    Returns
+    -------
+    fig, ax
+        Matplotlib figure and axes.
+    """
+    # --- defensive conversions ---
+    X_2d = np.asarray(X_2d)
+    y = np.asarray(y).astype(int)
+    proba = np.asarray(proba)
+
+    fig, ax = plt.subplots(figsize=(10, 7))
+    style_axes(ax, transparent_bg=transparent_bg)
+
+    # Filled probability surface (class 1)
+    cf = ax.contourf(
+        xx,
+        yy,
+        proba,
+        levels=np.linspace(0, 1, levels),
+        cmap=CMAP_PIZZA,
+        alpha=0.55,
+        vmin=0,
+        vmax=1,
+    )
+
+    # Decision threshold at 0.5
+    ax.contour(
+        xx,
+        yy,
+        proba,
+        levels=[0.5],
+        colors=[PALETTE["dark_gray"]],
+        linewidths=2.2,
+        alpha=0.85,
+    )
+
+    # Scatter points
+    ax.scatter(
+        X_2d[y == 0, 0],
+        X_2d[y == 0, 1],
+        s=14,
+        alpha=0.55,
+        c=[PALETTE["dark_gray"]],
+        label=label0,
+        edgecolors="none",
+    )
+    ax.scatter(
+        X_2d[y == 1, 0],
+        X_2d[y == 1, 1],
+        s=14,
+        alpha=0.55,
+        c=[PALETTE["red"]],
+        label=label1,
+        edgecolors="none",
+    )
+
+    # Minimal colorbar
+    if show_colorbar:
+        cb = fig.colorbar(cf, ax=ax, fraction=0.046, pad=0.04)
+        cb.outline.set_alpha(0.25) # type: ignore
+        cb.set_label("P(Coast)")
+
+    ax.set_title(title)
+    ax.set_xlabel("PC1")
+    ax.set_ylabel("PC2")
+    ax.legend(frameon=False, loc="lower right")
+
+    plt.tight_layout()
+    return fig, ax
+
+def plot_pca_cumvar(
+    cum_var: np.ndarray,
+    explained_2d: float,
+    *,
+    transparent_bg: bool = False,
+):
+    """
+    Plot cumulative explained variance from PCA and highlight 2-PC cutoff.
+    """
+    fig, ax = plt.subplots(figsize=(7.5, 4.5))
+    style_axes(ax, transparent_bg=transparent_bg)
+
+    ax.plot(
+        np.arange(1, len(cum_var) + 1),
+        cum_var,
+        marker="o",
+        lw=2.5,
+        color=PALETTE["dark_gray"],
+    )
+
+    ax.axhline(
+        explained_2d,
+        linestyle="--",
+        lw=2,
+        color=PALETTE["red"],
+        label=f"2 PCs = {explained_2d:.2%}",
+    )
+
+    ax.set_xlabel("Number of components")
+    ax.set_ylabel("Cumulative explained variance")
+    ax.set_title("PCA — cumulative explained variance")
+    ax.legend(frameon=False, loc="lower right")
+
+    plt.tight_layout()
+    return fig, ax
