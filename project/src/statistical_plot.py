@@ -63,7 +63,7 @@ def plot_t_test_distribution(
 
     # Linea valore critico
     ax.axvline(
-        t_critical,
+        t_critical, # type: ignore
         color=GREEN,
         linestyle=":",
         linewidth=2,
@@ -75,7 +75,7 @@ def plot_t_test_distribution(
     ax.set_ylabel(ylabel, fontsize=11)
 
     if title not in [None, "", False]:
-        ax.set_title(title, fontsize=13, pad=10)
+        ax.set_title(title, fontsize=13, pad=10) # type: ignore
 
     ax.legend(frameon=False)
     ax.spines["top"].set_visible(False)

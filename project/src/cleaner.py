@@ -1,39 +1,3 @@
-"""
-cleaner_fast.py
-
-Fast & explainable clustering for "categorical text" columns (e.g., menus.name),
-with optional dummy-feature extraction from the text.
-
-Main goals
-----------
-1) Faster than O(n^2) hierarchical clustering:
-   - Cluster only UNIQUE values
-   - Use sparse TF-IDF + BIRCH (no full distance matrix)
-
-2) More informative:
-   - Build an "enriched" representation that includes extracted tags
-   - Optionally create dummy columns (0/1) such as:
-       * is_slice, is_calzone, is_stromboli
-       * crust_thin, crust_pan, crust_deepdish, crust_stuffed, ...
-       * size_* (small/medium/large/...) and diet_* (glutenfree/vegan/...)
-
-3) Backwards compatible:
-   - clean_categorical_column_fast(...) still returns (df_out, cluster_summary)
-   - It still creates new_column and optionally cluster_id_column
-   - It can be used as a drop-in replacement for your previous pipeline
-
-Dependencies
-------------
-- pandas, numpy
-- scikit-learn
-
-Tip (tuning)
-------------
-Primary knob is birch_threshold:
-- lower  -> more clusters (stricter)
-- higher -> fewer clusters (more merging)
-"""
-
 from __future__ import annotations
 
 from dataclasses import dataclass
@@ -442,7 +406,7 @@ def clean_categorical_column(
         # Determine feature columns from union of keys (stable order)
         all_feat_keys = sorted({k for d in attrs_list for k in d.keys()})
         attrs_df = pd.DataFrame(attrs_list, columns=all_feat_keys).fillna(0).astype(np.int8)
-        attrs_df.insert(0, "value", unique_vals.values)
+        attrs_df.insert(0, "value", unique_vals.values) # type: ignore
 
         # map each feature via dict (avoid row-by-row apply on full df)
         for k in all_feat_keys:
@@ -474,7 +438,7 @@ def clean_categorical_column(
             cluster_keywords.append((int(cid), []))
             continue
 
-        centroid = X[idx].mean(axis=0)  # 1 x n_features
+        centroid = X[idx].mean(axis=0)  # type: ignore 1 x n_features 
         arr = np.asarray(centroid).ravel()
 
         # take up to 10 non-zero top terms
