@@ -1,12 +1,19 @@
 from __future__ import annotations
+
 import math
+
 import numpy as np
 import pandas as pd
+
 import matplotlib.pyplot as plt
 from matplotlib.collections import LineCollection
 from matplotlib.colors import LinearSegmentedColormap
 import seaborn as sns
+
 from scipy import stats
+
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
 
 PALETTE = {
     "red": "#902F1A",
@@ -572,4 +579,258 @@ def plot_pca_cumvar(
     ax.legend(frameon=False, loc="lower right")
 
     plt.tight_layout()
+    return fig, ax
+
+
+def search_kmeans_k(
+    X: pd.DataFrame,
+    k_min: int = 2,
+    k_max: int = 20,
+    silhouette_sample: int | None = 2500,
+    random_state: int = 42,
+    n_init: int = 20,
+) -> tuple[int, pd.DataFrame]:
+    """
+    Grid-search K for KMeans using inertia + silhouette.
+    Optionally compute silhouette on a random subsample for speed.
+
+    Returns
+    -------
+    best_k : int
+        K with the highest silhouette score (on the chosen sample).
+    k_result : pd.DataFrame
+        Table with columns: k, inertia, silhouette
+    """
+    rng = np.random.RandomState(random_state)
+    n = len(X)
+
+    # Build silhouette sample (positional indices, consistent with numpy arrays)
+    if silhouette_sample is not None and silhouette_sample < n:
+        sample_idx = rng.choice(n, size=silhouette_sample, replace=False)
+        X_sil = X.iloc[sample_idx]
+    else:
+        sample_idx = None
+        X_sil = X
+
+    rows: list[dict] = []
+    for k in range(k_min, k_max + 1):
+        km = KMeans(n_clusters=k, random_state=random_state, n_init=n_init)
+        km.fit(X)
+
+        # Compute silhouette on sample using predicted labels on that sample
+        labels_sil = km.predict(X_sil)
+        sil = silhouette_score(X_sil, labels_sil)
+
+        rows.append({"k": k, "inertia": float(km.inertia_), "silhouette": float(sil)})
+
+    k_result = pd.DataFrame(rows).sort_values("k").reset_index(drop=True)
+    best_k = int(k_result.loc[k_result["silhouette"].idxmax(), "k"]) # type: ignore
+    return best_k, k_result
+
+
+def explain_clusters_lift(
+    df: pd.DataFrame,
+    cluster_col: str,
+    binary_cols: list[str],
+    top_n_features: int = 10,
+    min_presence: float = 0.30,
+    lift_threshold: float = 0.10,
+) -> dict[int, pd.DataFrame]:
+    """
+    Explain clusters using "lift" over global prevalence for binary (0/1) features.
+
+    For each cluster:
+      lift(feature) = mean_in_cluster(feature) - global_mean(feature)
+
+    Keeps only features with:
+      - cluster_mean >= min_presence
+      - lift >= lift_threshold
+
+    Returns
+    -------
+    out : dict[int, pd.DataFrame]
+        cluster_id -> table with cluster_mean, global_mean, lift
+    """
+    if cluster_col not in df.columns:
+        raise KeyError(f"cluster_col '{cluster_col}' not found in df.")
+
+    # Keep only valid binary columns that exist and are truly 0/1
+    bin_cols = [
+        c for c in binary_cols
+        if c in df.columns and df[c].dropna().isin([0, 1]).all()
+    ]
+    if not bin_cols:
+        raise ValueError("No valid binary 0/1 columns found in binary_cols.")
+
+    global_mean = df[bin_cols].mean(numeric_only=True)
+    out: dict[int, pd.DataFrame] = {}
+
+    for cl in sorted(df[cluster_col].dropna().unique()):
+        cl = int(cl)
+        cl_mean = df.loc[df[cluster_col] == cl, bin_cols].mean(numeric_only=True)
+        lift = (cl_mean - global_mean).sort_values(ascending=False)
+
+        tbl = pd.DataFrame(
+            {
+                "cluster_mean": cl_mean.loc[lift.index],
+                "global_mean": global_mean.loc[lift.index],
+                "lift": lift,
+            }
+        )
+
+        tbl = tbl[
+            (tbl["cluster_mean"] >= min_presence) &
+            (tbl["lift"] >= lift_threshold)
+        ].head(top_n_features)
+
+        out[cl] = tbl
+
+    return out
+
+def plot_kmeans_k_diagnostics(
+    k_result: pd.DataFrame,
+    best_k: int,
+    *,
+    transparent_bg: bool = False,
+    title_prefix: str = "KMeans hyperparameter search",
+):
+    """
+    Plot silhouette score and inertia (elbow) vs k using project palette + styling.
+
+    Parameters
+    ----------
+    k_result : pd.DataFrame
+        Output from `search_kmeans_k`, with columns: k, inertia, silhouette.
+    best_k : int
+        Selected k to highlight.
+    transparent_bg : bool
+        If True, transparent background (slides).
+    title_prefix : str
+        Prefix used in plot titles.
+
+    Returns
+    -------
+    (fig1, ax1), (fig2, ax2)
+    """
+    if not {"k", "silhouette", "inertia"}.issubset(set(k_result.columns)):
+        raise ValueError("k_result must contain columns: ['k','silhouette','inertia'].")
+
+    # --- Silhouette plot ---
+    fig1, ax1 = plt.subplots(figsize=(8, 4.8))
+    ax1.plot(
+        k_result["k"],
+        k_result["silhouette"],
+        marker="o",
+        linewidth=2.5,
+        color=PALETTE["dark_gray"],
+    )
+    ax1.axvline(
+        best_k,
+        linestyle="--",
+        linewidth=2.2,
+        color=PALETTE["red"],
+        alpha=0.9,
+        label=f"best_k = {best_k}",
+    )
+    ax1.set_title(f"{title_prefix} — Silhouette")
+    ax1.set_xlabel("Number of clusters (k)")
+    ax1.set_ylabel("Silhouette score")
+    ax1.legend(frameon=False, loc="best")
+    style_axes(ax1, transparent_bg=transparent_bg)
+    fig1.tight_layout()
+
+    # --- Elbow (inertia) plot ---
+    fig2, ax2 = plt.subplots(figsize=(8, 4.8))
+    ax2.plot(
+        k_result["k"],
+        k_result["inertia"],
+        marker="o",
+        linewidth=2.5,
+        color=PALETTE["dark_gray"],
+    )
+    ax2.axvline(
+        best_k,
+        linestyle="--",
+        linewidth=2.2,
+        color=PALETTE["red"],
+        alpha=0.9,
+        label=f"best_k = {best_k}",
+    )
+    ax2.set_title(f"{title_prefix} — Elbow (inertia)")
+    ax2.set_xlabel("Number of clusters (k)")
+    ax2.set_ylabel("Inertia (within-cluster SSE)")
+    ax2.legend(frameon=False, loc="best")
+    style_axes(ax2, transparent_bg=transparent_bg)
+    fig2.tight_layout()
+
+    return (fig1, ax1), (fig2, ax2)
+
+def plot_cluster_sizes(
+    df: pd.DataFrame,
+    cluster_col: str,
+    *,
+    title: str = "Cluster sizes",
+    transparent_bg: bool = False,
+    pattern: bool = False,
+    tint_alpha: float = 0.12,
+):
+    counts = df[cluster_col].value_counts().sort_index()
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    ax.bar(
+        counts.index.astype(str),
+        counts.values, # type: ignore
+        color=PALETTE["red"],
+        edgecolor="none",
+        zorder=2,
+    )
+
+    ax.set_title(title)
+    ax.set_xlabel("Cluster")
+    ax.set_ylabel("Number of items")
+
+    style_axes(ax, transparent_bg=transparent_bg, pattern=pattern, tint_alpha=tint_alpha)
+    fig.tight_layout()
+    return fig, ax, counts
+
+def plot_box_by_cluster(
+    df: pd.DataFrame,
+    cluster_col: str,
+    value_col: str,
+    *,
+    title: str | None = None,
+    ylabel: str | None = None,
+    showfliers: bool = False,
+    transparent_bg: bool = False,
+    pattern: bool = False,
+    tint_alpha: float = 0.12,
+):
+    clusters = sorted(df[cluster_col].dropna().unique())
+    data = [df.loc[df[cluster_col] == c, value_col].dropna().values for c in clusters] # type: ignore
+
+    fig, ax = plt.subplots(figsize=(8, 5))
+    bp = ax.boxplot(
+        data,
+        labels=[str(c) for c in clusters], # type: ignore
+        patch_artist=True,
+        showfliers=showfliers,
+    )
+
+    # project styling (data = red, reference/median = green)
+    for box in bp["boxes"]:
+        box.set_facecolor(PALETTE["red"])
+        box.set_edgecolor(PALETTE["dark_gray"])
+    for whisker in bp["whiskers"]:
+        whisker.set_color(PALETTE["dark_gray"])
+    for cap in bp["caps"]:
+        cap.set_color(PALETTE["dark_gray"])
+    for median in bp["medians"]:
+        median.set_color(PALETTE["green"])
+
+    ax.set_title(title or f"{value_col} by cluster")
+    ax.set_xlabel("Cluster")
+    ax.set_ylabel(ylabel or value_col)
+
+    style_axes(ax, transparent_bg=transparent_bg, pattern=pattern, tint_alpha=tint_alpha)
+    fig.tight_layout()
     return fig, ax
