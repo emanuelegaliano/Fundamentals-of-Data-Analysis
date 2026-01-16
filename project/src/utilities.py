@@ -23,6 +23,12 @@ PALETTE = {
     "accent": "#D1832F",
 }
 
+PALETTE["dist_1"] = "#8C2F23"   # tomato red (sauce)
+PALETTE["dist_2"] = "#C94A2A"   # bright pomodoro
+PALETTE["dist_3"] = "#E39B2D"   # mozzarella / cheese
+PALETTE["dist_4"] = "#3E6B3A"   # basil green
+PALETTE["dist_5"] = "#4A2C1D"   # crust brown
+
 def _hex_to_rgb01(hex_color: str) -> tuple[float, float, float]:
     hex_color = hex_color.lstrip("#")
     r = int(hex_color[0:2], 16) / 255
