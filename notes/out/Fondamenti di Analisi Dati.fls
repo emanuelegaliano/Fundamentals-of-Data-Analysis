@@ -1,8 +1,8 @@
-PWD /home/manu/Documents/Fondamenti-di-Analisi-dei-dati/dispense
+PWD /home/manu/Documents/Fondamenti-di-Analisi-dei-dati/notes
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/manu/Documents/Fondamenti-di-Analisi-dei-dati/dispense/Fondamenti di Analisi Dati.tex
+INPUT /home/manu/Documents/Fondamenti-di-Analisi-dei-dati/notes/Fondamenti di Analisi Dati.tex
 OUTPUT out/Fondamenti di Analisi Dati.log
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/book.cls
 INPUT /usr/share/texlive/texmf-dist/tex/latex/base/book.cls
