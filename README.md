@@ -1,4 +1,4 @@
-# Fundamentals of Data Analisys
+# Fundamentals of Data Analysis
 This repository contains all the material related to the course "Fondamenti di Analisi dei dati" (Fundamental of Data Analisys) held in University of Catania. Since the course is in Italian, some of the material could be written in Italian.
 
 ## Root Directory
@@ -15,4 +15,5 @@ Folder containing LaTeX source files for the course handouts and chapters.
 Includes two important subdirectories:
 
 ### dispense/images/
+
 All images (PNG, JPEG) used inside the LaTeX documents.
