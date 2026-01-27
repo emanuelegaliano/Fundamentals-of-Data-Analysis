@@ -8,7 +8,5 @@ dispense/out/
 # --- File di sistema vari ---
 .DS_Store
 Thumbs.db
-.
-results/
 
 out/
